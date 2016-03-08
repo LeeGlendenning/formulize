@@ -65,7 +65,7 @@
         $paths = Array();
         $date = date_create();
         // create directory in the "export" directory that is unique to the time created. will store export CSVs
-        $exportDir = XOOPS_ROOT_PATH . "/modules/formulize/export/" . date_format($date, 'Y-m-d (U)') . "/";
+        $exportDir = XOOPS_ROOT_PATH . "\\modules\\formulize\\export\\" . date_format($date, 'Y-m-d (U)') . "\\";
         if (!file_exists($exportDir) and !mkdir($exportDir)){
             $successfulExport = 0;
             error_log("Export folder could not be created.");
@@ -181,8 +181,8 @@
      * return paths     string array containing paths for all template files
      */
     function getTemplateFilePaths(){
-        $screensPath = XOOPS_ROOT_PATH . "/modules/formulize/templates/screens";
-        $customCodePath = XOOPS_ROOT_PATH . "/modules/formulize/custom_code";
+        $screensPath = XOOPS_ROOT_PATH . "\\modules\\formulize\\templates\\screens";
+        $customCodePath = XOOPS_ROOT_PATH . "\\modules\\formulize\\custom_code";
         $paths = Array();
         
         if (file_exists($screensPath)){
@@ -215,13 +215,13 @@
      * return archivePath       path to archive file
      */
     function createExportArchive($archiveName, $listOfFiles){
-        $archivePath = XOOPS_ROOT_PATH . "/modules/formulize/export/".$archiveName; // path where archive is created
+        $archivePath = XOOPS_ROOT_PATH . "\\modules\\formulize\\export\\".$archiveName; // path where archive is created
         
         // zip screens files
-        zipFolder("screens", XOOPS_ROOT_PATH . "/modules/formulize/templates/screens", $archivePath, true);
+        zipFolder("screens", XOOPS_ROOT_PATH . "\\modules\\formulize\\templates\\screens", $archivePath, true);
         
         // zip custom_code files
-        zipFolder("custom_code", XOOPS_ROOT_PATH . "/modules/formulize/custom_code", $archivePath, false);
+        zipFolder("custom_code", XOOPS_ROOT_PATH . "\\modules\\formulize\\custom_code", $archivePath, false);
         
         // zip csv files
         zipFileList("tables", $listOfFiles, $archivePath, false);
@@ -453,11 +453,11 @@
      * return tempFolderPath    String path to newly created temp folder. Will be used to delete temp folder
      */
     function extractArchiveFolders($archivePath){
-        extractFolder($archivePath, "screens", XOOPS_ROOT_PATH . "/modules/formulize/templates/");
-        extractFolder($archivePath, "custom_code", XOOPS_ROOT_PATH . "/modules/formulize/");
+        extractFolder($archivePath, "screens", XOOPS_ROOT_PATH . "\\modules\\formulize\\templates\\");
+        extractFolder($archivePath, "custom_code", XOOPS_ROOT_PATH . "\\modules\\formulize\\");
         
         // create temporary folder to extract CSV files to. will be deleted later
-        $tempFolderPath = XOOPS_ROOT_PATH . "/modules/formulize/temp" . date_format(date_create(), '(U)');
+        $tempFolderPath = XOOPS_ROOT_PATH . "\\modules\\formulize\\temp" . date_format(date_create(), '(U)');
          if (!file_exists($tempFolderPath) and !mkdir($tempFolderPath)){
             $successfulImport = 0;
             error_log("Extraction folder for CSV's could not be created.");
