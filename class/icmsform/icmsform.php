@@ -7,7 +7,7 @@
  * @package		icms_ipf_Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: icmsform.php 20491 2010-12-05 20:30:06Z skenow $
+ * @version		$Id: icmsform.php 10854 2010-12-05 20:30:06Z skenow $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");
@@ -22,7 +22,7 @@ defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");
  * @package		icms_ipf_Object
  * @since		  1.1
  * @author		  marcan <marcan@impresscms.org>
- * @version		$Id: icmsform.php 20491 2010-12-05 20:30:06Z skenow $
+ * @version		$Id: icmsform.php 10854 2010-12-05 20:30:06Z skenow $
  */
 
 defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");

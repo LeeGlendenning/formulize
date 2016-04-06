@@ -9,7 +9,7 @@
  * @since		1.0
  * @author		Rodrigo P Lima aka TheRplima <therplima@impresscms.org>
  * @package		content
- * @version		$Id: comment_post.php 20051 2010-08-28 16:30:42Z phoenyx $
+ * @version		$Id$
  */
 
 include_once "header.php";

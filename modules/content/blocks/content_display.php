@@ -7,7 +7,7 @@
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @since		1.0
  * @author		TheRplima aka Rodrigo Pereira Lima <therplima@impresscms.org>
- * @version		$Id: content_display.php 20051 2010-08-28 16:30:42Z phoenyx $
+ * @version		$Id$
  */
 
 defined("ICMS_ROOT_PATH" ) or die("ICMS root path not defined");

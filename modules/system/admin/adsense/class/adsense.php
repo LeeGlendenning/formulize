@@ -7,7 +7,7 @@
  * @package		Administration
  * @since		1.2
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: adsense.php 20819 2011-02-12 18:17:45Z skenow $
+ * @version		$Id: adsense.php 11019 2011-02-12 18:17:45Z skenow $
  */
 
 defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");

@@ -9,7 +9,7 @@
  * @package		icms_ipf_Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: icmsmetagen.php 19918 2010-07-30 16:40:31Z skenow $
+ * @version		$Id: icmsmetagen.php 10461 2010-07-30 16:40:31Z skenow $
  */
 
 if (!defined("ICMS_ROOT_PATH")) die("ImpressCMS root path not defined");

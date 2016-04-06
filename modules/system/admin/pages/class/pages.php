@@ -6,7 +6,7 @@
  * @license		LICENSE.txt
  * @package		System
  * @subpackage	Symlinks
- * @version		SVN: $Id: pages.php 21527 2011-04-15 10:53:22Z m0nty_ $
+ * @version		SVN: $Id: pages.php 11175 2011-04-15 10:53:22Z m0nty_ $
  */
 
 /**

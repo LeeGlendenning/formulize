@@ -1,17 +1,44 @@
 <?php
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+//  ------------------------------------------------------------------------ //
+// Author: Kazumi Ono (AKA onokazu)                                          //
+// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
+// Project: The XOOPS Project                                                //
+// ------------------------------------------------------------------------- //
 /**
  * Creates a checkbox form attribut
  *
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license		LICENSE.txt
+ * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @category	ICMS
  * @package		Form
  * @subpackage	Elements
- * @version	$Id: Checkbox.php 21847 2011-06-23 17:36:30Z phoenyx $
+ * @version	$Id: Checkbox.php 12313 2013-09-15 21:14:35Z skenow $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");
-
 
 /**
  * One or more Checkbox(es)
@@ -21,6 +48,7 @@ defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");
  * @subpackage  Elements
  *
  * @author	Kazumi Ono	<onokazu@xoops.org>
+ * @copyright	copyright (c) 2000-2003 XOOPS.org
  */
 class icms_form_elements_Checkbox extends icms_form_Element {
 
@@ -37,7 +65,7 @@ class icms_form_elements_Checkbox extends icms_form_Element {
 	private $_value = array();
 
 	/**
-	 * HTML to seperate the elements
+	 * HTML to separate the elements
 	 * @var	string
 	 */
 	private $_delimeter;
@@ -158,6 +186,7 @@ class icms_form_elements_Checkbox extends icms_form_Element {
 	 * @return    string
 	 */
 	public function render() {
+
 		$ele_name = $this->getName();
 		$element_id = $ele_name;
 		if (1 == preg_match("/de_(\d+)_(?:new|\d+)_(\d+)/", $ele_name, $matches))
@@ -172,14 +201,17 @@ class icms_form_elements_Checkbox extends icms_form_Element {
 			$this->setName($ele_name);
 		}
 		foreach ($ele_options as $value => $name) {
-			$ret .= "<span class='icms_checkboxoption'><input type='checkbox' name='".$ele_name."' id='item_".$value."_".$ele_name."' value='".htmlspecialchars($value, ENT_QUOTES)."'";
+			$ret .= "<span class='icms_checkboxoption'><input type='checkbox' name='" . $ele_name
+				. "' id='" . $ele_name . "_item_" . $value . "' value='" . htmlspecialchars($value, ENT_QUOTES) . "'";
 			if (count($ele_value) > 0 && in_array($value, $ele_value)) {
 				$ret .= " checked='checked'";
 			}
-			$ret .= $ele_extra." /><label for='item_".$value."_".$ele_name."'>$name</label></span>$ele_delimeter";
+			$ret .= $ele_extra . " /><label for='" . $ele_name . "_item_" . $value . "'>" . $name . "</label></span>" . $ele_delimeter;
 		}
 		if (count($ele_options) > 1) {
-			$ret .= "<div class='icms_checkboxoption'><input type='checkbox' id='checkemall' class='checkemall' /><label for='checkemall'>"._CHECKALL."</label></div>";
+			$ret .= "<div class='icms_checkboxoption'><input type='checkbox' id='"
+				. $ele_name	. "_checkemall' class='checkemall' /><label for='"
+				. $ele_name . "_checkemall'>" . _CHECKALL . "</label></div>";
 		}
 		$ret .= "</div>";
 		return $ret;

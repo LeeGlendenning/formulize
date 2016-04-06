@@ -10,7 +10,7 @@
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  * @package		profile
- * @version		$Id: admin.php 22692 2011-09-18 10:43:13Z phoenyx $
+ * @version		$Id$
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
@@ -144,4 +144,3 @@ define("_AM_SPROFILE_UNAME", "Display name");
 define("_AM_SPROFILE_UID", "Userid");
 define("_AM_SPROFILE_EMAIL", "Email");
 define("_AM_SPROFILE_EXPORT_ALL", "Export all matching users");
-?>

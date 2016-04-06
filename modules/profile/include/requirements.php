@@ -7,7 +7,7 @@
 * @since		2.0
 * @author		Phoenyx <phoenyx@impresscms.de>
 * @package		profile
-* @version		$Id:$
+* @version		$Id$
 */
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 

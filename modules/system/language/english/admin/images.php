@@ -1,5 +1,5 @@
 <?php
-// $Id: images.php 20551 2010-12-19 03:30:11Z skenow $
+// $Id: images.php 11445 2011-11-18 08:17:59Z sato-san $
 //%%%%%% Image Manager %%%%%
 
 define('_MD_IMGMAIN','Image Manager Main');
@@ -64,7 +64,7 @@ define('_IMGDETAILS', 'Image details');
 define('_INSTRUCTIONS', 'Instructions');
 define('_INSTRUCTIONS_DSC', 'To select crop area, drag and move the dotted rectangle or type in values directly into the form.');
 
-define('_MD_IMAGE_EDITORTITLE', 'DHTML Image Editor');
+define('_MD_IMAGE_EDITORTITLE', 'Online Image Editor');
 define('_MD_IMAGE_VIEWSUBS', 'View Sub-categories');
 define('_MD_IMAGE_COPYOF', 'Copy of ');
 

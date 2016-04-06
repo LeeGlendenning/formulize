@@ -10,7 +10,7 @@
  * @author          Jan Pedersen
  * @author          The SmartFactory <www.smartfactory.ca>
  * @author	   		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version         $Id: activate.php 21139 2011-03-20 20:58:11Z m0nty_ $
+ * @version         $Id$
  */
 
 //$xoopsOption['pagetype'] = "user";

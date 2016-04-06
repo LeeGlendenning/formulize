@@ -7,7 +7,7 @@
 * @since		1.3
 * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
 * @package		profile
-* @version		$Id: audio.php 20510 2010-12-11 12:08:20Z phoenyx $
+* @version		$Id$
 */
 
 /**

@@ -8,7 +8,7 @@
  * @subpackage	Custom Tags
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		SVN: $Id: main.php 20775 2011-02-06 16:37:43Z skenow $
+ * @version		SVN: $Id: main.php 11012 2011-02-06 16:37:43Z skenow $
  */
 if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin($icmsModule->getVar("mid"))) {
 	exit("Access Denied");

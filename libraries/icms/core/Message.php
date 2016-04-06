@@ -5,13 +5,13 @@
  * Using a static class instead of a include file with global functions, along with
  * autoloading of classes, reduces the memory usage and only includes files when needed.
  *
- * @category	Core
- * @package		Message
- * @author		Steve Kenow <skenow@impresscms.org>
  * @copyright	(c) 2007-2008 The ImpressCMS Project - www.impresscms.org
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- * @version		SVN: $Id: Message.php 20515 2010-12-11 14:21:53Z phoenyx $
+ * @category	ICMS
+ * @package		Core
+ * @subpackage	Message
  * @since		1.3
+ * @version	SVN: $Id: Message.php 12310 2013-09-13 21:33:58Z skenow $
  */
 
 /**
@@ -19,16 +19,24 @@
  */
 class icms_core_Message {
 
-    /* Since all the methods are static, there is no __construct necessary	 */
+	/* Since all the methods are static, there is no __construct necessary	 */
 
 	/**
 	 * Replaces xoops_warning() and icms_warning_msg()
+	 * Given either an array of messages or a string, and an optional title, create a formatted warning
+	 * message
 	 *
-	 * @param string $msg
-	 * @param string $title
-	 * @param boolean $render
+	 * @author		XOOPS - include/functions.php :: xoops_warning()
+	 * @author		modified by skenow <skenow@impresscms.org>
+	 * @copyright	copyright (c) 2000-2003 XOOPS.org
+	 * 				You should have received a copy of XOOPS_copyrights.txt with
+	 * 				this file. If not, you may obtain a copy from xoops.org
+	 *
+	 * @param 		string $msg
+	 * @param 		string $title
+	 * @param 		boolean $render
 	 */
-	static public function warning($msg, $title='', $render = false) {
+	static public function warning($msg, $title='', $render = FALSE) {
 		$ret = '<div class="warningMsg">';
 		if ($title != '') {
 			$ret .= '<h4>' . $title . '</h4>';
@@ -49,12 +57,17 @@ class icms_core_Message {
 	}
 
 	/**
-	 * Replaces xoops_error() and icms_error_msg()
+	 * Replaces icms_error_msg()
 	 *
-	 * @param string $msg
-	 * @param string $title
-	 * @param boolean $render
-	 * @return mixed
+	 * @author		XOOPS - include/functions.php :: xoops_error()
+	 * @copyright	copyright (c) 2000-2003 XOOPS.org
+	 * 				You should have received a copy of XOOPS_copyrights.txt with
+	 * 				this file. If not, you may obtain a copy from xoops.org
+	 *
+	 * @param		string $msg
+	 * @param		string $title
+	 * @param		boolean $render
+	 * @return		mixed
 	 */
 	static public function error($msg, $title = '', $render = true) {
 		$ret = '<div class="errorMsg">';
@@ -78,11 +91,16 @@ class icms_core_Message {
 
 	/**
 	 * Render result message (echo, so no return string)
-	 * Replaces xoops_result()
 	 *
-	 * @param string $msg
-	 * @param string $title
-	 * @return void
+	 * @author		XOOPS - include/functions.php :: xoops_result()
+	 * @copyright	copyright (c) 2000-2003 XOOPS.org
+	 * 				You should have received a copy of XOOPS_copyrights.txt with
+	 * 				this file. If not, you may obtain a copy from xoops.org
+	 *
+	 * @author		modified by skenow <skenow@impresscms.org>
+	 * @param		string $msg
+	 * @param		string $title
+	 * @return		void
 	 */
 	static public function result($msg, $title='') {
 		echo '<div class="resultMsg">';
@@ -102,14 +120,19 @@ class icms_core_Message {
 
 	/**
 	 * Will render (echo) the form so no return in this function
-	 * Replaces xoops_confirm()
 	 *
-	 * @param array $hiddens Array of Hidden values
-	 * @param string $action The Form action
-	 * @param string $msg The message in the confirm form
-	 * @param string $submit The text on the submit button
-	 * @param boolean $addtoken Whether or not to add a security token
-	 * @return void
+	 * @author		XOOPS - include/functions.php :: xoops_confirm()
+	 * @author		modified by skenow <skenow@impresscms.org>
+	 * @copyright	copyright (c) 2000-2003 XOOPS.org
+	 * 				You should have received a copy of XOOPS_copyrights.txt with
+	 * 				this file. If not, you may obtain a copy from xoops.org
+	 *
+	 * @param		array $hiddens Array of Hidden values
+	 * @param		string $action The Form action
+	 * @param		string $msg The message in the confirm form
+	 * @param		string $submit The text on the submit button
+	 * @param		boolean $addtoken Whether or not to add a security token
+	 * @return		void
 	 */
 	static public function confirm($hiddens, $action, $msg, $submit='', $addtoken = true) {
 	$submit = ($submit != '') ? trim($submit) : _SUBMIT;

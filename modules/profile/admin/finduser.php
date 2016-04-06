@@ -11,7 +11,7 @@
  * @author          Jan Pedersen
  * @author          The SmartFactory <www.smartfactory.ca>
  * @author	   		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version         $Id: finduser.php 20113 2010-09-08 19:12:39Z phoenyx $
+ * @version         $Id$
  */
 
 //die('Sorry, this feature is not active yet.');

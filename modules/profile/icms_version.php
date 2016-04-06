@@ -12,7 +12,7 @@
  * @author		Jan Pedersen
  * @author		Marcello Brandao <marcello.brandao@gmail.com>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: icms_version.php 22692 2011-09-18 10:43:13Z phoenyx $
+ * @version		$Id$
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
@@ -20,13 +20,13 @@ defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 $modversion = array(
 /**  General Information  */
 	'name'						=> _MI_PROFILE_NAME,
-	'version'					=> 2.0,
+	'version'					=> 2.2,
 	'description'				=> _MI_PROFILE_DESC,
-	'author'					=> "phoenyx, Jan Pedersen, Marcello Brandao, Sina Asghari, Gustavo Pilla.",
+	'author'					=> "m0nty, phoenyx, Jan Pedersen, Marcello Brandao, Sina Asghari, Gustavo Pilla.",
 	'credits'					=> "The XOOPS Project, The ImpressCMS Project, The SmartFactory, Ackbarr, Komeia, vaughan, alfred.",
 	'help'						=> "",
 	'license'					=> "GNU General Public License (GPL)",
-	'official'					=> 0,
+	'official'					=> 1,
 	'dirname'					=> basename(dirname(__FILE__)),
 	'modname'					=> 'profile',
 
@@ -38,7 +38,7 @@ $modversion = array(
 /**  Development information */
 	'status_version'			=> "Final",
 	'status'					=> "Final",
-	'date'						=> "18 Sept 2011",
+	'date'						=> "02 Sept 2013",
 	'author_word'				=> "",
 	'warning'					=> _CO_ICMS_WARNING_FINAL,
 
@@ -82,9 +82,9 @@ $modversion['people']['developers'][] = "[url=http://community.impresscms.org/us
 $modversion['people']['developers'][] = "[url=http://community.impresscms.org/userinfo.php?uid=1168]phoenyx[/url]";
 $modversion['people']['testers'][] = "[url=http://community.impresscms.org/userinfo.php?uid=53]davidl2[/url]";
 $modversion['people']['testers'][] = "[url=http://community.impresscms.org/userinfo.php?uid=10]sato-san[/url]";
+$modversion['people']['testers'][] = "[url=http://community.impresscms.org/userinfo.php?uid=10]fiammybe[/url]";
 $modversion['people']['translators'][] = "[url=http://community.impresscms.org/userinfo.php?uid=10]sato-san[/url]";
 $modversion['people']['translators'][] = "[url=http://community.impresscms.org/userinfo.php?uid=1168]phoenyx[/url]";
-$modversion['people']['documenters'][] = "[url=http://community.impresscms.org/userinfo.php?uid=372]UnderDog[/url]";
 //$modversion['people']['other'][] = "";
 
 /** Manual */
@@ -573,4 +573,3 @@ $modversion['autotasks'][] = array(
 	'onfinish'	=> '0',
 	'name'		=> _MI_PROFILE_AUTOTASK_REACTIVATE_SUSPENDED_USERS,
 	'code'		=> 'include/autotasks/reactivate_suspended.php');
-?>

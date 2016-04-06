@@ -9,7 +9,7 @@
  * @subpackage	form
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: File.php 20302 2010-10-16 17:31:12Z phoenyx $
+ * @version		$Id: File.php 11454 2011-11-25 12:29:04Z sato-san $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");
@@ -27,7 +27,7 @@ class icms_ipf_form_elements_File extends icms_form_elements_File {
 		$this->_object = $object;
 		$this->_key = $key;
 		parent::__construct($object->vars[$key]['form_caption'], $key, isset($object->vars[$key]['form_maxfilesize']) ? $object->vars[$key]['form_maxfilesize'] : 0);
-		$this->setExtra(" size=50");
+		$this->setExtra(" size=30");
 	}
 
 	/**

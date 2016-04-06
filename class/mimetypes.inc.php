@@ -1,5 +1,5 @@
 <?php
-// $Id: mimetypes.inc.php 19787 2010-07-13 15:37:14Z skenow $
+// $Id: mimetypes.inc.php 10337 2010-07-13 15:37:14Z skenow $
 /**
  * Extension to mimetype lookup table
  *

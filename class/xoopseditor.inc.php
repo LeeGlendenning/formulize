@@ -6,7 +6,7 @@
  * @license		http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author		Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
  * @since		4.00
- * @version		$Id: xoopseditor.inc.php 20477 2010-12-05 01:16:37Z skenow $
+ * @version		$Id: xoopseditor.inc.php 10840 2010-12-05 01:16:37Z skenow $
  * @package		xoopseditor
  */
 

@@ -72,9 +72,9 @@
     <{foreach item=module from=$modules name="search_results"}>
     <div class="profile-profile-search-module" id="profile-profile-search-module-<{$smarty.foreach.search_results.iteration}>" >
       <h4 class="profile-profiletitle head">
-        <a class="profile-profile-search-module-title" id="profile-profile-search-module-title-<{$smarty.foreach.search_results.iteration}>" onclick ="$('#profile-profile-search-module-results-<{$smarty.foreach.search_results.iteration}>').toggle(400);"><img src="images/toggle.png" alt="" /></a>
-        <{$module.name}>
-      </h4>
+        <a style="cursor: pointer;" class="profile-profile-search-module-title" id="profile-profile-search-module-title-<{$smarty.foreach.search_results.iteration}>" onclick ="$('#profile-profile-search-module-results-<{$smarty.foreach.search_results.iteration}>').toggle(400);"><img src="images/toggle.png" alt="" /></a> 
+		<a style="cursor: pointer;" class="profile-profile-search-module-title" id="profile-profile-search-module-title-<{$smarty.foreach.search_results.iteration}>" onclick ="$('#profile-profile-search-module-results-<{$smarty.foreach.search_results.iteration}>').toggle(400);"><{$module.name}></a>
+	  </h4>
       <div class="profile-profile-search-module-results" id="profile-profile-search-module-results-<{$smarty.foreach.search_results.iteration}>" style="display: none">
         <{cycle values='even,odd' print=false reset=true advance=false}>
         <{foreach item=result from=$module.results}>
@@ -193,6 +193,7 @@
     </tr></table>
     <{/if}>
     <{if $friends_pending|@count > 0}>
+    <div class="confirmMsg">
     <h3 class="head"><{$lang_friends_pending}></h3>
     <ul>
       <{section name=i loop=$friends_pending}>
@@ -215,6 +216,7 @@
       </li>
       <{/section}>
     </ul>
+    </div>
     <{/if}>
   </div>
   <{/if}>

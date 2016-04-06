@@ -10,7 +10,7 @@
  * @author		Jan Pedersen
  * @author		Marcello Brandao <marcello.brandao@gmail.com>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: main.php 22413 2011-08-27 10:21:21Z phoenyx $
+ * @version		$Id$
  */
 
 define("_MD_PROFILE_MAKE_CONFIG_FIRST", "This is the first time you open your profile. Please specify your settings first.");

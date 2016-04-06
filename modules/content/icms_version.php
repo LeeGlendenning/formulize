@@ -9,7 +9,7 @@
  * @since		1.0
  * @author		Rodrigo P Lima aka TheRplima <therplima@impresscms.org>
  * @package		content
- * @version		$Id: icms_version.php 22685 2011-09-18 10:01:52Z phoenyx $
+ * @version		$Id$
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
@@ -17,9 +17,9 @@ defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");
 $modversion = array(
 /**  General Information  */
 	'name'						=> _MI_CONTENT_MD_NAME,
-	'version'					=> 1.1,
+	'version'					=> 1.2,
 	'description'				=> _MI_CONTENT_MD_DESC,
-	'author'					=> "Rodrigo P Lima aka TheRplima",
+	'author'					=> "Rodrigo P Lima aka TheRplima, Phoenyx, skenow, QM-B",
 	'credits'					=> "The ImpressCMS Project",
 	'help'						=> "",
 	'license'					=> "GNU General Public License (GPL)",
@@ -35,7 +35,7 @@ $modversion = array(
 /**  Development information */
 	'status_version'			=> "Final",
 	'status'					=> "Final",
-	'date'						=> "18 Sept 2011",
+	'date'						=> "02 Sept 2013",
 	'author_word'				=> "",
 	'warning'					=> _CO_ICMS_WARNING_FINAL,
 

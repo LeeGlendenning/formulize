@@ -13,7 +13,7 @@ if (!defined('ICMS_ROOT_PATH')) die("ImpressCMS root path not defined");
  * @author		marcan <marcan@impresscms.org>
  * @deprecated	Use icms_core_Versionchecker, instead
  * @todo		Remove in version 1.4
- * @version		$Id: icmsversionchecker.php 20370 2010-11-15 20:54:33Z skenow $
+ * @version		$Id: icmsversionchecker.php 10763 2010-11-15 20:54:33Z skenow $
  */
 class IcmsVersionChecker extends icms_core_Versionchecker {
 

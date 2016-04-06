@@ -5,16 +5,17 @@
  * See the enclosed file license.txt for licensing information.
  * If you did not receive this file, get it at http://www.fsf.org/copyleft/gpl.html
  *
- * @copyright	http://www.xoops.org/ The XOOPS Project
- * @copyright	XOOPS_copyrights.txt
- * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
+ * @copyright   The XOOPS project http://www.xoops.org/
+ * @license     http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
  * @package		installer
- * @since		XOOPS
- * @author		http://www.xoops.org/ The XOOPS Project
- * @author	   Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: page_dbsettings.php 20098 2010-09-07 16:19:19Z skenow $
+ * @since       2.3.0
+ * @author		Haruki Setoyama  <haruki@planewave.org>
+ * @author 		Kazumi Ono <webmaster@myweb.ne.jp>
+ * @author		Skalpa Keo <skalpa@xoops.org>
+ * @author		Taiwen Jiang <phppp@users.sourceforge.net>
+ * @version		$Id: page_dbsettings.php 12329 2013-09-19 13:53:36Z skenow $
  */
+
 /**
  *
  */
@@ -65,15 +66,18 @@ function getDbCharsets($link) {
 	return $charsets;
 }
 
+/**
+ * Get a list of collations supported by the database engine
+ * @param 	database connection $link
+ * @param 	string $charset
+ * @return	array	Character sets supported by the db, as strings
+ */
 function getDbCollations($link, $charset) {
 	static $collations = array ( );
 
-	// ALTERED BY FREEFORM SOLUTIONS TO CORRECT A BUG IN THE DETECTION OF THE DEFAULT COLLATION FOR THE CHARSET
-	if ($result = mysql_query ( "SHOW COLLATION LIKE '" . mysql_real_escape_string ( $charset ) . "_%'", $link )) {
+	if ($result = mysql_query("SHOW COLLATION WHERE Charset='" . mysql_real_escape_string($charset) . "'", $link)) {
 		while ($row = mysql_fetch_assoc ( $result )) {
-			if(substr($row["Collation"], 0, strlen($charset)+1) == $charset."_") {
-				$collations [$charset] [$row ["Collation"]] = $row ["Default"] ? 1 : 0;
-			}
+			$collations [$charset] [$row ["Collation"]] = $row ["Default"] ? 1 : 0;
 		}
 	}
 
@@ -179,10 +183,33 @@ if ($_SERVER ['REQUEST_METHOD'] == 'POST' && ! empty ( $vars ['DB_NAME'] )) {
 		} else {
 			$db_exist = true;
 		}
-		if ($db_exist && $vars ['DB_CHARSET']) {
+		if ($db_exist && $vars['DB_CHARSET']) {
+			/* Attempt to set the character set and collation to the selected */
 			$sql = "ALTER DATABASE `" . $vars ['DB_NAME'] . "` DEFAULT CHARACTER SET " . mysql_real_escape_string ( $vars ['DB_CHARSET'] ) . ($vars ['DB_COLLATION'] ? " COLLATE " . mysql_real_escape_string ( $vars ['DB_COLLATION'] ) : "");
-			if (! mysql_query ( $sql )) {
-				$error = ERR_CHARSET_NOT_SET .'<br />'. $sql;
+			if (!mysql_query($sql)) {
+				/* if the alter statement fails, set the constants to match existing */
+				$sql = "USE " . mysql_real_escape_string($vars["DB_NAME"]);
+				$result = mysql_query($sql);
+				
+				/* get the character set variables for the current database */
+				$sql = "SHOW VARIABLES like 'character%'";
+				$result = mysql_query($sql);
+				while ($row = mysql_fetch_assoc($result)) {
+					$character_sets[$row["Variable_name"]] = $row["Value"];
+				}
+				$vars["DB_CHARSET"] = $character_sets["character_set_database"]
+					? $character_sets["character_set_database"]
+					: $character_sets["character_set_server"];
+				
+				/* get the collation for the current database */
+				$sql = "SHOW VARIABLES LIKE 'collation%'";
+				$result = mysql_query($sql);
+				while ($row = mysql_fetch_assoc($result)) {
+					$collations[$row["Variable_name"]] = $row["Value"];
+				}
+				$vars["DB_COLLATION"] = $collations["collation_database"]
+					? $collations["collation_database"]
+					: $collations["collation_server"];
 			}
 		}
 	}

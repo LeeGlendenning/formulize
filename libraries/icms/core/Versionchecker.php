@@ -13,11 +13,11 @@ defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");
  * @copyright	The ImpressCMS Project http://www.impresscms.org/
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @category	ICMS
- * @package		core
+ * @package		Core
  * @subpackage	VersionChecker
  * @since		1.0
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: Versionchecker.php 22440 2011-08-28 14:05:14Z phoenyx $
+ * @version		$Id: Versionchecker.php 11603 2012-02-26 08:45:50Z fiammy $
  */
 class icms_core_Versionchecker {
 
@@ -31,7 +31,7 @@ class icms_core_Versionchecker {
 	 * URL of the XML containing version information
 	 * @public $version_xml string
 	 */
-	public $version_xml = "http://www.impresscms.org/impresscms_version.xml";
+	public $version_xml = "http://www.impresscms.org/impresscms_version_branch13.xml";
 
 	/*
 	 * Time before fetching the $version_xml again and store it in $cache_version_xml

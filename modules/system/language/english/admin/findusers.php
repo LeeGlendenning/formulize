@@ -1,5 +1,5 @@
 <?php
-// $Id: findusers.php 22476 2011-08-30 16:33:29Z phoenyx $
+// $Id: findusers.php 11344 2011-08-30 16:33:29Z phoenyx $
 //%%%%%%	File Name findusers.php 	%%%%%
 
 define("_AM_FINDUS","Find Users");

@@ -1,16 +1,41 @@
 <?php
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+//  ------------------------------------------------------------------------ //
+
 /**
  * Textsanitizer Class
  *
  * @copyright	http://www.xoops.org/ The XOOPS Project
  * @copyright	XOOPS_copyrights.txt
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license	LICENSE.txt
+ * @license	http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @package	installer
  * @since	XOOPS
  * @author	http://www.xoops.org The XOOPS Project
  * @author	modified by UnderDog <underdog@impresscms.org>
- * @version	$Id: textsanitizer.php 22529 2011-09-02 19:55:40Z phoenyx $
+ * @version	$Id: textsanitizer.php 12329 2013-09-19 13:53:36Z skenow $
  */
 // This is subset and modified version of module.textsanitizer.php
 @set_magic_quotes_runtime(0);
@@ -50,6 +75,7 @@ class TextSanitizer
 		return preg_replace("/(\015\012)|(\015)|(\012)/","<br />",$text);
 	}
 
+	/** @todo	get_magic_quotes_gpc is removed in PHP 5.4 */
 	function &addSlashes($text, $force=false)
 	{
 		if ($force) {
@@ -63,6 +89,7 @@ class TextSanitizer
 
 	/*
 	 * if magic_quotes_gpc is on, stirip back slashes
+	 * @todo	get_magic_quotes_gpc is removed in PHP 5.4
 	 */
 	function &stripSlashesGPC($text)
 	{
@@ -212,6 +239,7 @@ class TextSanitizer
 		return $this->stripSlashesGPC($text);
 	}
 
+	/** @todo	get_magic_quotes_runtime is deprecated in PHP 5.4 and will always return FALSE */
 	function &oopsStripSlashesRT($text)
 	{
 		if (get_magic_quotes_runtime()) {

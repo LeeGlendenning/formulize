@@ -6,7 +6,7 @@
  * @license		http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author		Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
  * @since		  1.00
- * @version		$Id: xoopseditor.php 20509 2010-12-11 12:02:57Z phoenyx $
+ * @version		$Id: xoopseditor.php 10868 2010-12-11 12:02:57Z phoenyx $
  * @package		xoopseditor
  */
 class XoopsEditorHandler extends icms_plugins_EditorHandler {

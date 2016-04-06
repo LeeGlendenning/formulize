@@ -7,7 +7,7 @@
  * @link http://impresscms.org ImpressCMS
  * @package core
  * @subpackage Debugging
- * @version	$Id: debug_functions.php 19787 2010-07-13 15:37:14Z skenow $
+ * @version	$Id: debug_functions.php 10337 2010-07-13 15:37:14Z skenow $
  * @deprecated	The static class icms_core_Debug has been created to replace these
  * @todo		Remove in version 1.4
  */

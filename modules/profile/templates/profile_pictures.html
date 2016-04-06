@@ -44,5 +44,5 @@
 <{if $icmspersistable_delete_confirm}>
 <{$icmspersistable_delete_confirm}>
 <{/if}>
-<{if $lang_nocontent}><div id="profile-nocontent" class="outer"><p class="odd"><{$lang_nocontent}></p></div><{/if}>
+<{if $lang_nocontent}><div class="resultMsg"><p><{$lang_nocontent}></p></div><{/if}>
 <{if $profile_pictures || $lang_nocontent}><{includeq file='db:system_notification_select.html'}><{/if}>

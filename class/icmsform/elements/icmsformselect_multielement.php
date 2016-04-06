@@ -7,7 +7,7 @@
  * @package		icms_ipf_Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: icmsformselect_multielement.php 20281 2010-10-11 17:24:15Z phoenyx $
+ * @version		$Id: icmsformselect_multielement.php 11643 2012-03-15 15:22:17Z skenow $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");
@@ -17,6 +17,6 @@ class IcmsFormSelect_multiElement extends icms_ipf_form_elements_Selectmulti  {
 
 	public function __construct($object, $key) {
 		parent::__construct($object, $key);
-		$this->_deprecated = icms_core_Debug::setDeprecated('icms_ipf_form_elements_Selectmulti', sprintf(_CORE_REMOVE_IN_VERSION, '1.4'));
+		$this->_deprecated = icms_core_Debug::setDeprecated('icms_ipf_form_elements_Selectmulti (control type: selectmulti)', sprintf(_CORE_REMOVE_IN_VERSION, '2.0'));
 	}
 }

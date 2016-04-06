@@ -9,7 +9,7 @@
  * @package		XoopsForms
  * @since		1.2
  * @author		Rodrigo Pereira Lima (aka TheRplima) <therplima@impresscms.org>
- * @version		$Id: formimage_browse.php 20642 2011-01-04 03:04:52Z skenow $
+ * @version		$Id: formimage_browse.php 10948 2011-01-04 03:04:52Z skenow $
  */
 
 include_once '../../mainfile.php';

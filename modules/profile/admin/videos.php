@@ -9,7 +9,7 @@
  * @since		1.3
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
  * @package		profile
- * @version		$Id: videos.php 20428 2010-11-21 12:38:18Z phoenyx $
+ * @version		$Id$
  */
 
 /**

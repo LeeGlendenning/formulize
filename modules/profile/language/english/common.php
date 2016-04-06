@@ -7,7 +7,7 @@
  * @since		1.0
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  * @package		profile
- * @version		$Id: common.php 22208 2011-08-09 13:37:50Z blauer-fisch $
+ * @version		$Id$
  */
 
 defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");
@@ -217,7 +217,6 @@ define("_CO_PROFILE_VISITORS_UID_OWNER", "");
 define("_CO_PROFILE_VISITORS_UID_OWNER_DSC", " ");
 define("_CO_PROFILE_VISITORS_UID_VISITOR", "");
 define("_CO_PROFILE_VISITORS_UID_VISITOR_DSC", " ");
-
 // tribeuser
 define("_CO_PROFILE_TRIBEUSER_TB_ID", "ID");
 define("_CO_PROFILE_TRIBEUSER_TB_ID_DSC", " ");
@@ -231,4 +230,13 @@ define("_CO_PROFILE_TRIBEUSER_APPROVED", "Approved");
 define("_CO_PROFILE_TRIBEUSER_APPROVED_DSC", " Yes if membership for the group is approved by the owner.");
 define("_CO_PROFILE_TRIBEUSER_ACCEPTED", "Accepted");
 define("_CO_PROFILE_TRIBEUSER_ACCEPTED_DSC", " Yes if user accepted the invitation to this group.");
+
+// moved here from admin - 2.2
+define("_MI_PROFILE_USERS", "Users");
+define("_AM_PROFILE_CATEGORYS", "Categories");
+define("_AM_PROFILE_FIELDS", "Fields");
+define("_AM_PROFILE_REGSTEPS", "Registration steps");
+define("_MI_PROFILE_VISIBILITY", "Visibility");
+define("_MI_PROFILE_PERMISSIONS", "Permissions");
+define("_MI_PROFILE_MODULEDESC", "This module simulates a social network software like MySpace or Orkut, please login or register now.");
 ?>

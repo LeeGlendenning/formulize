@@ -1,9 +1,34 @@
 <?php
+// $Id: functions.php 1032 2007-09-09 13:01:16Z dugris $
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+//  ------------------------------------------------------------------------ //
+
 /**
  * Helper functions available in the ImpressCMS process
  *
  * @copyright	http://www.xoops.org/ The XOOPS Project
- * @copyright	XOOPS_copyrights.txt
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
  * @license	http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @package	core
@@ -12,6 +37,7 @@
  * @author		modified by marcan <marcan@impresscms.org>
  * @version	$Id: functions.php 8806 2009-05-31 22:28:54Z pesianstranger $
  */
+
 /**
  * The header
  *
@@ -38,7 +64,6 @@ function xoops_header($closehead=true) {
 	<head>
 	<meta http-equiv="content-type" content="text/html; charset='._CHARSET.'" />
 	<meta http-equiv="content-language" content="'._LANGCODE.'" />
-	'.htmlspecialchars($icmsConfigMetaFooter['google_meta']).'
 	<meta name="robots" content="'.htmlspecialchars($icmsConfigMetaFooter['meta_robots']).'" />
 	<meta name="keywords" content="'.htmlspecialchars($icmsConfigMetaFooter['meta_keywords']).'" />
 	<meta name="description" content="'.htmlspecialchars($icmsConfigMetaFooter['meta_description']).'" />
@@ -93,7 +118,7 @@ function xoops_header($closehead=true) {
  */
 function xoops_footer() {
 	global $icmsConfigMetaFooter;
-	echo htmlspecialchars($icmsConfigMetaFooter['google_analytics']).'</body></html>';
+	echo '</body></html>';
 	ob_end_flush();
 }
 
@@ -348,8 +373,9 @@ function showbanner() {
 /**
  * Gets banner HTML for use in templates
  *
+ * @deprecated		Moving to a separate module
+ *
  * @return object  $bannerobject  The generated banner HTML string
- * @todo Move to a static class method - Banner
  */
 function xoops_getbanner() {
 	global $icmsConfig;
@@ -368,7 +394,7 @@ function xoops_getbanner() {
 			$db->queryF(sprintf("DELETE FROM %s WHERE bid = '%u'", $db->prefix('banner'), (int)($bid)));
 		}
 		if ($htmlbanner) {
-			$bannerobject = $htmlcode;
+			$bannerobject = icms_core_DataFilter::filterHTMLdisplay($htmlcode, 0, 0);
 		} else {
 			$bannerobject = '<div><a href="'.ICMS_URL.'/banners.php?op=click&amp;bid='.$bid.'" rel="external">';
 			if (stristr($imageurl, '.swf')) {
@@ -418,7 +444,7 @@ function redirect_header($url, $time = 3, $message = '', $addredirect = true, $a
 	$icmsTheme = $xoTheme =& $xoopsThemeFactory->createInstance(array("plugins" => array()));
 	$xoopsTpl = $icmsTpl =& $xoTheme->template;
 
-	if($icmsConfig['debug_mode'] == 2 && icms::$user->isAdmin())
+    if($icmsConfig['debug_mode'] == 2 && is_object(icms::$user) &&  icms::$user->isAdmin())
 	{
 		$xoopsTpl->assign('time', 300);
 		$xoopsTpl->assign('xoops_logdump', icms::$logger->dump());
@@ -763,25 +789,17 @@ function xoops_convert_encoding(&$text) {return xoops_utf8_encode($text);}
 
 /**
  * Gets Username from UserID and creates a link to the userinfo (!) page
+ * @deprecated	icms_member_user_Handler::getUserLink($userid, $name, $users, $withContact)
  *
  * @param	int	$userid	The User ID
  * @return	string	The linked username (from userID or "Anonymous")
- * @todo Move to a static class method - User
+ * @todo 	Remove in next major release
  */
 function xoops_getLinkedUnameFromId($userid)
 {
-	$userid = (int) ($userid);
-	if($userid > 0)
-	{
-		$member_handler = icms::handler('icms_member');
-		$user =& $member_handler->getUser($userid);
-		if(is_object($user))
-		{
-			$linkeduser = '<a href="'.ICMS_URL.'/userinfo.php?uid='.$userid.'">'.$user->getVar('uname').'</a>';
-			return $linkeduser;
-		}
-	}
-	return $GLOBALS['icmsConfig']['anonymous'];
+	icms_core_Debug::setDeprecated("icms_member_user_Handler::getUserLink", sprintf(_CORE_REMOVE_IN_VERSION, '2.0'));
+	return icms_member_user_Handler::getUserLink($userid);
+
 }
 
 /**
@@ -1570,6 +1588,7 @@ function getDbValue(&$db, $table, $field, $condition = '')
  * @param string $value - $variable that is being escaped for query.
  * @return string
  * @todo Move to a static class method - Database or Filter
+ * @todo	get_magic_quotes_gpc is removed in PHP 5.4
  */
 function icms_escapeValue($value, $quotes = true)
 {
@@ -1763,8 +1782,8 @@ function ext_date($time)
 					'Fri'		=> _CAL_FRI,
 					'Sat'		  => _CAL_SAT,
 					'Sun'		=> _CAL_SUN,
-					'Januari'	=> _CAL_JANUARY,
-					'Februari'	=> _CAL_FEBRUARY,
+					'January'	=> _CAL_JANUARY,
+					'February'	=> _CAL_FEBRUARY,
 					'March'		=> _CAL_MARCH,
 					'April'		=> _CAL_APRIL,
 					'May'		=> _CAL_MAY,
@@ -2406,29 +2425,32 @@ function icms_unlinkRecursive($dir, $deleteRootToo=true){
 
 /**
  * Adds required jQuery files to header for Password meter.
+ *
+ * @param	string	$password_fieldclass	element id for the password field
+ * @param	string	$username_fieldid	element id for the username field
  * @todo Move to a static class method - Password
  */
-function icms_PasswordMeter(){
+function icms_PasswordMeter($password_fieldclass = "password_adv", $username_fieldid = "uname"){
 	global $xoTheme, $icmsConfigUser;
 	$xoTheme->addScript(ICMS_URL.'/libraries/jquery/jquery.js', array('type' => 'text/javascript'));
 	$xoTheme->addScript(ICMS_URL.'/libraries/jquery/password_strength_plugin.js', array('type' => 'text/javascript'));
-	$xoTheme->addScript('', array('type' => ''), '
+	$xoTheme->addScript('', array('type' => 'text/javascript'), '
 				$(document).ready( function() {
-					$.fn.shortPass = "'._CORE_PASSLEVEL1.'";
-					$.fn.badPass = "'._CORE_PASSLEVEL2.'";
-					$.fn.goodPass = "'._CORE_PASSLEVEL3.'";
-					$.fn.strongPass = "'._CORE_PASSLEVEL4.'";
-					$.fn.samePassword = "'._CORE_UNAMEPASS_IDENTIC.'";
+					$.fn.shortPass = "' . _CORE_PASSLEVEL1 . '";
+					$.fn.badPass = "' . _CORE_PASSLEVEL2 . '";
+					$.fn.goodPass = "' . _CORE_PASSLEVEL3 . '";
+					$.fn.strongPass = "' . _CORE_PASSLEVEL4 . '";
+					$.fn.samePassword = "' . _CORE_UNAMEPASS_IDENTIC . '";
 					$.fn.resultStyle = "";
-				$(".password_adv").passStrength({
-					minPass: '.$icmsConfigUser['minpass'].',
-					strongnessPass: '.$icmsConfigUser['pass_level'].',
+				$(".' . $password_fieldclass . '").passStrength({
+					minPass: ' . $icmsConfigUser['minpass'] . ',
+					strongnessPass: ' . $icmsConfigUser['pass_level'] . ',
 					shortPass: 		"top_shortPass",
 					badPass:		"top_badPass",
 					goodPass:		"top_goodPass",
 					strongPass:		"top_strongPass",
 					baseStyle:		"top_testresult",
-					userid:			"#uname",
+					userid:			"#' . $username_fieldid . '",
 					messageloc:		0
 				});
 			});

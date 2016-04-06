@@ -6,7 +6,7 @@
  * @author       Skalpa Keo <skalpa@xoops.org>
  * @author       Martijn Hertog (AKA wtravel) <martin@efqconsultancy.com>
  * @since        1.0
- * @version		$Id: install.php 22561 2011-09-05 22:01:30Z skenow $
+ * @version		$Id: install.php 12168 2013-05-22 13:25:59Z skenow $
  * @package 		installer
  */
 
@@ -42,7 +42,7 @@ define( "INSTALL_COPYRIGHT", "Copyright &copy; 2007-" . date('Y', time()) . " <a
 define( "LANGUAGE_SELECTION", "Language selection" );
 define( "LANGUAGE_SELECTION_TITLE", "Choose your language");		// L128
 define( "INTRODUCTION", "Introduction" );
-define( "INTRODUCTION_TITLE", "Welcome to the Formulize installation assistant" );		// L0 // ALTERED BY FREEFORM SOLUTIONS FOR THE STANDALONE INSTALLER
+define( "INTRODUCTION_TITLE", "Welcome to the Formulize installation assistant" );		// L0  // ALTERED BY FREEFORM SOLUTIONS FOR THE STANDALONE INSTALLER
 define( "CONFIGURATION_CHECK", "Configuration check" );
 define( "CONFIGURATION_CHECK_TITLE", "Checking your server configuration" );
 define( "PATHS_SETTINGS", "Paths settings" );
@@ -65,7 +65,7 @@ define( "WELCOME_TITLE", "Installation completed" );		// L0 // ALTERED BY FREEFO
 define( "MODULES_INSTALL", "Install modules" );
 define( "MODULES_INSTALL_TITLE", "Installation of modules " );
 define( "NO_PHP5_TITLE", "No PHP 5" );
-define( "NO_PHP5_CONTENT","PHP 5.2.0 minimum is required for ImpressCMS to function properly - your installation cannot continue. Please work with your hosting provider to upgrade your environment to a version of PHP that is newer than 5.2.0 (5.2.8 + is recommended) before attempting to install again. For more information, read <a href='http://community.impresscms.org/modules/smartsection/item.php?itemid=122' >ImpressCMS on PHP5 </a>.");
+define( "NO_PHP5_CONTENT","PHP 5.6.0 minimum is required for ImpressCMS to function properly - your installation cannot continue. Please work with your hosting provider to upgrade your environment to a version of PHP that is newer than 5.2.0 (5.2.8 + is recommended) before attempting to install again. For more information, read <a href='http://community.impresscms.org/modules/smartsection/item.php?itemid=122' >ImpressCMS on PHP5 </a>.");
 define( "SAFE_MODE", "Safe Mode On" );
 define( "SAFE_MODE_TITLE", "Safe Mode On" );
 define( "SAFE_MODE_CONTENT", "ImpressCMS has detected PHP is running in Safe Mode. Because of this, your installation cannot continue. Please work with your hosting provider to change your environment before attempting to install again." );
@@ -212,7 +212,7 @@ define("_MD_AM_RSSLOCALLINK_DESC",'http://community.impresscms.org/modules/smart
 define("_INSTALL_LOCAL_SITE",'http://www.impresscms.org/'); //Link to local support site
 define("_LOCAOL_STNAME",'ImpressCMS'); //Link to local support site
 define("_LOCAL_SLOCGAN",'Make a lasting impression'); //Link to local support site
-define("_LOCAL_FOOTER",'Powered by ImpressCMS &copy; 2007-' . date('Y', time()) . ' <a href=\"http://www.impresscms.org/\" rel=\"external\">The ImpressCMS Project</a>'); //footer Link to local support site
+define("_LOCAL_FOOTER",'Powered by ImpressCMS &copy; 2007-' . date('Y', time()) . ' <a href=\"http://www.impresscms.org/\" rel=\"external\">The ImpressCMS Project</a><br />Hosting by <a href="http://www.siteground.com/impresscms-hosting.htm?afcode=7e9aa639d30265c079823a498f5b8f15">SiteGround</a>'); //footer Link to local support site
 define("_LOCAL_SENSORTXT",'#OOPS#'); //Add local translation
 define("_ADM_USE_RTL","0"); // turn this to 1 if your language is right to left
 define("_DEF_LANG_TAGS",'en,de'); //Add local translation

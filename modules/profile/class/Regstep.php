@@ -10,7 +10,7 @@
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  * @package		profile
- * @version		$Id: Regstep.php 20113 2010-09-08 19:12:39Z phoenyx $
+ * @version		$Id$
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");

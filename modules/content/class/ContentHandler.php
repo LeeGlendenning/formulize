@@ -6,7 +6,7 @@
  * @copyright 	The ImpressCMS Project <http://www.impresscms.org>
  * @license		GNU General Public License (GPL) <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>
  * @author		Rodrigo P Lima (aka TheRplima) <therplima@impresscms.org>
- * @version		$Id: ContentHandler.php 20561 2010-12-19 18:24:19Z phoenyx $
+ * @version		$Id$
  */
 
 defined('ICMS_ROOT_PATH') or die('ImpressCMS root path not defined');
@@ -154,7 +154,7 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 		}
 
 		if ($content_pid !== false)	$criteria->add(new icms_db_criteria_Item('content_pid', $content_pid));
-
+		$this->setGrantedObjectsCriteria($criteria, "content_read");
 		return $criteria;
 	}
 
@@ -188,9 +188,7 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 		$contents = $this->getObjects($criteria, true, false);
 		$ret = array();
 		foreach ($contents as $content){
-			if ($content['accessgranted']){
 				$ret[$content['content_id']] = $content;
-			}
 		}
 		return $ret;
 	}
@@ -369,7 +367,6 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 				$ret[$j] = '-' . $subccontents[$j];
 			}
 		}
-
 		return $ret;
 	}
 
@@ -380,7 +377,7 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 		if ($count > 1) {
 			return $content->getVar('content_id');
 		} else {
-			$seo = str_replace(" ", "-", $content->getVar('short_url'));
+			$seo = str_replace(" ", "-", $content->short_url());
 			return $seo;
 		}
 	}
@@ -490,25 +487,27 @@ class mod_content_ContentHandler extends icms_ipf_Handler {
 			$obj->setVar('content_notification_sent', true);
 			$this->insert($obj);
 		}
-
-		if ($obj->getVar('content_makesymlink') == 1){
-			$module = icms::handler('icms_module')->getByDirname(basename(dirname(dirname(__FILE__))));
-
-			$seo = $this->makelink($obj);
-			$url = str_replace(ICMS_URL.'/', '', $obj->handler->_moduleUrl . $obj->handler->_itemname . '.php?content_id=' . $obj->getVar('content_id') . '&page=' . $seo);
-
-			$symlink_handler = icms_getModuleHandler('pages', 'system');
+		$module = icms::handler('icms_module')->getByDirname(basename(dirname(dirname(__FILE__))));
+		$symlink_handler = icms_getModuleHandler('pages', 'system');
+		$seo = $this->makelink($obj);
+		$url = str_replace(ICMS_URL.'/', '', $obj->handler->_moduleUrl . $obj->handler->_itemname . '.php?content_id=' . $obj->id() . '&page=' . $seo);
+		if ($obj->getVar('content_makesymlink') == 1) {
 			$criteria = new icms_db_criteria_Compo(new icms_db_criteria_Item('page_url', '%' . $seo, 'LIKE'));
 			$criteria->add(new icms_db_criteria_Item('page_moduleid', $module->getVar('mid')));
 			$ct = $symlink_handler->getObjects($criteria);
 			if (count($ct) <= 0){
 				$symlink = $symlink_handler->create(true);
 				$symlink->setVar('page_moduleid', $module->getVar('mid'));
-				$symlink->setVar('page_title', $obj->getVar('content_title'));
+				$symlink->setVar('page_title', $obj->title());
 				$symlink->setVar('page_url', $url);
 				$symlink->setVar('page_status', 1);
 				$symlink_handler->insert($symlink);
 			}
+		} else {
+			$criteria = new icms_db_criteria_Compo(new icms_db_criteria_Item('page_url', '%' . $seo, 'LIKE'));
+			$criteria->add(new icms_db_criteria_Item('page_moduleid', $module->getVar('mid')));
+			$ct = $symlink_handler->getObjects($criteria, FALSE, TRUE);
+			if($ct) $symlink_handler->delete($ct[0]);
 		}
 		return true;
 	}

@@ -7,7 +7,7 @@
 * @since		1.3
 * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
 * @package		profile
-* @version		$Id: pictures.php 22413 2011-08-27 10:21:21Z phoenyx $
+* @version		$Id$
 */
 
 /**

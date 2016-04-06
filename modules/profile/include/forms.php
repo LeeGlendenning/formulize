@@ -10,7 +10,7 @@
  * @author	Jan Pedersen
  * @author	The SmartFactory <www.smartfactory.ca>
  * @author	Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version	$Id: forms.php 22408 2011-08-26 18:45:39Z phoenyx $
+ * @version	$Id$
  */
 
 /**
@@ -205,13 +205,13 @@ function getUserForm(&$user, $profile = false, $action = false) {
         $elements[0][] = array('element' => $pwd_tray, 'required' => 1); //cannot set an element tray required
         $weights[0][] = 0;
 
-		if (icms::$user->isAdmin() && $user->getVar('uid') != icms::$user->getVar('uid')) { // ALTERED BY FREEFORM SOLUTIONS SO THAT USERS CAN'T ALTER THEIR OWN LEVEL
+        if (icms::$user->isAdmin() && $user->getVar('uid') != icms::$user->getVar('uid')) { // ALTERED BY FREEFORM SOLUTIONS SO THAT USERS CAN'T ALTER THEIR OWN LEVEL
             $level_radio = new icms_form_elements_Radio(_MD_PROFILE_ACTIVEUSER, 'level', $user->getVar('level'));
-            $level_radio->addOption(1, _MD_PROFILE_ACTIVE);
-            $level_radio->addOption(0, _MD_PROFILE_INACTIVE);
-            $level_radio->addOption(-1, _MD_PROFILE_DISABLED);
-            $elements[0][] = array('element' => $level_radio, 'required' => 0);
-            $weights[0][] = 0;
+			$level_radio->addOption(1, _MD_PROFILE_ACTIVE);
+			$level_radio->addOption(0, _MD_PROFILE_INACTIVE);
+			$level_radio->addOption(-1, _MD_PROFILE_DISABLED);
+			$elements[0][] = array('element' => $level_radio, 'required' => 0);
+			$weights[0][] = 0;
 		}
     }
 

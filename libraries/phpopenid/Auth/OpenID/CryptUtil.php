@@ -49,7 +49,7 @@ class Auth_OpenID_CryptUtil {
                 if ($f === false) {
                     $msg = 'Define Auth_OpenID_RAND_SOURCE as null to ' .
                         ' continue with an insecure random number generator.';
-                    trigger_error($msg, E_USER_ERROR);
+                    //trigger_error($msg, E_USER_ERROR);
                 }
             }
         }
@@ -103,6 +103,20 @@ class Auth_OpenID_CryptUtil {
         }
 
         return $str;
+    }
+
+    static function constEq($s1, $s2)
+    {
+        if (strlen($s1) != strlen($s2)) {
+            return false;
+        }
+
+        $result = true;
+        $length = strlen($s1);
+        for ($i = 0; $i < $length; $i++) {
+            $result &= ($s1[$i] == $s2[$i]);
+        }
+        return $result;
     }
 }
 

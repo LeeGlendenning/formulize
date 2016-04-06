@@ -8,7 +8,7 @@
  * @subpackage	Ratings
  * @since		1.2
  * @todo		Complete this feature? You cannot add a rating and there are no ratings to modify
- * @version		SVN: $Id: main.php 21382 2011-03-30 14:12:26Z m0nty_ $
+ * @version		SVN: $Id: main.php 11147 2011-03-30 14:12:26Z m0nty_ $
  */
 
 if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin($icmsModule->getVar('mid'))) {

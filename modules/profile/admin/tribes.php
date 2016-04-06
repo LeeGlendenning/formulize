@@ -9,7 +9,7 @@
  * @since		1.3
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
  * @package		profile
- * @version		$Id: tribes.php 22417 2011-08-27 12:56:36Z phoenyx $
+ * @version		$Id$
  */
 
 /**

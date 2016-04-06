@@ -8,7 +8,7 @@
  * @subpackage	Autotasks
  * @since		1.2 alpha 2
  * @author		MekDrop <mekdrop@gmail.com>
- * @version		SVN: $Id: xoops_version.php 20748 2011-02-03 04:02:50Z skenow $
+ * @version		SVN: $Id: xoops_version.php 11000 2011-02-03 04:02:50Z skenow $
  */
 
 $modversion = array(

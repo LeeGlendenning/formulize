@@ -8,7 +8,7 @@
  * @subpackage	Custom Tags
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		SVN: $Id: customtag.php 20775 2011-02-06 16:37:43Z skenow $
+ * @version		SVN: $Id: customtag.php 12083 2012-10-21 23:24:06Z skenow $
  */
 
 defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");
@@ -94,7 +94,8 @@ class SystemCustomtag extends icms_ipf_Object {
 	 */
 	public function renderWithPhp() {
 		if (!$this->content && !$this->evaluated) {
-			$ret = $this->getVar('customtag_content', 'N');
+			$ret = $this->getVar('customtag_content', 'e');
+			$ret = icms_core_DataFilter::undoHtmlSpecialChars($ret);
 
 			// check for PHP if we are not on admin side
 			if (!defined('XOOPS_CPFUNC_LOADED' ) && $this->getVar('customtag_type') == ICMS_CUSTOMTAG_TYPE_PHP) {

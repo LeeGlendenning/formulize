@@ -7,7 +7,7 @@
  * @author		phppp (infomax@gmail.com)
  * @since		Xoops 2.0.17
  * @package 	core
- * @version		SVN: $Id: site-closed.php 21837 2011-06-23 13:16:54Z phoenyx $
+ * @version		SVN: $Id: site-closed.php 11613 2012-02-29 00:41:19Z skenow $
  */
 
 defined("ICMS_ROOT_PATH") || die("ImpressCMS root path not defined");
@@ -33,6 +33,8 @@ if (!$allowed) {
 	$themeFactory->defaultTheme = $icmsConfig['theme_set'];
 	$icmsTheme =& $themeFactory->createInstance(array("plugins" => array()));
 	$icmsTheme->addScript('/include/xoops.js', array('type' => 'text/javascript'));
+	/** @todo	Remove icms.css in 2.0 */
+	icms_core_Debug::setDeprecated("Elements from icms.css need to be moved to your theme", sprintf(_CORE_REMOVE_IN_VERSION, '2.0'));
 	$icmsTheme->addStylesheet(ICMS_URL . "/icms" 
 		. ((defined('_ADM_USE_RTL') && _ADM_USE_RTL) ? "_rtl" : "") . ".css", array("media" => "screen"));
 	$icmsTpl =& $icmsTheme->template;

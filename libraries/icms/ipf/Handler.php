@@ -9,12 +9,11 @@
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @category	ICMS
  * @package		Ipf
- * @subpackage	Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
  * @author		This was inspired by Mithrandir PersistableObjectHanlder: Jan Keller Pedersen <mithrandir@xoops.org> - IDG Danmark A/S <www.idg.dk>
  * @author		Gustavo Alejandro Pilla (aka nekro) <nekro@impresscms.org> <gpilla@nubee.com.ar>
- * @version		SVN: $Id: Handler.php 21047 2011-03-14 15:52:14Z m0nty_ $
+ * @version		SVN: $Id: Handler.php 12068 2012-10-14 21:28:13Z skenow $
  * @todo		Use language constants for messages
  * @todo		Properly determine visibility for methods and vars (private, protected, public) and apply naming conventions
  */
@@ -24,7 +23,6 @@ defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");
  * Persistable Object Handlder
  * @category	ICMS
  * @package		Ipf
- * @subpackage	Object
  * @since		1.1
  * @todo		Properly name the vars using the naming conventions
  */
@@ -156,7 +154,7 @@ class icms_ipf_Handler extends icms_core_ObjectHandler {
 	 * @param string $keyname Name of the table key that uniquely identify each {@link icms_ipf_Object}
 	 * @param string $idenfierName Name of the field which properly identify the {@link icms_ipf_Object}
 	 * @param string $summaryName Name of the field which will be use as a summary for the object
-	 * @param string $modulename Name of the module controlling this object
+	 * @param string $modulename Directory name of the module controlling this object
 	 * @return object
 	 */
 	public function __construct(&$db, $itemname, $keyname, $idenfierName, $summaryName, $modulename) {

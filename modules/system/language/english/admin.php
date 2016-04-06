@@ -1,5 +1,5 @@
 <?php
-// $Id: admin.php 20837 2011-02-15 01:30:36Z skenow $
+// $Id: admin.php 11023 2011-02-15 01:30:36Z skenow $
 //%%%%%%	File Name  admin.php 	%%%%%
 //define('_MD_AM_CONFIG','System Configuration');
 define('_INVALID_ADMIN_FUNCTION', 'Invalid Admin Function');

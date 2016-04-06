@@ -9,7 +9,7 @@
  * @subpackage	Elements
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: icmsformlanguageelement.php 20285 2010-10-11 18:59:29Z phoenyx $
+ * @version		$Id: icmsformlanguageelement.php 10717 2010-10-11 18:59:29Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");

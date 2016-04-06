@@ -1,5 +1,6 @@
 <?php
-// $Id: notification.php 21524 2011-04-15 05:45:50Z blauer-fisch $
+// $Id: notification.php 12229 2013-07-19 08:08:05Z fiammy $
+// $Id: notification.php 12229 2013-07-19 08:08:05Z fiammy $
 
 // RMV-NOTIFY
 
@@ -84,4 +85,6 @@ define ('_NOT_MODE_SENDONCE', 'Notify me only once');
 define ('_NOT_MODE_SENDONCEPERLOGIN', 'Notify me once then disable until I log in again');
 
 define ('_NOT_NOTHINGTODELETE', 'There is nothing to delete.');
-?>
+
+// Added in 1.3.1
+define("_NOT_RUSUREDEL", "Are you sure you want to delete these notifications?");
