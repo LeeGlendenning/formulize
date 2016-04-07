@@ -5,7 +5,7 @@
  * @package database
  * @subpackage mysql
  * @since ImpressCMS 1.0
- * @version $Id: xoops_version.php 8560 2009-04-11 11:24:42Z icmsunderdog $
+ * @version $Id: xoops_version.php 8558 2009-04-11 11:24:42Z icmsunderdog $
  *
  * @author Gustavo Pilla <nekro@impresscms.org>
  * @copyright Copyright (c) 2008, ImpressCMS <http://www.impresscms.org>

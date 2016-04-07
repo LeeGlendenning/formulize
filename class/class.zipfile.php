@@ -5,11 +5,11 @@
  * @copyright	http://www.xoops.org/ The XOOPS Project
  * @copyright	XOOPS_copyrights.txt
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license	http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
+ * @license	LICENSE.txt
  * @package	core
  * @since	XOOPS
  * @author	http://www.xoops.org The XOOPS Project
- * @version	$Id: class.zipfile.php 12278 2013-08-31 22:12:36Z fiammy $
+ * @version	$Id: class.zipfile.php 20021 2010-08-25 14:35:25Z malanciault $
  * @deprecated	Use icms_file_ZipFileHandler instead
  * @todo Remove in version 1.4
 */

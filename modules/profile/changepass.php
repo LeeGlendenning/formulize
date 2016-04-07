@@ -10,7 +10,7 @@
  * @author          Jan Pedersen
  * @author          The SmartFactory <www.smartfactory.ca>
  * @author	   		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version         $Id$
+ * @version         $Id: changepass.php 21139 2011-03-20 20:58:11Z m0nty_ $
  */
 
 $profile_template = 'profile_changepass.html';
@@ -47,9 +47,12 @@ if (!isset($_POST['submit'])) {
 	if ($stop != '') {
 		redirect_header(PROFILE_URL.'changepass.php', 2, $stop);
 	} else {
-        $icmspass = new icms_core_Password();
-		$pass = $icmspass->encryptPass($password);
+		$icmspass = new icms_core_Password();
+		$salt = icms_core_Password::createSalt();
+		$pass = $icmspass->encryptPass($_POST['password'], $salt, $icmsConfigUser['enc_type']);
+		icms::$user->setVar('salt', $salt, true);
 		icms::$user->setVar('pass', $pass, true);
+		icms::$user->setVar('enc_type', $icmsConfigUser['enc_type'], true);
 
 		if ($member_handler->insertUser(icms::$user)) {
 			redirect_header(PROFILE_URL.'/userinfo.php?uid='.icms::$user->getVar('uid'), 2, _MD_PROFILE_PASSWORDCHANGED);

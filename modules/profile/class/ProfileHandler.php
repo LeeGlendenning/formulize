@@ -8,7 +8,7 @@
  * @since		1.4
  * @author		phoenyx
  * @package		profile
- * @version		$Id$
+ * @version		$Id: ProfileHandler.php 20428 2010-11-21 12:38:18Z phoenyx $
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");

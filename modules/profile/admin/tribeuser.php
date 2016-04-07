@@ -8,7 +8,7 @@
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @since		1.3
  * @package		profile
- * @version		$Id$
+ * @version		$Id: tribeuser.php 20428 2010-11-21 12:38:18Z phoenyx $
  */
 
 /**

@@ -8,7 +8,7 @@
  * @subpackage	Ratings
  * @since		1.2
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		SVN: $Id: rating.php 11282 2011-06-23 14:44:34Z phoenyx $
+ * @version		SVN: $Id: rating.php 21840 2011-06-23 14:44:34Z phoenyx $
  */
 
 /**

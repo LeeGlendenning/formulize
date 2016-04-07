@@ -1,30 +1,19 @@
 <?php
-/*
- You may not change or alter any portion of this comment or credits
- of supporting developers from this source code or any supporting source code
- which is considered copyrighted (c) material of the original comment or credit authors.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-*/
 /**
  * Installer mainfile creation page
  *
  * See the enclosed file license.txt for licensing information.
  * If you did not receive this file, get it at http://www.fsf.org/copyleft/gpl.html
  *
- * @copyright   The XOOPS project http://www.xoops.org/
- * @license     http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
+ * @copyright    The XOOPS project http://www.xoops.org/
+ * @license      http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
  * @package		installer
- * @since       2.3.0
+ * @since        Xoops 2.3.0
  * @author		Haruki Setoyama  <haruki@planewave.org>
  * @author 		Kazumi Ono <webmaster@myweb.ne.jp>
  * @author		Skalpa Keo <skalpa@xoops.org>
- * @author		Taiwen Jiang <phppp@users.sourceforge.net>
- * @version		$Id: page_configsave.php 12329 2013-09-19 13:53:36Z skenow $
+ * @version		$Id: page_configsave.php 20098 2010-09-07 16:19:19Z skenow $
  */
-
 /**
  *
  */
@@ -114,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			} else {
 				$content = str_replace('// sdata#--#', '', $content);
 			}
-			
+
 			// ADDED BY FREEFORM SOLUTIONS
 			$rewrite['TRUST_PATH'] = "REPLACE-ROOT-IN-TRUST-PATH";
 
@@ -137,7 +126,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					//$this->report .= _NGIMG.sprintf( ERR_WRITING_CONSTANT, "<b>$val</b>")."<br />\n";
 				}
 			}
-			
 			// ADDED BY FREEFORM SOLUTIONS
 			$content = str_replace("'REPLACE-ROOT-IN-TRUST-PATH", str_replace("'".addslashes($vars['ROOT_PATH']), "XOOPS_ROOT_PATH.'", "'".addslashes($vars['TRUST_PATH'])), $content);
 			if (!$file = fopen( $vars['ROOT_PATH'] . '/mainfile.php', "w" )) {

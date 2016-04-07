@@ -10,7 +10,7 @@
  * @author		marcan <marcan@impresscms.org>
  * @todo		Remove this in 1.4
  * @deprecated	include class/theme_blocks.php instead
- * @version		$Id: xoopstpl.php 10868 2010-12-11 12:02:57Z phoenyx $
+ * @version		$Id: xoopstpl.php 20509 2010-12-11 12:02:57Z phoenyx $
  */
 
 defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");

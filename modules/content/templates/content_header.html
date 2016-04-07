@@ -1,9 +1,9 @@
-<{if $content_category_path}>
-	<div class="content_headertable">
-		<{if $content_module_home}><span class="content_modulename"><{$content_module_home}></span><{/if}>
-		<span class="content_breadcrumb">
-			<{if $content_module_home}>&gt;&nbsp;<{/if}><{$content_category_path}>
-		</span>
-	</div>
-	<div style="clear: both;"></div>
-<{/if}>
+<div class="content_headertable">
+	<{if $content_module_home}><span class="content_modulename"><{$content_module_home}></span><{/if}>
+	<{if $content_category_path}>
+	<span class="content_breadcrumb">
+		<{if $content_module_home}>&gt;&nbsp;<{/if}><{$content_category_path}>
+	</span>
+	<{/if}>
+</div>
+<div style="clear: both;"></div>

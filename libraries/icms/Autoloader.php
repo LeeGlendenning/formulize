@@ -4,10 +4,11 @@
  *
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- * @category	ICMS
+ * @package		icms_core
+ * @subpackage	icms_core_Autoloader
  * @since		1.3
  * @author		Marc-André Lanciault (aka marcan) <mal@inboxintl.com>
- * @version		$Id: Autoloader.php 11448 2011-11-21 16:37:13Z fiammy $
+ * @version		$Id: Autoloader.php 21089 2011-03-18 18:13:37Z skenow $
  */
 class icms_Autoloader {
 	/**

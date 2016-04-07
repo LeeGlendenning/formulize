@@ -10,7 +10,7 @@
  * @subpackage	Block Positions
  * @since		1.1
  * @author		Rodrigo Pereira Lima (AKA TheRplima) <therplima@impresscms.org>
- * @version		SVN: $Id: xoops_version.php 11009 2011-02-05 21:17:31Z skenow $
+ * @version		SVN: $Id: xoops_version.php 20766 2011-02-05 21:17:31Z skenow $
  */
 
 $modversion = array(

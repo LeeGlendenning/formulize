@@ -10,7 +10,7 @@
  * @author          Jan Pedersen
  * @author          The SmartFactory <www.smartfactory.ca>
  * @author	   		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version         $Id$
+ * @version         $Id: changemail.php 21139 2011-03-20 20:58:11Z m0nty_ $
  */
 
 include '../../mainfile.php';

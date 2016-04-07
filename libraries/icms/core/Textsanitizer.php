@@ -1,32 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
 /**
  * Input validation and processing, BB code conversion, Smiley conversion
  *
@@ -36,8 +8,9 @@
  * @package		Core
  * @subpackage	Textsanitizer
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version	SVN: $Id: Textsanitizer.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version		SVN: $Id: Textsanitizer.php 22529 2011-09-02 19:55:40Z phoenyx $
  */
+
 /**
  * Class to "clean up" text for various uses
  *
@@ -242,27 +215,44 @@ class icms_core_Textsanitizer {
 	 * @return  string
 	 **/
 	public function displayTarea($text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1) {
-		// Before this can be deprecated, the events for displayTarea need to be added, first
+		// Before this can be deprecated, the events for dispalyTarea need to be added, first
 		//icms_core_Debug::setDeprecated('icms_core_DataFilter::checkVar - type = text or html, $options1 = input or output', sprintf(_CORE_REMOVE_IN_VERSION, '1.4'));
-
-		/* trigger all the events tied to the beforeDisplayTarea event */
 		icms::$preload->triggerEvent('beforeDisplayTarea', array(&$text, $html, $smiley, $xcode, $image, $br));
 
-		if ($html = 0){
-			$text = icms_core_DataFilter::filterTextareaDisplay($text, $smiley, $xcode, $image, $br);
-		} else {
-			$text = icms_core_DataFilter::filterHTMLdisplay($text, $xcode, $br);
+		if ($html != 1) {
+			$text = icms_core_DataFilter::htmlSpecialChars($text);
 		}
 
-		/* trigger all events tied to the afterDisplayTarea event */
+		$text = icms_core_DataFilter::codePreConv($text, $xcode);
+		$text = icms_core_DataFilter::makeClickable($text);
+		if ($smiley != 0) {
+			$text = icms_core_DataFilter::smiley($text);
+		}
+		if ($xcode != 0) {
+			if ($image != 0) {
+				$text = icms_core_DataFilter::codeDecode($text);
+			} else {
+				$text = icms_core_DataFilter::codeDecode($text, 0);
+			}
+		}
+		$config_handler = icms::handler('icms_config');
+		$icmsConfigPurifier = $config_handler->getConfigsByCat(ICMS_CONF_PURIFIER);
+		if ($br !== 0 || ($html !== 0 && $icmsConfigPurifier['enable_purifier'] !== 1)) {
+			$text = icms_core_DataFilter::nl2Br($text);
+		}
+		$text = icms_core_DataFilter::codeConv($text, $xcode, $image);
+
+		if ($html != 0 && $icmsConfigPurifier['enable_purifier'] !== 0) {
+			$text = icms_core_DataFilter::checkVar($text, 'html');
+		}
+
+		// ################# Preload Trigger afterDisplayTarea ##############
 		icms::$preload->triggerEvent('afterDisplayTarea', array(&$text, $html, $smiley, $xcode, $image, $br));
 		return $text;
 	}
 
 	/**
 	 * Filters textarea form data submitted for preview
-	 *
-	 * The only difference between this and displayTarea is the need to deal with $_POST input instead of database output
 	 *
 	 * @param   string  $text
 	 * @param   bool	$html   allow html?
@@ -275,19 +265,36 @@ class icms_core_Textsanitizer {
 	public function previewTarea($text, $html = 0, $smiley = 1, $xcode = 1, $image = 1, $br = 1) {
 		 /* @deprecated Use icms_core_DataFilter::checkVar, instead - the events for previewTarea need to be added, first */
 		//icms_core_Debug::setDeprecated('icms_core_DataFilter::checkVar - type = text or html, $options1 = input', sprintf(_CORE_REMOVE_IN_VERSION, '1.4'));
-
-		/* trigger all the events tied to the beforePreviewTarea event */
 		icms::$preload->triggerEvent('beforePreviewTarea', array(&$text, $html, $smiley, $xcode, $image, $br));
 
 		$text = icms_core_DataFilter::stripSlashesGPC($text);
-
-		if ($html = 0) {
-			$text = icms_core_DataFilter::filterTextareaDisplay($text, $smiley, $xcode, $image, $br);
-		} else {
-			$text = icms_core_DataFilter::filterHTMLdisplay($text, $xcode, $br);
+		if ($html != 1) {
+			$text = icms_core_DataFilter::htmlSpecialChars($text);
 		}
 
-		/* trigger all the events tied to the afterPreviewTarea event */
+		$text = icms_core_DataFilter::codePreConv($text, $xcode);
+		$text = icms_core_DataFilter::makeClickable($text);
+		if ($smiley != 0) {
+			$text = icms_core_DataFilter::smiley($text);
+		}
+		if ($xcode != 0) {
+			if ($image != 0) {
+				$text = icms_core_DataFilter::codeDecode($text);
+			} else {
+				$text = icms_core_DataFilter::codeDecode($text, 0);
+			}
+		}
+		$config_handler = icms::handler('icms_config');
+		$icmsConfigPurifier = $config_handler->getConfigsByCat(ICMS_CONF_PURIFIER);
+		if ($br !== 0 || ($html !== 0 && $icmsConfigPurifier['enable_purifier'] !== 1)) {
+			$text = icms_core_DataFilter::nl2Br($text);
+		}
+		$text = icms_core_DataFilter::codeConv($text, $xcode, $image);
+
+		if ($html != 0 && $icmsConfigPurifier['enable_purifier'] !== 0) {
+			$text = icms_core_DataFilter::checkVar($text, 'html');
+		}
+
 		icms::$preload->triggerEvent('afterPreviewTarea', array(&$text, $html, $smiley, $xcode, $image, $br));
 
 		return $text;
@@ -511,7 +518,7 @@ class icms_core_Textsanitizer {
 	 *
 	 * @deprecated	icms_core_DataFilter::checkVar - type = text
 	 * @todo		Remove this in version 1.4
-	 *
+	 * 
 	 * @param str	$text
 	 */
 	function makeTareaData4PreviewInForm($text) {

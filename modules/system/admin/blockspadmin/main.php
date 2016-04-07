@@ -11,11 +11,11 @@
  * @subpackage	Block Positions
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  * @author		Rodrigo Pereira Lima (AKA TheRplima) <therplima@impresscms.org>
- * @version		SVN: $Id: main.php 12455 2014-06-24 09:30:49Z sato-san $
+ * @version		SVN: $Id: main.php 20766 2011-02-05 21:17:31Z skenow $
  */
 
 if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin($icmsModule->getVar('mid'))) {
-	exit(_NOPERM);
+	exit(_CT_ACCESS_DENIED);
 }
 
 /**

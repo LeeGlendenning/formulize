@@ -9,7 +9,7 @@
  * @since		1.0
  * @author		Rodrigo P Lima aka TheRplima <therplima@impresscms.org>
  * @package		content
- * @version		$Id$
+ * @version		$Id: content.php 21967 2011-07-04 18:41:00Z mcdonald3072 $
  */
 
 /**
@@ -23,11 +23,7 @@ function editcontent($content_id = 0, $clone = false, $content_pid = false) {
 	$contentObj = $content_content_handler->get($content_id);
 
 	if (!$clone && !$contentObj->isNew()) {
-		$contentObj->hideFieldFromForm(array('content_published_date', 'content_updated_date'));
-		if($contentObj->getVar("content_makesymlink") == 1) {
-			//$contentObj->hideFieldFromForm("content_makesymlink");
-			$contentObj->makeFieldReadOnly("short_url");
-		}
+		$contentObj->hideFieldFromForm(array('content_published_date', 'content_updated_date', 'content_makesymlink'));
 		$contentObj->setVar('content_updated_date', date(_DATESTRING));
 		icms::$module->displayAdminMenu(0, _AM_CONTENT_CONTENTS . " > " . _CO_ICMS_EDITING);
 		$sform = $contentObj->getForm(_AM_CONTENT_CONTENT_EDIT, 'addcontent');
@@ -35,9 +31,6 @@ function editcontent($content_id = 0, $clone = false, $content_pid = false) {
 	} elseif (!$contentObj->isNew() && $clone) {
 		$contentObj->hideFieldFromForm(array('content_published_date', 'content_updated_date'));
 		$contentObj->setVar('content_id', 0);
-		$contentObj->setVar('counter', 0);
-		$contentObj->setVar('content_notification_sent', 0);
-		$contentObj->setVar("content_comments", 0);
 		$contentObj->setNew();
 		icms::$module->displayAdminMenu(0, _AM_CONTENT_CONTENTS . " > " . _AM_CONTENT_CONTENT_CLONE);
 		$sform = $contentObj->getForm(_AM_CONTENT_CONTENT_CLONE, 'addcontent');

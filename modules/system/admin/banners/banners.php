@@ -1,33 +1,4 @@
 <?php
-// $Id: banners.php 12313 2013-09-15 21:14:35Z skenow $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
 /**
  * Banner administration functions
  *
@@ -37,8 +8,9 @@
  * @license		LICENSE.txt
  * @package		Administration
  * @subpackage	Banners
- * @version		SVN: $Id: banners.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version		SVN: $Id: banners.php 22478 2011-08-30 18:27:22Z phoenyx $
  */
+
 if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin($icmsModule->getVar('mid'))) {
 	exit("Access Denied");
 } else {
@@ -256,7 +228,7 @@ if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin(
 		echo"<table width='100%' border='0' cellspacing='1' class='outer'><tr><td class=\"odd\">";
 		echo"<h4>" . _AM_EDITBNR . "</h4>";
 		if ($htmlbanner) {
-			echo icms_core_DataFilter::checkVar($htmlcode, 'html', 'output');
+			echo icms_core_DataFilter::checkVar($htmlcode, 'html', 'input');
 		} else {
 			if (strtolower(substr($imageurl, strrpos($imageurl, ".")))==".swf") {
 				echo '<object type="application/x-shockwave-flash" data="' . $imageurl . '" width="468" height="60">';
@@ -267,7 +239,7 @@ if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin(
 				echo '<img src="' . $imageurl . '" alt="" />';
 			}
 		}
-		echo "<form action='admin.php' method='post'>"
+		echo "<form action='admin.php' method='post'>" 
 			. _AM_CLINAMET . "<select name='cid'>\n";
 		$result = icms::$xoopsDB->query("SELECT cid, name FROM " . icms::$xoopsDB->prefix("bannerclient") . " where cid='". (int) $cid . "'");
 		list($cid, $name) = icms::$xoopsDB->fetchRow($result);
@@ -293,7 +265,7 @@ if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin(
 		if ($htmlbanner) {
 			echo " <input type='checkbox' name='htmlbanner' value='1' checked='checked' />";
 			echo "<br />" . _AM_CODEHTML
-			. "<br /><textarea name='htmlcode' rows='6' cols='60'>" . icms_core_DataFilter::checkVar($htmlcode, 'html', 'edit')
+			. "<br /><textarea name='htmlcode' rows='6' cols='60'>" . icms_core_DataFilter::checkVar($htmlcode, 'html', 'input')
 			. "</textarea><br /><input type='hidden' name='bid' value='$bid' />"
 			. "<input type='hidden' name='imptotal' value='$imptotal' />"
 			. "<input type='hidden' name='fct' value='banners' />"
@@ -303,7 +275,7 @@ if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin(
 		} else {
 			echo " <input type='checkbox' name='htmlbanner' value='1' />";
 			echo "<br />" . _AM_CODEHTML
-			. "<br /><textarea name='htmlcode' rows='6' cols='60'>" . icms_core_DataFilter::checkVar($htmlcode, 'text', 'output')
+			. "<br /><textarea name='htmlcode' rows='6' cols='60'>" . icms_core_DataFilter::checkVar($htmlcode, 'text', 'input')
 			. "</textarea><br /><input type='hidden' name='bid' value='$bid' />"
 			. "<input type='hidden' name='imptotal' value='$imptotal' />"
 			. "<input type='hidden' name='fct' value='banners' />"

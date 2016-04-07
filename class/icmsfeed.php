@@ -10,7 +10,7 @@
  * @deprecated	Use icms_feeds_Rss, instead
  * @todo		Remove in version 1.4
  * @author		Ignacio Segura, "Nachenko"
- * @version		$Id: icmsfeed.php 10762 2010-11-15 20:26:46Z skenow $
+ * @version		$Id: icmsfeed.php 20369 2010-11-15 20:26:46Z skenow $
  */
 
 defined('ICMS_ROOT_PATH') or exit();

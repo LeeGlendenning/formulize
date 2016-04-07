@@ -8,7 +8,7 @@
  * @package		modules
  * @since		1.4
  * @author		phoenyx
- * @version		$Id$
+ * @version		$Id: reactivate_suspended.php 20113 2010-09-08 19:12:39Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");

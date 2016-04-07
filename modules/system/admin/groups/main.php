@@ -1,33 +1,4 @@
 <?php
-// $Id: main.php 12313 2013-09-15 21:14:35Z skenow $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
 /**
  * Administration of usergroups, main file
  *
@@ -35,12 +6,13 @@
  * @license		LICENSE.txt
  * @package		Administration
  * @subpackage	Groups
- * @version		SVN: $Id: main.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version		SVN: $Id: main.php 21375 2011-03-30 13:24:45Z m0nty_ $
  */
+
 $gperm_handler = icms::handler('icms_member_groupperm');
-if (!is_object(icms::$user)
-	|| !is_object($icmsModule)
-	|| !icms::$user->isAdmin($icmsModule->getVar('mid'))
+if (!is_object(icms::$user) 
+	|| !is_object($icmsModule) 
+	|| !icms::$user->isAdmin($icmsModule->getVar('mid')) 
 	|| (isset($_GET['g_id']) && !$gperm_handler->checkRight('group_manager', $_GET['g_id'], icms::$user->getGroups()))
 	) {
 	exit("Access Denied");
@@ -69,7 +41,7 @@ switch ($op) {
 
 	case "update":
 		if (!icms::$security->check()) {
-			redirect_header("admin.php?fct=groups", 3, implode('<br />', icms::$security->getErrors()));
+			redirect_header("admin.php?fct=groups&amp;op=adminMain", 3, implode('<br />', icms::$security->getErrors()));
 		}
 		$system_catids = empty($system_catids) ? array() : $system_catids;
 		$admin_mids = empty($admin_mids) ? array() : $admin_mids;
@@ -92,7 +64,9 @@ switch ($op) {
 		}
 
 		if (!$member_handler->insertGroup($group)) {
-			redirect_header("admin.php?fct=groups", 3, $group->getHtmlErrors());
+			icms_cp_header();
+			echo $group->getHtmlErrors();
+			icms_cp_footer();
 		} else {
 			$groupid = $group->getVar('groupid');
 			$gperm_handler = icms::handler('icms_member_groupperm');
@@ -177,16 +151,19 @@ switch ($op) {
 				$blockperm->setVar('gperm_modid', 1);
 				$gperm_handler->insert($blockperm);
 			}
-			redirect_header("admin.php?fct=groups", 1, _AM_DBUPDATED);
+			redirect_header("admin.php?fct=groups&amp;op=adminMain", 1, _AM_DBUPDATED);
 		}
 		break;
 
 	case "add":
 		if (!icms::$security->check()) {
-			redirect_header("admin.php?fct=groups", 3, implode('<br />', icms::$security->getErrors()));
+			redirect_header("admin.php?fct=groups&amp;op=adminMain", 3, implode('<br />', icms::$security->getErrors()));
 		}
 		if (!$name) {
-			redirect_header("admin.php?fct=groups", 3,_AM_UNEED2ENTER);
+			icms_cp_header();
+			echo _AM_UNEED2ENTER;
+			icms_cp_footer();
+			exit();
 		}
 
 		$system_catids = empty($system_catids) ? array() : $system_catids;
@@ -204,7 +181,9 @@ switch ($op) {
 			$group->setVar("group_type", 'Admin');
 		}
 		if (!$member_handler->insertGroup($group)) {
-			redirect_header("admin.php?fct=groups", 3, $group->getHtmlErrors());
+			icms_cp_header();
+			echo $group->getHtmlErrors();
+			icms_cp_footer();
 		} else {
 			$groupid = $group->getVar('groupid');
 			$gperm_handler = icms::handler('icms_member_groupperm');
@@ -268,7 +247,7 @@ switch ($op) {
 				$blockperm->setVar('gperm_modid', 1);
 				$gperm_handler->insert($blockperm);
 			}
-			redirect_header("admin.php?fct=groups", 1, _AM_DBUPDATED);
+			redirect_header("admin.php?fct=groups&amp;op=adminMain", 1, _AM_DBUPDATED);
 		}
 		break;
 
@@ -280,7 +259,7 @@ switch ($op) {
 
 	case "delConf":
 		if (!icms::$security->check()) {
-			redirect_header("admin.php?fct=groups", 3, implode('<br />', icms::$security->getErrors()));
+			redirect_header("admin.php?fct=groups&amp;op=adminMain", 3, implode('<br />', icms::$security->getErrors()));
 		}
 		if ((int) ($g_id) > 0 && !in_array($g_id, array(XOOPS_GROUP_ADMIN, XOOPS_GROUP_USERS, XOOPS_GROUP_ANONYMOUS))) {
 			$member_handler = icms::handler('icms_member');
@@ -289,12 +268,12 @@ switch ($op) {
 			$gperm_handler = icms::handler('icms_member_groupperm');
 			$gperm_handler->deleteByGroup($g_id);
 		}
-		redirect_header("admin.php?fct=groups", 1, _AM_DBUPDATED);
+		redirect_header("admin.php?fct=groups&amp;op=adminMain", 1, _AM_DBUPDATED);
 		break;
 
 	case "addUser":
 		if (!icms::$security->check()) {
-			redirect_header("admin.php?fct=groups", 3, implode('<br />', icms::$security->getErrors()));
+			redirect_header("admin.php?fct=groups&amp;op=adminMain", 3, implode('<br />', icms::$security->getErrors()));
 		}
 		$member_handler = icms::handler('icms_member');
 		$size = count($uids);
@@ -306,7 +285,7 @@ switch ($op) {
 
 	case "delUser":
 		if (!icms::$security->check()) {
-			redirect_header("admin.php?fct=groups", 3, implode('<br />', icms::$security->getErrors()));
+			redirect_header("admin.php?fct=groups&amp;op=adminMain", 3, implode('<br />', icms::$security->getErrors()));
 		}
 		if ((int) $groupid > 0) {
 			$member_handler = icms::handler('icms_member');
@@ -321,7 +300,7 @@ switch ($op) {
 			redirect_header('admin.php?fct=groups&amp;op=modify&amp;g_id=' . $groupid . '&amp;memstart=' . $memstart, 0, _AM_DBUPDATED);
 		}
 		break;
-
+		
 	case "display":
 	default:
 		displayGroups();

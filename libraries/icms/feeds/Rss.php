@@ -9,7 +9,7 @@
  * @subpackage	RSS
  * @since		1.1
  * @author		Ignacio Segura, "Nachenko"
- * @version		$Id: Rss.php 12097 2012-10-28 21:01:59Z skenow $
+ * @version		$Id: Rss.php 20423 2010-11-20 17:09:38Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or exit();
@@ -51,14 +51,14 @@ class icms_feeds_Rss {
 		$this->description = htmlspecialchars($icmsConfig['slogan'], ENT_QUOTES, _CHARSET);
 		$this->language = _LANGCODE;
 		$this->charset = _CHARSET;
-		$this->pubDate = date('r', time());
-		$this->lastbuild = date('r', time());
+		$this->pubDate = date(_DATESTRING, time());
+		$this->lastbuild = formatTimestamp(time(), 'rss');
 		$this->webMaster = $icmsConfig['adminmail'];
 		$this->channelEditor = $icmsConfig['adminmail'];
 		$this->generator = ICMS_VERSION_NAME;
 		$this->copyright = _COPYRIGHT . ' ' . formatTimestamp(time(), 'Y')
 			. ' ' . htmlspecialchars($icmsConfig['sitename'], ENT_QUOTES, _CHARSET);
-		$this->width  = 144;
+		$this->width  = 200;
 		$this->height = 50;
 		$this->ttl    = 60;
 		$this->image = array(

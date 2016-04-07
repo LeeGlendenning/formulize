@@ -3,7 +3,7 @@
  * @package database
  * @subpackage  main
  * @since XOOPS
- * @version $Id: databasefactory.php 12329 2013-09-19 13:53:36Z skenow $
+ * @version $Id: databasefactory.php 20119 2010-09-09 17:55:46Z phoenyx $
  *
  * @author		The XOOPS Project Community <http://www.xoops.org>
  * @author      Gustavo Pilla  (aka nekro) <nekro@impresscms.org>
@@ -43,12 +43,6 @@ class IcmsDatabaseFactory extends icms_db_legacy_Factory {
  *
  * @deprecated
  */
-class XoopsDatabaseFactory extends IcmsDatabaseFactory {
-	/* For backwards compatibility */
-	static public function getDatabaseConnection() {
-		$db = icms_db_Factory::instance();
-		return $db;
-	}
-}
+class XoopsDatabaseFactory extends IcmsDatabaseFactory { /* For backwards compatibility */ }
 
 ?>

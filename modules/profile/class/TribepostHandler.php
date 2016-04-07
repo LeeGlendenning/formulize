@@ -7,7 +7,7 @@
  * @since		1.4
  * @author		phoenyx
  * @package		profile
- * @version		$Id$
+ * @version		$Id: TribepostHandler.php 20562 2010-12-19 18:26:36Z phoenyx $
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");

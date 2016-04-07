@@ -7,7 +7,7 @@
 * @since		1.0
 * @author		Rodrigo P Lima aka TheRplima <therplima@impresscms.org>
 * @package		content
-* @version		$Id$
+* @version		$Id: about.php 20051 2010-08-28 16:30:42Z phoenyx $
 */
 
 include_once "admin_header.php";

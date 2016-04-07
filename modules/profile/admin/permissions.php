@@ -10,7 +10,7 @@
  * @author          Jan Pedersen
  * @author          The SmartFactory <www.smartfactory.ca>
  * @author	   		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version         $Id$
+ * @version         $Id: permissions.php 20428 2010-11-21 12:38:18Z phoenyx $
  */
 
 include_once 'admin_header.php';

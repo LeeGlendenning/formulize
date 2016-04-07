@@ -5,12 +5,12 @@
  * Using a static class instead of a include file with global functions, along with
  * autoloading of classes, reduces the memory usage and only includes files when needed.
  *
- * @category	ICMS
- * @package		Core
+ * @category	Core
+ * @package		Debug
  * @author		Steve Kenow <skenow@impresscms.org>
  * @copyright	(c) 2007-2008 The ImpressCMS Project - www.impresscms.org
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- * @version		SVN: $Id: Debug.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version		SVN: $Id: Debug.php 22562 2011-09-05 22:02:58Z skenow $
  * @since		1.3
  */
 
@@ -52,13 +52,13 @@ class icms_core_Debug {
 
  	/**
  	 * Provides a backtrace for deprecated methods and functions, will be in the error section of debug
- 	 * This takes the place of icms_deprecated() and include/functions.php :: xoops_refcheck()
+ 	 * This takes the place of icms_deprecated()
  	 *
  	 * @param string $replacement Method or function to be used instead of the deprecated method or function
  	 * @param string $extra Additional information to provide about the change
  	 */
  	static public function setDeprecated($replacement='', $extra='') {
-		if (defined("ICMS_TRACK_DEPRECATED") and !ICMS_TRACK_DEPRECATED) {
+        if (defined("ICMS_TRACK_DEPRECATED") and !ICMS_TRACK_DEPRECATED) {
             //error_log("icms_core_Debug::setDeprecated('$replacement', '$extra');");
             return; // if we're not actively upgrading deprecated functions, no need to spend time tracking them
         }
@@ -67,9 +67,9 @@ class icms_core_Debug {
 		array_shift($trace);
 		$level = $msg = $message = '';
 		$pre =  '<strong><em>(' . _CORE_DEPRECATED . ')</em></strong> - ';
-		if ($trace[0]['function'] != 'include'
-			&& $trace[0]['function'] != 'include_once'
-			&& $trace[0]['function'] != 'require'
+		if ($trace[0]['function'] != 'include' 
+			&& $trace[0]['function'] != 'include_once' 
+			&& $trace[0]['function'] != 'require' 
 			&& $trace[0]['function'] != 'require_once'
 		) {
 			$pre .= $trace[0]['function'] . ': ';
@@ -81,8 +81,8 @@ class icms_core_Debug {
 			    	$message .= $level . $msg
 						. (isset( $step['class'] ) ? $step['class'] : '')
 						. (isset( $step['type'] ) ? $step['type'] : '' )
-						. sprintf(_CORE_DEPRECATED_MSG, $step['function'],
-							str_replace(array(ICMS_TRUST_PATH, ICMS_ROOT_PATH), array("TRUSTPATH", "ROOTPATH"), $step['file']),
+						. sprintf(_CORE_DEPRECATED_MSG, $step['function'], 
+							str_replace(array(ICMS_TRUST_PATH, ICMS_ROOT_PATH), array("TRUSTPATH", "ROOTPATH"), $step['file']), 
 							$step['line']
 						);
 			}

@@ -9,7 +9,7 @@
 * @package	breadcrumb
 * @since            1.0
 * @author		marcan <marcan@impresscms.org>
-* @version		$Id: icmsbreadcrumb.php 10816 2010-12-02 00:25:05Z skenow $
+* @version		$Id: icmsbreadcrumb.php 20449 2010-12-02 00:25:05Z skenow $
 */
 
 if (!defined('ICMS_ROOT_PATH')) die("ImpressCMS root path not defined");

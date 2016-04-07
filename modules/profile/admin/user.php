@@ -10,7 +10,7 @@
  * @author	Jan Pedersen
  * @author	The SmartFactory <www.smartfactory.ca>
  * @author	Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version	$Id$
+ * @version	$Id: user.php 21139 2011-03-20 20:58:11Z m0nty_ $
  */
 
 include_once "admin_header.php";
@@ -107,9 +107,12 @@ switch($op) {
 		if ($user->getVar('uid') != icms::$user->getVar('uid')) {
 			if ($pass != '') {
 				$icmspass = new icms_core_Password();
-				$pass = $icmspass->encryptPass($pass);
+				$salt = icms_core_Password::createSalt();
+				$pass = $icmspass->encryptPass($pass, $salt, $icmsConfigUser['enc_type']);
 				$user->setVar('pass', $pass);
 				$user->setVar('pass_expired', 0);
+				$user->setVar('enc_type', $icmsConfigUser['enc_type']);
+				$user->setVar('salt', $salt);
 			}
 			$user->setVar('level', (int)$_POST['level']);
 		}
@@ -219,45 +222,45 @@ switch($op) {
 			icms_core_Message::confirm(array('ok' => 1, 'id' => (int)$_REQUEST['id'], 'op' => 'delete'), $_SERVER['REQUEST_URI'], sprintf(_AM_PROFILE_RUSUREDEL, $obj->getVar('uname').' ('.$obj->getVar('email').')'));
 		}
 		break;
-		
-	case 'masquerade':
-		/*
-		*  Allows an admin user to masquerade as a different user.
-		*  This allows the admin to see and do what the other user sees/can-do.
-		*  A confirm box will also be created at the footer to allow the admin
-		*  to revert the masqerading effect [formulize\footer.php]
-		*/
 
-		// Revert masquerade effect
-		if (isset($_SESSION['masquerade_end']) && $_SESSION['masquerade_end'] == 1) {
-			$masqueradeUser = new icms_member_user_Object($_SESSION['masquerade_xoopsUserId']);
-			unset($_SESSION['masquerade_xoopsUserId']);
-			unset($_SESSION['masquerade_end']);
-		} else {
-			$masqueradeUser = new icms_member_user_Object($_REQUEST['id']);
-			// Save UserId of the actual user
-			if (isset($_SESSION['masquerade_xoopsUserId']) == false) {
-				$_SESSION['masquerade_xoopsUserId'] = $_SESSION['xoopsUserId'];
-			}
-		}
+    case 'masquerade':
+        /*
+        *  Allows an admin user to masquerade as a different user.
+        *  This allows the admin to see and do what the other user sees/can-do.
+        *  A confirm box will also be created at the footer to allow the admin
+        *  to revert the masqerading effect [formulize\footer.php]
+        */
 
-		// Change effective user
-		$_SESSION['xoopsUserId'] = $masqueradeUser->getVar('uid');
-		$_SESSION['xoopsUserGroups'] = $masqueradeUser->getGroups();
-		$_SESSION['xoopsUserLastLogin'] = $masqueradeUser->getVar('last_login');
-		$_SESSION['xoopsUserLanguage'] = $masqueradeUser->language();
-		if (isset($_SESSION['XOOPS_TOKEN_SESSION'])) unset($_SESSION['XOOPS_TOKEN_SESSION']);
+        // Revert masquerade effect
+        if (isset($_SESSION['masquerade_end']) && $_SESSION['masquerade_end'] == 1) {
+            $masqueradeUser = new icms_member_user_Object($_SESSION['masquerade_xoopsUserId']);
+            unset($_SESSION['masquerade_xoopsUserId']);
+            unset($_SESSION['masquerade_end']);
+        } else {
+            $masqueradeUser = new icms_member_user_Object($_REQUEST['id']);
+            // Save UserId of the actual user
+            if (isset($_SESSION['masquerade_xoopsUserId']) == false) {
+                $_SESSION['masquerade_xoopsUserId'] = $_SESSION['xoopsUserId'];
+            }
+        }
 
-		$xoops_user_theme = $masqueradeUser->getVar('theme');
-		if (in_array($xoops_user_theme, $icmsConfig['theme_set_allowed'])) 
-			$_SESSION['xoopsUserTheme'] = $xoops_user_theme;
-		elseif (isset($_SESSION['xoopsUserTheme']))
-			unset($_SESSION['xoopsUserTheme']);
+        // Change effective user
+        $_SESSION['xoopsUserId'] = $masqueradeUser->getVar('uid');
+        $_SESSION['xoopsUserGroups'] = $masqueradeUser->getGroups();
+        $_SESSION['xoopsUserLastLogin'] = $masqueradeUser->getVar('last_login');
+        $_SESSION['xoopsUserLanguage'] = $masqueradeUser->language();
+        if (isset($_SESSION['XOOPS_TOKEN_SESSION'])) unset($_SESSION['XOOPS_TOKEN_SESSION']);
 
-		// Redirect user
-		header('Location: ' . SITE_BASE_URL . "/");
-		die;
-		break;
+        $xoops_user_theme = $masqueradeUser->getVar('theme');
+        if (in_array($xoops_user_theme, $icmsConfig['theme_set_allowed'])) 
+            $_SESSION['xoopsUserTheme'] = $xoops_user_theme;
+        elseif (isset($_SESSION['xoopsUserTheme']))
+            unset($_SESSION['xoopsUserTheme']);
+
+        // Redirect user
+        header('Location: ' . SITE_BASE_URL . "/");
+        die;
+        break;
 }
 
 icms_cp_footer();

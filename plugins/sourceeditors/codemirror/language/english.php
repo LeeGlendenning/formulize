@@ -1,5 +1,1 @@
-<?php
-
-define('_ICMS_SOURCEEDITOR_CODEMIRROR','CodeMirror');
-
-?>
+<?phpdefine('_ICMS_SOURCEEDITOR_CODEMIRROR','CodeMirror');?>

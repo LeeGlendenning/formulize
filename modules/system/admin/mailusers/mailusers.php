@@ -6,7 +6,7 @@
  * @license		LICENSE.txt
  * @package		Administration
  * @subpackage	Users
- * @version		SVN: $Id: mailusers.php 11017 2011-02-11 04:01:58Z skenow $
+ * @version		SVN: $Id: mailusers.php 20791 2011-02-11 04:01:58Z skenow $
  */
 
 icms_core_Debug::setDeprecated('system/admin/mailusers/main.php', sprintf(_CORE_REMOVE_IN_VERSION, '1.4'));

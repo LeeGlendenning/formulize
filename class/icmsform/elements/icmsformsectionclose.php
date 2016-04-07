@@ -7,7 +7,7 @@
  * @package		icms_ipf_Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: icmsformsectionclose.php 10848 2010-12-05 14:54:42Z phoenyx $
+ * @version		$Id: icmsformsectionclose.php 20485 2010-12-05 14:54:42Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");

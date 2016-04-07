@@ -251,7 +251,8 @@ var EditArea_autocompletion= {
 	{
 		cursor_forced_position	= content.indexOf( '{@}' );
 		content	= content.replace(/{@}/g, '' );
-		editArea.getIESelection();
+		if(editArea.isIE)
+			editArea.getIESelection();
 		
 		// retrive the number of matching characters
 		var start_index	= Math.max( 0, editArea.textarea.selectionEnd - content.length );
@@ -358,7 +359,8 @@ var EditArea_autocompletion= {
 		{
 			time=new Date;
 			t1= time.getTime();
-			editArea.getIESelection();
+			if(editArea.isIE)
+				editArea.getIESelection();
 			this.selectIndex	= -1;
 			start=editArea.textarea.selectionStart;
 			var str	= editArea.textarea.value;

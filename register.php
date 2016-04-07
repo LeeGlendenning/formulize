@@ -1,43 +1,13 @@
 <?php
-// $Id: register.php 12313 2013-09-15 21:14:35Z skenow $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-
 /**
  * Registration process for new users
  * Gathers required information and validates the new user
- *
- * @copyright	http://www.xoops.org/ The XOOPS Project
+ *  
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- * @since		XOOPS
- * @author		http://www.xoops.org The XOOPS Project
- * @author      skenow <skenow@impresscms.org>
  * @package		Member
  * @subpackage	Users
- * @version		SVN: $Id: register.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version		SVN: $Id: register.php 21047 2011-03-14 15:52:14Z m0nty_ $
  */
 
 $xoopsOption['pagetype'] = 'user';
@@ -66,6 +36,8 @@ $user_viewemail = (isset($_POST['user_viewemail']) && (int) $_POST['user_viewema
 $user_mailok = (isset($_POST['user_mailok']) && (int) $_POST['user_mailok']) ? 1 : 0;
 $agree_disc = (isset($_POST['agree_disc']) && (int) $_POST['agree_disc']) ? 1 : 0;
 $actkey = isset($_POST['actkey']) ? trim(icms_core_DataFilter::stripSlashesGPC($_POST['actkey'])) : '';
+$salt = isset($_POST['salt']) ? trim(icms_core_DataFilter::stripSlashesGPC($_POST['salt'])) : '';
+$enc_type = $icmsConfigUser['enc_type'];
 
 $thisuser = icms::handler('icms_member_user');
 switch ($op) {
@@ -102,22 +74,24 @@ switch ($op) {
 			}
 			$f_timezone = ($timezone_offset < 0) ? 'GMT ' . $timezone_offset : 'GMT +' . $timezone_offset;
 			echo _US_TIMEZONE . ": $f_timezone<br />";
-			echo "<form action='register.php' method='post'><input type='hidden' name='login_name' value='"
-				. icms_core_DataFilter::htmlSpecialChars($login_name)
-				. "' /><input type='hidden' name='uname' value='" . icms_core_DataFilter::htmlSpecialChars($uname)
-				. "' /><input type='hidden' name='email' value='" . icms_core_DataFilter::htmlSpecialChars($email)
-				. "' /><input type='hidden' name='user_viewemail' value='" . (int) $user_viewemail
-				. "' /><input type='hidden' name='timezone_offset' value='" . $timezone_offset
-				. "' /><input type='hidden' name='url' value='" . icms_core_DataFilter::htmlSpecialChars($url)
-				. "' /><input type='hidden' name='pass' value='" . icms_core_DataFilter::htmlSpecialChars($pass)
-				. "' /><input type='hidden' name='vpass' value='" . icms_core_DataFilter::htmlSpecialChars($vpass)
-				. "' /><input type='hidden' name='user_mailok' value='" . (int) $user_mailok
-				. "' /><input type='hidden' name='actkey' value='" . icms_core_DataFilter::htmlSpecialChars($actkey)
-				. "' /><input type='hidden' name='agree_disc' value='" . (int) $agree_disc
-				. "' /><br /><br /><input type='hidden' name='op' value='finish' />" . icms::$security->getTokenHTML()
+			echo "<form action='register.php' method='post'><input type='hidden' name='login_name' value='" 
+				. icms_core_DataFilter::htmlSpecialChars($login_name) 
+				. "' /><input type='hidden' name='uname' value='" . icms_core_DataFilter::htmlSpecialChars($uname) 
+				. "' /><input type='hidden' name='email' value='" . icms_core_DataFilter::htmlSpecialChars($email) 
+				. "' /><input type='hidden' name='user_viewemail' value='" . (int) $user_viewemail 
+				. "' /><input type='hidden' name='timezone_offset' value='" . $timezone_offset 
+				. "' /><input type='hidden' name='url' value='" . icms_core_DataFilter::htmlSpecialChars($url) 
+				. "' /><input type='hidden' name='pass' value='" . icms_core_DataFilter::htmlSpecialChars($pass) 
+				. "' /><input type='hidden' name='vpass' value='" . icms_core_DataFilter::htmlSpecialChars($vpass) 
+				. "' /><input type='hidden' name='user_mailok' value='" . (int) $user_mailok 
+				. "' /><input type='hidden' name='actkey' value='" . icms_core_DataFilter::htmlSpecialChars($actkey) 
+				. "' /><input type='hidden' name='salt' value='" . icms_core_DataFilter::htmlSpecialChars($salt) 
+				. "' /><input type='hidden' name='enc_type' value='". (int) $enc_type 
+				. "' /><input type='hidden' name='agree_disc' value='" . (int) $agree_disc 
+				. "' /><br /><br /><input type='hidden' name='op' value='finish' />" . icms::$security->getTokenHTML() 
 				. "<input type='submit' value='". _US_FINISH ."' /></form>";
 		} else {
-			echo "<div id='registerstop' style='color:#ff0000;'>$stop</div>";
+			echo "<span style='color:#ff0000;'>$stop</span>";
 			include 'include/registerform.php';
 			$reg_form->display();
 		}
@@ -162,25 +136,28 @@ switch ($op) {
 
 			$icmspass = new icms_core_Password();
 
-			$pass1 = $icmspass->encryptPass($pass);
+			$salt = $icmspass->createSalt();
+			$newuser->setVar('salt', $salt, TRUE);
+			$pass1 = $icmspass->encryptPass($pass, $salt, $enc_type);
 			$newuser->setVar('pass', $pass1, TRUE);
 			$newuser->setVar('timezone_offset', $timezone_offset, TRUE);
 			$newuser->setVar('user_regdate', time(), TRUE);
 			$newuser->setVar('uorder', $icmsConfig['com_order'], TRUE);
 			$newuser->setVar('umode', $icmsConfig['com_mode'], TRUE);
 			$newuser->setVar('user_mailok', $user_mailok, TRUE);
-			$newuser->setVar('notify_method', 1);
+			$newuser->setVar('enc_type', $enc_type, TRUE);
+			$newuser->setVar('notify_method', 2);
 			if ($valid_actkey || $icmsConfigUser['activation_type'] == 1) {
 				$newuser->setVar('level', 1, TRUE);
 			}
 			if (!$member_handler->insertUser($newuser)) {
-				echo "<div id='registerng'>" . _US_REGISTERNG . "</div>";
+				echo _US_REGISTERNG;
 				include 'footer.php';
 				exit();
 			}
 			$newid = (int) $newuser->getVar('uid');
 			if (!$member_handler->addUserToGroup(XOOPS_GROUP_USERS, $newid)) {
-				echo "<div id='registerng'>" . _US_REGISTERNG . "</div>";
+				echo _US_REGISTERNG;
 				include 'footer.php';
 				exit();
 			}
@@ -211,9 +188,9 @@ switch ($op) {
 				$xoopsMailer->setFromName($icmsConfig['sitename']);
 				$xoopsMailer->setSubject(sprintf(_US_USERKEYFOR, $uname));
 				if (!$xoopsMailer->send()) {
-					echo "<div id='yourregmailng'>" . _US_YOURREGMAILNG . "</div>";
+					echo _US_YOURREGMAILNG;
 				} else {
-					echo "<div id='yourregistered'>" . _US_YOURREGISTERED . "</div>";
+					echo _US_YOURREGISTERED;
 				}
 				// activation by admin
 			} elseif ($icmsConfigUser['activation_type'] == 2) {
@@ -230,13 +207,13 @@ switch ($op) {
 				$xoopsMailer->setFromName($icmsConfig['sitename']);
 				$xoopsMailer->setSubject(sprintf(_US_USERKEYFOR, $uname));
 				if (!$xoopsMailer->send()) {
-					echo "<div id='yourregmailng'>" . _US_YOURREGMAILNG . "</div>";
+					echo _US_YOURREGMAILNG;
 				} else {
-					echo "<div id='yourregistered2'>" . _US_YOURREGISTERED2 . "</div>";
+					echo _US_YOURREGISTERED2;
 				}
 			}
 		} else {
-			echo "<div id='registerstop' style='color:#ff0000; font-weight:bold;'>$stop</div>";
+			echo "<span style='color:#ff0000; font-weight:bold;'>$stop</span>";
 			include 'include/registerform.php';
 			$reg_form->display();
 		}

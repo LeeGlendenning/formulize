@@ -4,7 +4,7 @@
  * --------
  * Author: Chris Iverson (cj.no.one@gmail.com)
  * Copyright: (c) 2010 Chris Iverson
- * Release Version: 1.0.8.10
+ * Release Version: 1.0.8.9
  * Date Started: 2010/07/18
  *
  * Liberty BASIC language file for GeSHi.
@@ -14,10 +14,7 @@
  * 2010/07/22
  *  -  First Release
  *
- * 2010/08/23
- *  -  Added missing default variables
- *
- * TODO (updated 2010/07/20)
+ * TODO (updated 2010/07/22)
  * -------------------------
  * Prevent highlighting numbers in handle names(constants beginning with #)
  * Allow number highlighting after a single period(e.g.  .9 = 0.9, should be
@@ -83,13 +80,12 @@ $language_data = array(
             'winstring', 'word$'
             ),
         3 => array(
-            'BackgroundColor$', 'Com', 'ComboboxColor$', 'ComError', 'ComErrorNumber',
-            'CommandLine$', 'ComPortNumber', 'DefaultDir$',
+            'BackgroundColor$', 'ComboboxColor$', 'CommandLine$', 'DefaultDir$',
             'DisplayHeight', 'DisplayWidth', 'Drives$', 'Err', 'Err$',
             'ForegroundColor$', 'Inkey$', 'Joy1x', 'Joy1y', 'Joy1z',
             'Joy1button1', 'Joy1button2', 'Joy2x', 'Joy2y', 'Joy2z',
-            'Joy2button1', 'Joy2button2', 'ListboxColor$', 'MouseX', 'MouseY', 'Platform$',
-            'PrintCollate', 'PrintCopies', 'PrinterFont$', 'PrinterName$', 'StartupDir$',
+            'Joy2button1', 'Joy2button2', 'ListboxColor$', 'Platform$',
+            'PrintCollate', 'PrintCopies', 'PrinterFont$', 'PrinterName$',
             'TextboxColor$', 'TexteditorColor$', 'Version$', 'WindowHeight',
             'WindowWidth', 'UpperLeftX', 'UpperLeftY'
             )
@@ -154,9 +150,9 @@ $language_data = array(
                 //and their names should not be highlighted unless being used
                 //as a function name.
                 'DISALLOWED_AFTER' => '(?=\s*\()'
-                )
             )
         )
+    )
 );
 
 ?>

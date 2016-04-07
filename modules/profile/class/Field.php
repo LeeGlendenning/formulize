@@ -10,7 +10,7 @@
  * @author		Jan Pedersen
  * @author		The SmartFactory <http://www.smartfactory.ca>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id$
+ * @version		$Id: Field.php 22530 2011-09-02 19:57:57Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die('ICMS root path not defined');
@@ -67,8 +67,6 @@ class mod_profile_Field extends icms_ipf_Object {
 	 * @return icms_form_Element
 	 */
 	public function getEditElement($user, $profile) {
-		global $icmsConfigAuth;
-
 		$value = in_array($this->getVar('field_name'), $this->getUserVars()) ? $user->getVar($this->getVar('field_name'), 'e') : $profile->getVar($this->getVar('field_name'), 'e');
 		if ($value === null) $value = $this->getVar('field_default');
 		$caption = $this->getVar('field_title');
@@ -168,7 +166,7 @@ class mod_profile_Field extends icms_ipf_Object {
 				}
 				break;
 			case "openid":
-				if ($icmsConfigAuth['auth_openid'] != 1) {$element = NULL; break;}
+				if ($icmsConfigAuth['auth_openid'] != 1) break;
 				$element = new icms_form_elements_Text($caption, $name, 35, $this->getVar('field_maxlength'), $value);
 				break;
 			case "textbox":
@@ -196,9 +194,6 @@ class mod_profile_Field extends icms_ipf_Object {
 		switch ($this->getVar('field_type')) {
 			case "textarea":
 			case "dhtml":
-				if($this->getVar("field_name") == "user_sig") {
-					$value = $user->getVar("user_sig", "N");
-				}
 		  		return icms_core_DataFilter::undoHtmlSpecialChars(str_replace('&amp;', '&', $value), 1);
 				break;
 			case "select":
@@ -232,7 +227,7 @@ class mod_profile_Field extends icms_ipf_Object {
 				//when we cannot convert it to a UNIX timestamp?
 				return str_replace("-", "/", $value);
 			case "date":
-				if ($value != 0) return formatTimestamp($value, 's');
+				if ($value > 0) return formatTimestamp($value, 's');
 				return "";
 				break;
 			case "datetime":

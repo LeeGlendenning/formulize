@@ -11,9 +11,9 @@
  * @author          The SmartFactory <www.smartfactory.ca>
  * @author	   		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
  * @author			Gustavo Pilla (aka nekro) <nekro@impresscms.org>
- * @version         $Id$
+ * @version         $Id: menu.php 20562 2010-12-19 18:26:36Z phoenyx $
  */
-icms_loadLanguageFile("profile", "common");
+
 $adminmenu[] = array(
 	'title'	=> _MI_PROFILE_USERS,
 	'link'	=> 'admin/user.php',

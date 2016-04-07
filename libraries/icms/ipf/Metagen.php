@@ -10,7 +10,7 @@
  * @package		Ipf
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		SVN: $Id: Metagen.php 12248 2013-08-09 08:56:21Z fiammy $
+ * @version		SVN: $Id: Metagen.php 21186 2011-03-23 15:19:04Z m0nty_ $
  */
 
 defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");
@@ -18,8 +18,8 @@ defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");
 /**
  * Generates META tags
  * @category	ICMS
- * @package		Ipf
- * @todo		Properly set visibility of variables - in version 2.0
+ * @package		ipf_Metagen
+ * @todo		Properly set visibility of variables - in version 1.4
  */
 class icms_ipf_Metagen {
 	/** @var object */
@@ -62,7 +62,7 @@ class icms_ipf_Metagen {
 		$this->setDescription($description);
 
 		if (!$keywords) {
-            $keywords = $this->createMetaKeywords();
+			$keywords = $this->createMetaKeywords();
 		}
 
 		/*		$myts = icms_core_Textsanitizer::getInstance();
@@ -142,12 +142,12 @@ class icms_ipf_Metagen {
 	 *
 	 */
 	public function setTitle($title) {
-		global $icmsModuleConfig;
+		global $icmsModule, $icmsModuleConfig;
 		$this->_title = $this->html2text($title);
 		$this->_title = $this->purifyText($this->_title);
 		$this->_original_title = $this->_title;
 
-		$moduleName = is_object(icms::$module) ? icms::$module->getVar('name') : "";
+		$moduleName = $icmsModule->getVar('name');
 
 		$titleTag = array();
 
@@ -365,8 +365,7 @@ class icms_ipf_Metagen {
 	 */
 	public function createMetaTags() {
 		global $xoopsTpl, $xoTheme;
-        $this->_keywords = preg_replace("(<!--.*?-->)", '', $this->_keywords); // stops html comments appearing in meta key
-        
+
 		if (is_object($xoTheme)) {
 			$xoTheme->addMeta('meta', 'keywords', $this->_keywords);
 			$xoTheme->addMeta('meta', 'description', $this->_description);

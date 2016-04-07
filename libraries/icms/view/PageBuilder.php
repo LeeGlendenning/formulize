@@ -1,32 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
 /**
  * icms_view_PageBuilder component class file
  *
@@ -36,9 +8,12 @@
  * @package     Core
  * @subpackage	Template
  *
- * @version		SVN: $Id: PageBuilder.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version		SVN: $Id: PageBuilder.php 21683 2011-06-07 03:30:54Z skenow $
  *
+ * @author      Skalpa Keo <skalpa@xoops.org>
+ * @author      Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  */
+
 /**
  * This file cannot be requested directly
  */
@@ -51,8 +26,6 @@ defined('ICMS_ROOT_PATH') or exit();
  * @package     Core
  * @subpackage  Template
  * @author      Skalpa Keo <skalpa@xoops.org>
- * @copyright	Copyright (c) 2000 XOOPS.org
- * @author      Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  */
 class icms_view_PageBuilder {
 
@@ -246,7 +219,7 @@ class icms_view_PageBuilder {
 		if ($icmsConfigPersona['editre_block'] == TRUE) {
 			if (icms::$user && count($this->uagroups) > 0) {
 				$url = base64_encode(str_replace(ICMS_URL, '', icms::$urls['http'] . $_SERVER['HTTP_HOST'] . filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL)));
-				$titlebtns = '&nbsp;<a href="#" onclick="$(\'#ed_block_' . $bid . '\').dialog(\'open\'); return false;"><img src="' . ICMS_IMAGES_SET_URL . '/actions/configure.png" title="' . _EDIT .' '. _BLOCK_ID .' '. $bid .'" alt="' . _EDIT . '"  /></a>'
+				$titlebtns = '&nbsp;<a href="#" onclick="$(\'#ed_block_' . $bid . '\').dialog(\'open\'); return false;"><img src="' . ICMS_IMAGES_SET_URL . '/actions/configure.png" title="' . _EDIT . '" alt="' . _EDIT . '"  /></a>'
 					. '<button style="display: none;"><div id="ed_block_' . $bid . '">'
 					. "<a href='" . ICMS_MODULES_URL . "/system/admin.php?fct=blocksadmin&amp;op=visible&amp;bid=" . $bid . "&amp;rtn=$url'> <img src='" . ICMS_IMAGES_SET_URL . "/actions/button_cancel.png' alt='" . _INVISIBLE . "'  /> " . _INVISIBLE . "</a><br />"
 					. "<a href='" . ICMS_MODULES_URL . "/system/admin.php?fct=blocksadmin&amp;op=clone&amp;bid=" . $bid . "'> <img src='" . ICMS_IMAGES_SET_URL . "/actions/editcopy.png' alt='" . _CLONE . "'  /> " . _CLONE . "</a><br />"

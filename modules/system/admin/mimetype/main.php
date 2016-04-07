@@ -8,7 +8,7 @@
  * @subpackage	Mimetypes
  * @since		1.2
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		SVN: $Id: main.php 11143 2011-03-30 13:46:23Z m0nty_ $
+ * @version		SVN: $Id: main.php 21378 2011-03-30 13:46:23Z m0nty_ $
  */
 
 if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin($icmsModule->getVar('mid'))) {

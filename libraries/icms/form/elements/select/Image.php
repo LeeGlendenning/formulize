@@ -2,8 +2,6 @@
 /**
  * Creates a form attribute which is able to select an image
  *
- * from Mastop Go2 module v1.0 for XOOPS
- *
  ### =============================================================
  ### Mastop InfoDigital - Paixão por Internet
  ### =============================================================
@@ -14,26 +12,19 @@
  ### -------------------------------------------------------------
  ### www.mastop.com.br
  ### =============================================================
- *
- * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- * @category	ICMS
- * @package		Form
- * @subpackage	Elements
- * @author		modified by UnderDog <underdog@impresscms.org>
- * @version		$Id: Image.php 12340 2013-09-22 04:11:09Z skenow $
+ * @copyright	http://www.xoops.org/ The XOOPS Project
+ * @copyright	XOOPS_copyrights.txt
+ * @copyright	http://www.impresscms.org/ The ImpressCMS Project
+ * @license	LICENSE.txt
+ * @package	XoopsForms
+ * @since	XOOPS
+ * @author	http://www.xoops.org The XOOPS Project
+ * @author	modified by UnderDog <underdog@impresscms.org>
+ * @version	$Id: Image.php 20610 2010-12-21 21:13:37Z skenow $
  */
 
 defined('ICMS_ROOT_PATH') or die();
 
-/**
- * Create a form element to select an image
- *
- * @category	ICMS
- * @package		Form
- * @subpackage	Elements
- *
- * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- */
 class icms_form_elements_select_Image extends icms_form_elements_Select {
 	/**
 	 * OptGroup

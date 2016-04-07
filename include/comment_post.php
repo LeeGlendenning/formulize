@@ -1,45 +1,16 @@
 <?php
-// $Id: comment_post.php 12313 2013-09-15 21:14:35Z skenow $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.xoops.org/ http://jp.xoops.org/  http://www.myweb.ne.jp/  //
-// Project: The XOOPS Project (http://www.xoops.org/)                        //
-// ------------------------------------------------------------------------- //
-
 /**
  * The post a comment include file
  *
  * @copyright	http://www.xoops.org/ The XOOPS Project
+ * @copyright	XOOPS_copyrights.txt
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
  * @license	LICENSE.txt
  * @package	core
  * @since	XOOPS
  * @author	http://www.xoops.org The XOOPS Project
  * @author	modified by UnderDog <underdog@impresscms.org>
- * @version	$Id: comment_post.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version	$Id: comment_post.php 21083 2011-03-17 12:43:06Z m0nty_ $
  */
 
 if (!defined('ICMS_ROOT_PATH') || !is_object($icmsModule)) {
@@ -74,7 +45,7 @@ if ('system' == $icmsModule->getVar('dirname')) {
 		$extra_params = '';
 		foreach ($comment_config['extraParams'] as $extra_param) {
 			$extra_params .= isset($_POST[$extra_param])
-			? $extra_param . '=' . icms_core_DataFilter::htmlSpecialChars(trim($_POST[$extra_param])) . '&amp;'
+			? $extra_param . '=' . htmlspecialchars($_POST[$extra_param]) . '&amp;'
 			: $extra_param . '=&amp;';
 		}
 		$redirect_page .= $extra_params;
@@ -101,7 +72,7 @@ if (!empty($_POST)) {
 		}
 	}
 
-	$com_mode = isset($_POST['com_mode']) ? icms_core_DataFilter::htmlSpecialChars(trim($_POST['com_mode']), ENT_QUOTES) : 'flat';
+	$com_mode = isset($_POST['com_mode']) ? htmlspecialchars(trim($_POST['com_mode']), ENT_QUOTES) : 'flat';
 	$com_order = isset($_POST['com_order']) ? (int) $_POST['com_order'] : XOOPS_COMMENT_OLD1ST;
 	$com_itemid = isset($_POST['com_itemid']) ? (int) $_POST['com_itemid'] : 0;
 	$com_pid = isset($_POST['com_pid']) ? (int) $_POST['com_pid'] : 0;
@@ -129,7 +100,7 @@ switch ($op) {
 				if (!icms::$user->isAdmin($com_modid)) {
 					$sysperm_handler = icms::handler('icms_member_groupperm');
 					if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_COMMENT, icms::$user->getGroups())) {
-						$dohtml = 1;
+						$dohtml = 0;
 					}
 				}
 			} else {
@@ -138,18 +109,15 @@ switch ($op) {
 		}
 		$p_comment =& icms_core_DataFilter::checkVar($_POST['com_text'], 'html', 'input');
 		$noname = isset($noname) ? (int) $noname : 0;
-		// without this, the comment text is empty when previewing the comment
-		$com_text = icms_core_DataFilter::checkVar($_POST['com_text'], 'html', 'output');
+		$com_text = icms_core_DataFilter::htmlSpecialChars(icms_core_DataFilter::stripSlashesGPC($_POST['com_text']));
 		if ($icmsModule->getVar('dirname') != 'system') {
 			include ICMS_ROOT_PATH . '/header.php';
-			//themecenterposts($com_title, $p_comment);
-			echo '<table cellpadding="4" cellspacing="1" width="98%" class="outer"><tr><td class="head">'.$com_title.'</td></tr><tr><td><br />'.$p_comment.'<br /></td></tr></table>';
+			themecenterposts($com_title, $p_comment);
 			include ICMS_INCLUDE_PATH . '/comment_form.php';
 			include ICMS_ROOT_PATH . '/footer.php';
 		} else {
 			icms_cp_header();
-			//themecenterposts($com_title, $p_comment);
-			echo '<table cellpadding="4" cellspacing="1" width="98%" class="outer"><tr><td class="head">'.$com_title.'</td></tr><tr><td><br />'.$p_comment.'<br /></td></tr></table>';
+			themecenterposts($com_title, $p_comment);
 			include ICMS_INCLUDE_PATH . '/comment_form.php';
 			icms_cp_footer();
 		}
@@ -231,7 +199,7 @@ switch ($op) {
 					// RMV-NOTIFY
 					$notify_event = 'comment';
 				} else {
-					//$dohtml = 0;
+					$dohtml = 0;
 					switch ($icmsModuleConfig['com_rule']) {
 						case XOOPS_COMMENT_APPROVEALL:
 						case XOOPS_COMMENT_APPROVEUSER:
@@ -286,10 +254,11 @@ switch ($op) {
 			}
 			$comment->setVar('com_uid', $uid);
 		}
+
 		$com_title = icms_core_DataFilter::icms_trim($_POST['com_title']);
 		$com_title = ($com_title == '') ? _NOTITLE : $com_title;
 		$comment->setVar('com_title', $com_title);
-		$comment->setVar('com_text', icms_core_DataFilter::checkVar($_POST['com_text'], 'html', 'input'));
+		$comment->setVar('com_text', $_POST['com_text']);
 		$comment->setVar('dohtml', $dohtml);
 		$comment->setVar('dosmiley', $dosmiley);
 		$comment->setVar('doxcode', $doxcode);
@@ -398,7 +367,7 @@ switch ($op) {
 						$extra_params = '';
 						foreach ($com_config['extraParams'] as $extra_param) {
 							$extra_params .= isset($_POST[$extra_param])
-							? $extra_param . '=' . icms_core_DataFilter::htmlSpecialChars(trim($_POST[$extra_param])) . '&amp;'
+							? $extra_param . '=' . htmlspecialchars($_POST[$extra_param]) . '&amp;'
 							: $extra_param . '=&amp;';
 							//$extra_params .= isset($_GET[$extra_param]) ? $extra_param.'='.$_GET[$extra_param].'&amp;' : $extra_param.'=&amp;';
 						}

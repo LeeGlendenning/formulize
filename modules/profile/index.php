@@ -10,7 +10,7 @@
  * @author		Jan Pedersen
  * @author		Marcello Brandao <marcello.brandao@gmail.com>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id$
+ * @version		$Id: index.php 22279 2011-08-20 11:39:32Z phoenyx $
  */
 
 /**

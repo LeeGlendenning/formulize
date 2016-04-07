@@ -1,6 +1,5 @@
 <?php
-// $Id: user.php 12229 2013-07-19 08:08:05Z fiammy $
-// $Id: user.php 12229 2013-07-19 08:08:05Z fiammy $
+// $Id: user.php 21918 2011-06-30 08:08:52Z blauer-fisch $
 //%%%%%%		File Name user.php 		%%%%%
 define('_US_NOTREGISTERED','Not registered?  Click <a href="register.php">here</a>.');
 define('_US_LOSTPASSWORD','Lost your password?');
@@ -14,9 +13,9 @@ define('_US_LOGGINGU','Thank you for logging in, %s.');
 define('_US_RESETPASSWORD','Reset your password');
 define('_US_SUBRESETPASSWORD','Reset Password');
 define('_US_RESETPASSTITLE','Your password has expired!');
-define('_US_RESETPASSINFO','Please complete the following form in order to reset your password. If your email, login name and current password all match our record, your password will be changed instantly and you will be able to log back in!');
+define('_US_RESETPASSINFO','Please complete the following form in order to reset your password. If your email, username and current password all match our record, your password will be changed instantly and you will be able to log back in!');
 define('_US_PASSEXPIRED','Your password has expired.<br />You will now be redirected to a form where you will be able to reset your password.');
-define('_US_SORRYUNAMENOTMATCHEMAIL','The login name entered is not associated with the given Email address!');
+define('_US_SORRYUNAMENOTMATCHEMAIL','The username entered is not associated with the given Email address!');
 define('_US_PWDRESET','Your password has been reset successfully!');
 define('_US_SORRYINCORRECTPASS','You have entered your current password incorrectly!');
 
@@ -196,7 +195,7 @@ define('_US_SERVER_PROBLEM_OCCURRED','There was an issue while checking for spam
 define('_US_INVALIDIP','ERROR: This IP adress is not allowed to register');
 
 ######################## Added in 1.2 ###################################
-define('_US_LOGIN_NAME', "Login Name");
+define('_US_LOGIN_NAME', "Loginname");
 define('_US_OLD_PASSWORD', "Old Password");
 define('_US_NICKNAME','Display Name');
 define('_US_MULTLOGIN', 'It was not possible to login on the site!! <br />
@@ -210,6 +209,4 @@ define('_US_MULTLOGIN', 'It was not possible to login on the site!! <br />
 define("_US_OPENID_LOGIN", "Login with your OpenID");
 define("_US_OPENID_URL", "Your OpenID URL:");
 define("_US_OPENID_NORMAL_LOGIN", "Go back to normal login");
-
-######################## Added in 1.3 ###################################
-define('_US_NOTIFICATIONS', "Notifications");
+?>

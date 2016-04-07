@@ -1,5 +1,5 @@
 <?php
-// $Id: userrank.php 9538 2009-11-13 18:59:32Z pesianstranger $
+// $Id: userrank.php 9536 2009-11-13 18:59:32Z pesianstranger $
 
 ######################## Added in 1.2 ###################################
 define('_CO_ICMS_USERRANKS','User Ranks Settings');

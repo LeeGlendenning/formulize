@@ -1,5 +1,5 @@
 <?php
-// $Id: avatars.php 11285 2011-06-23 16:37:07Z phoenyx $
+// $Id: avatars.php 21846 2011-06-23 16:37:07Z phoenyx $
 //%%%%%% Avatar Manager %%%%%
 define('_MD_AVATARMAN','Avatar Manager');
 

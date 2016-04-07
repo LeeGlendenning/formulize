@@ -1,6 +1,5 @@
 editAreaLoader.load_syntax["sql"] = {
-	'DISPLAY_NAME' : 'SQL'
-	,'COMMENT_SINGLE' : {1 : '--'}
+	'COMMENT_SINGLE' : {1 : '--'}
 	,'COMMENT_MULTI' : {'/*' : '*/'}
 	,'QUOTEMARKS' : {1: "'", 2: '"', 3: '`'}
 	,'KEYWORD_CASE_SENSITIVE' : false

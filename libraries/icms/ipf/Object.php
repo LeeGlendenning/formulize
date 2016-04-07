@@ -134,9 +134,6 @@ class icms_ipf_Object extends icms_core_Object {
 			}
 		}
 
-		/** this section from icms_core_Object::initVar
-		 * @copyright	(c) 2000-2003 The Xoops Project - www.xoops.org
-		 */
 		$this->vars[$key] = array_merge($this->vars[$key], array('multilingual' => $multilingual,
         'form_caption' => $form_caption,
         'form_dsc' => $form_dsc,
@@ -224,7 +221,7 @@ class icms_ipf_Object extends icms_core_Object {
 				$this->setControl($varname, "yesno");
 				break;
 
-			case "meta_keywords": // should this be textsarea instead of textarea???
+			case "meta_keywords":
 				$value = $default != 'notdefined' ? $default : '';
 				$this->initVar($varname, XOBJ_DTYPE_TXTAREA, $value, false, null, '', false, _CO_ICMS_META_KEYWORDS, _CO_ICMS_META_KEYWORDS_DSC, false, true, $displayOnForm);
 				$this->setControl('meta_keywords', array(
@@ -233,7 +230,7 @@ class icms_ipf_Object extends icms_core_Object {
 										));
 				break;
 
-			case "meta_description": // should this be textsarea instead of textarea???
+			case "meta_description":
 				$value = $default != 'notdefined' ? $default : '';
 				$this->initVar($varname, XOBJ_DTYPE_TXTAREA, $value, false, null, '', false, _CO_ICMS_META_DESCRIPTION, _CO_ICMS_META_DESCRIPTION_DSC, false, true, $displayOnForm);
 				$this->setControl('meta_description', array(
@@ -437,7 +434,7 @@ class icms_ipf_Object extends icms_core_Object {
 		 if ($highlight && isset($_GET['keywords']))
 		 {
 			$myts =& icms_core_Textsanitizer::getInstance();
-			$keywords= icms_core_DataFilter::htmlSpecialChars(trim(urldecode($_GET['keywords'])));
+			$keywords=$myts->htmlSpecialChars(trim(urldecode($_GET['keywords'])));
 			$h= new SmartHighlighter ($keywords, true , 'smart_highlighter');
 			foreach ($this->handler->highlightFields as $field) {
 			$ret[$field] = $h->highlight($ret[$field]);
@@ -768,11 +765,7 @@ class icms_ipf_Object extends icms_core_Object {
 			return $myts->displayTarea($ret, $html, $smiley, $xcode, $image, $br, $formatML);
 		} else {
 			if ($html) {
-                if ($br) {
-                    return icms_core_DataFilter::filterHTMLdisplay($ret, $xcode, $br);
-                } else {
-                    return icms_core_DataFilter::checkVar($ret, 'html', 'output');
-                }
+				return $myts->displayTarea($ret, $html, $smiley, $xcode, $image, $br);
 			} else {
 				return icms_core_DataFilter::checkVar($ret, 'text', 'output');
 			}
@@ -929,6 +922,7 @@ class icms_ipf_Object extends icms_core_Object {
 				switch (strtolower($format)) {
 					case 's':
 					case 'show':
+						$ts = icms_core_Textsanitizer::getInstance();
 						$html = !empty($this->vars['dohtml']['value']) ? 1 : 0;
 						$xcode = (!isset($this->vars['doxcode']['value']) || $this->vars['doxcode']['value'] == 1) ? 1 : 0;
 						$smiley = (!isset($this->vars['dosmiley']['value']) || $this->vars['dosmiley']['value'] == 1) ? 1 : 0;
@@ -937,12 +931,8 @@ class icms_ipf_Object extends icms_core_Object {
 						if (defined('XOOPS_EDITOR_IS_HTML')) {
 							$br = false;
 						}
-						if ($html && (!is_int($ret) && !empty($ret))) {
-                            if ($br) { // have to use this whilst ever we have a zillion editors in the core
-                                return icms_core_DataFilter::filterHTMLdisplay($ret, $xcode, $br);
-                            } else {
-                                return icms_core_DataFilter::checkVar($ret, 'html', 'output');
-                            }
+						if ($html) {
+							return $ts->displayTarea($ret, $html, $smiley, $xcode, $image, $br);
 						} else {
 							return icms_core_DataFilter::checkVar($ret, 'text', 'output');
 						}
@@ -950,20 +940,21 @@ class icms_ipf_Object extends icms_core_Object {
 
 					case 'e':
 					case 'edit':
-                        return icms_core_DataFilter::checkVar($ret, 'html', 'edit');
+						return htmlspecialchars($ret, ENT_QUOTES);
 						break 1;
 
 					case 'p':
 					case 'preview':
+						$ts = icms_core_Textsanitizer::getInstance();
 						$html = !empty($this->vars['dohtml']['value']) ? 1 : 0;
 						$xcode = (!isset($this->vars['doxcode']['value']) || $this->vars['doxcode']['value'] == 1) ? 1 : 0;
 						$smiley = (!isset($this->vars['dosmiley']['value']) || $this->vars['dosmiley']['value'] == 1) ? 1 : 0;
 						$image = (!isset($this->vars['doimage']['value']) || $this->vars['doimage']['value'] == 1) ? 1 : 0;
 						$br = (!isset($this->vars['dobr']['value']) || $this->vars['dobr']['value'] == 1) ? 1 : 0;
 						if ($html) {
-							return icms_core_DataFilter::checkVar($ret, 'html', 'input');
+							return $ts->previewTarea($ret, $html, $smiley, $xcode, $image, $br);
 						} else {
-							return icms_core_DataFilter::checkVar($ret, 'text', 'input');
+							return icms_core_DataFilter::checkVar($ret, 'text', 'output');
 						}
 						break 1;
 

@@ -1,5 +1,4 @@
 <?php
-// $Id: xoopsformloader.php 12229 2013-07-19 08:08:05Z fiammy $
 /**
  * Helper forms available in the ImpressCMS process
  *
@@ -12,7 +11,7 @@
  * @author		The XOOPS Project Community <http://www.xoops.org>
  * @author	   	Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
  * @author	   	Gustavo Pilla (aka nekro) <nekro@impresscms.org>
- * @version		$Id: xoopsformloader.php 12229 2013-07-19 08:08:05Z fiammy $
+ * @version		$Id: xoopsformloader.php 20509 2010-12-11 12:02:57Z phoenyx $
  *
  * @todo		Implement a way to change use autoload.
  */

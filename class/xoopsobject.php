@@ -1,5 +1,5 @@
 <?php
-// $Id: xoopsobject.php 10337 2010-07-13 15:37:14Z skenow $
+// $Id: xoopsobject.php 19787 2010-07-13 15:37:14Z skenow $
 if (!defined('ICMS_ROOT_PATH')) {
 	exit();
 }

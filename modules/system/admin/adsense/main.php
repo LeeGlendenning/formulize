@@ -7,7 +7,7 @@
  * @package		Administration
  * @since		1.2
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: main.php 10999 2011-02-03 02:22:45Z skenow $
+ * @version		$Id: main.php 20747 2011-02-03 02:22:45Z skenow $
  */
 
 if (!is_object(icms::$user) || !is_object(icms::$module) || !icms::$user->isAdmin(icms::$module->getVar('mid'))) {

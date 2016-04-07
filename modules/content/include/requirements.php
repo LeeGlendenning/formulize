@@ -7,7 +7,7 @@
  * @since		1.0
  * @author		Rodrigo P Lima aka TheRplima <therplima@impresscms.org>
  * @package		content
- * @version		$Id$
+ * @version		$Id: requirements.php 22685 2011-09-18 10:01:52Z phoenyx $
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");

@@ -7,10 +7,10 @@
  * @package		core
  * @since		1.3
  * @author		malanciault <marcan@impresscms.org)
- * @version		$Id: update-112-to-122.php 11624 2012-03-04 03:42:23Z skenow $
+ * @version		$Id: update-112-to-122.php 20426 2010-11-20 22:28:44Z phoenyx $
  */
 
-	if ($dbVersion < 11) include 'update-to-112.php';
+	if ($dbVersion < 12) include 'update-to-112.php';
 
 	/*
 	 * These are updates to the database that occured between 1.1.2 and 1.2.2

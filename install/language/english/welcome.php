@@ -1,10 +1,9 @@
 <?php
-// $Id: welcome.php 12227 2013-07-19 08:07:21Z fiammy $
+// $Id: welcome.php 19118 2010-03-27 17:46:23Z skenow $
 // ALTERED BY FREEFORM SOLUTIONS FOR THE STANDALONE INSTALLER
 $content .= '
 <p>
 	Formulize is a data management and reporting system that lets you easily create forms on the web, and interact with the data people have submitted.  It uses the ImpressCMS platform for some operations.  This installer will setup Formulize and ImpressCMS for you at the same time.
-
 </p>
 <p>
 	Formulize and ImpressCMS are released under the terms of the
@@ -14,9 +13,9 @@ $content .= '
 </p>
 <h3>Requirements</h3>
 <ul>
-	<li>- WWW Server: <a href="http://www.apache.org/" rel="external">Apache</a>, IIS, Roxen, etc</li>
-	<li>- Script: <a href="http://www.php.net/" rel="external">PHP</a> 5.4+ and 16mb minimum memory allocation</li>
-	<li>- Database: <a href="http://www.mysql.com/" rel="external">MySQL</a> 4.1.0 or higher, <a href="https://mariadb.org/" rel="external">MariaDB</a> 5.1 or higher</li>
+	<li>WWW Server (<a href="http://www.apache.org/" rel="external">Apache</a>, IIS, Roxen, etc)</li>
+	<li><a href="http://www.php.net/" rel="external">PHP</a> 5.2 or higher (5.2.8 or higher recommended, <strong>5.3 is now supported</strong>) and 16mb minimum memory allocation</li>
+	<li><a href="http://www.mysql.com/" rel="external">MySQL</a> 4.1.0 or higher</li>
 </ul>
 <h3>Before you install</h3>
 <ul>

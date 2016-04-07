@@ -7,7 +7,7 @@
  * @since		1.0
  * @author		Rodrigo P Lima aka TheRplima <therplima@impresscms.org>
  * @package		content
- * @version		$Id$
+ * @version		$Id: rss.php 20430 2010-11-21 12:42:09Z phoenyx $
  */
 
 include_once "header.php";

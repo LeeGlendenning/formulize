@@ -1,17 +1,17 @@
 <?php
 /**
-* Installer common include file
-*
-* See the enclosed file license.txt for licensing information.
-* If you did not receive this file, get it at http://www.fsf.org/copyleft/gpl.html
-*
-* @copyright    The XOOPS project http://www.xoops.org/
-* @license      http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
-* @package		installer
-* @since        2.0.14
-* @author		Skalpa Keo <skalpa@xoops.org>
-* @version		$Id: common.inc.php 12389 2014-01-17 16:58:21Z skenow $
-*/
+ * Installer common include file
+ *
+ * See the enclosed file license.txt for licensing information.
+ * If you did not receive this file, get it at http://www.fsf.org/copyleft/gpl.html
+ *
+ * @copyright    The XOOPS project http://www.xoops.org/
+ * @license      http://www.fsf.org/copyleft/gpl.html GNU General Public License (GPL)
+ * @package		installer
+ * @since        Xoops 2.0.14
+ * @author		Skalpa Keo <skalpa@xoops.org>
+ * @version		$Id: common.inc.php 20098 2010-09-07 16:19:19Z skenow $
+ */
 
 // ADDED BY FREEFORM SOLUTIONS
 // Set the default timezone to UTC if there is no other timezone specifically set already
@@ -29,16 +29,9 @@ define( 'INSTALL_PASSWORD', '' );
 $xoopsOption['nocommon'] = true;
 define('XOOPS_INSTALL', 1);
 
-/* set the default timezone for date/time functions - for strict PHP 5.3/5.4
- * suppress errors, because we don't care
- * if it's not set, it will be set to UTC, which we would have defaulted, anyway
- */
-date_default_timezone_set(@date_default_timezone_get());
-
+include '../mainfile.php';
 include_once '../include/version.php';
-// including a few functions - core
-include_once '../include/functions.php';
-// installer common functions
+// including a few functions
 require_once 'include/functions.php';
 
 require_once '../libraries/icms/Autoloader.php';
@@ -65,7 +58,7 @@ class XoopsInstallWizard {
 			$_SERVER['REQUEST_URI'] = $_SERVER['PHP_SELF'];
 		}
 
-		if (version_compare( phpversion(), '5.5', '<')) {
+		if (version_compare( phpversion(), '5', '<')) {
 			$this->no_php5 = true;
 		}
 		/*		 elseif (ini_get('safe_mode') == 1 || strtolower(ini_get('safe_mode')) == 'on') {

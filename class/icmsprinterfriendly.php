@@ -10,7 +10,7 @@
  * @since		1.2
  * @author		ImpressCMS
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: icmsprinterfriendly.php 10764 2010-11-15 22:06:37Z skenow $
+ * @version		$Id: icmsprinterfriendly.php 20371 2010-11-15 22:06:37Z skenow $
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");

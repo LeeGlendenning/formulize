@@ -9,7 +9,7 @@
  * @subpackage	form
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: Autocomplete.php 10846 2010-12-05 11:04:09Z phoenyx $
+ * @version		$Id: Autocomplete.php 20483 2010-12-05 11:04:09Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");

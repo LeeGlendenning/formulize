@@ -17,7 +17,7 @@
  * @author		http://www.xoops.org/ The XOOPS Project
  * @author		Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
  * @author	   Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: captcha.php 10679 2010-09-25 17:16:09Z skenow $
+ * @version		$Id: captcha.php 20203 2010-09-25 17:16:09Z skenow $
  */
 
 class IcmsCaptcha extends icms_form_elements_captcha_Object {

@@ -1,33 +1,4 @@
 <?php
-// $Id: groupform.php 12313 2013-09-15 21:14:35Z skenow $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
 /**
  * Form for setting group options
  *
@@ -35,9 +6,8 @@
  * @license		LICENSE.txt
  * @package		Administration
  * @author		Kazumi Ono (AKA onokazu) http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/
- * @copyright	Copyright (c) 2000 XOOPS.org
  * @author		modified by UnderDog <underdog@impresscms.org>
- * @version		SVN: $Id: groupform.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version		SVN: $Id: groupform.php 21374 2011-03-30 13:23:21Z m0nty_ $
  */
 
 $name_text = new icms_form_elements_Text(_AM_NAME, "name", 30, 50, $name_value);
@@ -50,17 +20,14 @@ $admin_dir = ICMS_MODULES_PATH . '/system/admin/';
 $dirlist = icms_core_Filesystem::getDirList($admin_dir);
 /* changes to only allow permission admins you already have */
 $gperm = icms::handler('icms_member_groupperm');
-$groups = icms::$user->getGroups();
+$groups = icms::$user->getGroups ();
 foreach ($dirlist as $file) {
 	if (file_exists(ICMS_MODULES_PATH . '/system/admin/' . $file . '/icms_version.php')) {
 		include ICMS_MODULES_PATH . '/system/admin/' . $file . '/icms_version.php';
 	} elseif (file_exists(ICMS_MODULES_PATH . '/system/admin/' . $file . '/xoops_version.php')) {
 		include ICMS_MODULES_PATH . '/system/admin/' . $file . '/xoops_version.php';
 	}
-	if (!empty($modversion['category'])
-		&& (count(array_intersect($groups, $gperm->getGroupIds('system_admin', $modversion['category']))) > 0
-			|| in_array(ICMS_GROUP_ADMIN, $groups))
-	) {
+	if (!empty($modversion['category']) && count(array_intersect($groups, $gperm->getGroupIds('system_admin', $modversion['category'])))>0) {
 		$s_cat_checkbox->addOption($modversion['category'], $modversion['name']);
 	}
 	unset($modversion);
@@ -127,7 +94,7 @@ $i = 0;
 $groups = icms::$user->getGroups();
 foreach ($posarr as $k=>$v) {
 	$tit = (defined($posarr[$k]['title'])) ? constant($posarr[$k]['title']) : $posarr[$k]['title'];
-	$block_checkbox[$i] = new icms_form_elements_Checkbox('<strong>' . $tit . '</strong><br />', "read_bids[]", $r_block_value);
+	$block_checkbox[$i] = new icms_form_elements_Checkbox('<strong">' . $tit . '</strong><br />', "read_bids[]", $r_block_value);
 	$new_blocks_array = array();
 	$blocks_array = $icms_block_handler->getAllBlocks("list", $k);
 
@@ -153,7 +120,7 @@ $op_hidden = new icms_form_elements_Hidden("op", $op_value);
 $fct_hidden = new icms_form_elements_Hidden("fct", "groups");
 $submit_button = new icms_form_elements_Button("", "groupsubmit", $submit_value, "submit");
 $form = new icms_form_Theme($form_title, "groupform", "admin.php", "post", true);
-$form->addElement($name_text, TRUE);
+$form->addElement($name_text);
 $form->addElement($desc_text);
 $form->addElement($s_cat_checkbox);
 
@@ -180,3 +147,4 @@ if (!empty($g_id_value)) {
 $form->addElement($submit_button);
 $form->setRequired($name_text);
 $form->display(); // render() does not output the form, just contains the output
+

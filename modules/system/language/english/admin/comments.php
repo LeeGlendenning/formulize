@@ -1,5 +1,5 @@
 <?php
-// $Id: comments.php 11344 2011-08-30 16:33:29Z phoenyx $
+// $Id: comments.php 22476 2011-08-30 16:33:29Z phoenyx $
 //%%%%%% Comment Manager %%%%%
 define('_MD_AM_COMMMAN','Comment Manager');
 

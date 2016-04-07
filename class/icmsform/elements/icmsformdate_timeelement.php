@@ -9,7 +9,7 @@
  * @subpackage	Elements
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: icmsformdate_timeelement.php 10726 2010-10-16 09:09:44Z phoenyx $
+ * @version		$Id: icmsformdate_timeelement.php 20295 2010-10-16 09:09:44Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");

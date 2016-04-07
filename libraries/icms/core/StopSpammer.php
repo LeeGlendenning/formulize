@@ -5,15 +5,14 @@
  * This class is responsible for cross referencing register information with StopForumSpam.com API
  *
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- *
+ * @license		LICENSE.txt
  * @category	ICMS
  * @package		Core
  * @subpackage	StopSpammer
  * @since		1.2
  * @author		marcan <marcan@impresscms.org>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		SVN: $Id: StopSpammer.php 12310 2013-09-13 21:33:58Z skenow $
+ * @version		SVN: $Id: StopSpammer.php 21913 2011-06-29 13:39:21Z blauer-fisch $
  */
 /**
  * Checks usernames, emails and ip addresses against a blacklist
@@ -43,7 +42,7 @@ class icms_core_StopSpammer {
 	 */
 	public function checkForField($field, $value) {
 		$spam = false;
-		
+
 		return $spam; // MODIFIED BY FREEFORM SOLUTIONS for compatibility with offline installs.  SUGGESTED BY SKENOW HERE: http://www.freeformsolutions.ca/en/forum/using-formulize-no-internet-access#comment-4554
 
 		$url = $this->api_url . $field . '=' . urlencode($value);
@@ -111,7 +110,7 @@ class icms_core_StopSpammer {
 	    // return TRUE if it's not a valid IP
 	    if (!filter_var($ip, FILTER_VALIDATE_IP)) return TRUE;
 	    // return FALSE if it is a valid IPv6 address - only until IPv6 can be checked without error
-	    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+	    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) { 
 	        return FALSE;
 	    }
 	    return $this->checkForField('ip', $ip);

@@ -12,12 +12,12 @@
 * @since		XOOPS
 * @author		http://www.xoops.org The XOOPS Project
 * @author	   Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
-* @version		$Id: mainfile.dist.php 11358 2011-09-02 19:55:40Z phoenyx $
+* @version		$Id: mainfile.dist.php 22529 2011-09-02 19:55:40Z phoenyx $
 */
 
 if (!defined("XOOPS_MAINFILE_INCLUDED")) {
 	define("XOOPS_MAINFILE_INCLUDED",1);
-	
+
 	// ADDED BY FREEFORM SOLUTIONS
 	// this setting determines which errors will be recorded in the error log
 	// use one of the error log constants to log errors of that, or higher severity: http://www.php.net/manual/en/errorfunc.constants.php
@@ -32,7 +32,7 @@ if (!defined("XOOPS_MAINFILE_INCLUDED")) {
 	if ("UTC" == @date_default_timezone_get()) {
 		date_default_timezone_set("UTC");
 	}
-
+		
 	// XOOPS Physical Path
 	// Physical path to your main XOOPS directory WITHOUT trailing slash
 	// Example: define('XOOPS_ROOT_PATH', '/path/to/xoops/directory');
@@ -70,7 +70,6 @@ if (!defined("XOOPS_MAINFILE_INCLUDED")) {
 
 	$PortNum = (80 == $_SERVER["SERVER_PORT"]) ? "" : ":" . $_SERVER["SERVER_PORT"];
 	define('XOOPS_URL', (443 == $_SERVER["SERVER_PORT"] ? "https://" : "http://") . $_SERVER['SERVER_NAME'] . $PortNum . SITE_BASE_URL );
-
 
 	define('XOOPS_CHECK_PATH', 0);
 	// Protect against external scripts execution if safe mode is not enabled

@@ -8,7 +8,7 @@
  * @package	modules
  * @since	1.3
  * @author	Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version	$Id$
+ * @version	$Id: about.php 20113 2010-09-08 19:12:39Z phoenyx $
  */
 
 include_once 'admin_header.php';

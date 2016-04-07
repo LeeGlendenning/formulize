@@ -10,7 +10,7 @@
  * @author		Jan Pedersen
  * @author		The SmartFactory <www.smartfactory.ca>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id$
+ * @version		$Id: Smartuser.php 20113 2010-09-08 19:12:39Z phoenyx $
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");

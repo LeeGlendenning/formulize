@@ -1,53 +1,23 @@
 <?php
-// $Id: userform.php 12313 2013-09-15 21:14:35Z skenow $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
 /**
  * Administration of users, form file
  *
  * @copyright	http://www.xoops.org/ The XOOPS Project
+ * @copyright	XOOPS_copyrights.txt
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
  * @license	LICENSE.txt
  * @package	Administration
  * @since	XOOPS
  * @author	http://www.xoops.org The XOOPS Project
  * @author	modified by UnderDog <underdog@impresscms.org>
- * @version	$Id: userform.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version	$Id: userform.php 20597 2010-12-21 13:54:35Z phoenyx $
  */
+
 global $icmsConfigUser, $icmsConfigAuth;
 
 $uid_label = new icms_form_elements_Label(_AM_USERID, $uid_value);
 $uname_text = new icms_form_elements_Text(_AM_NICKNAME, "username", 25, 25, $uname_value);
 $login_name_text = new icms_form_elements_Text(_AM_LOGINNAME, "login_name", 25, 25, $login_name_value);
-if ($icmsConfigUser['pass_level'] > 20) {
-	icms_PasswordMeter("password_adv", "login_name");
-}
 $name_text = new icms_form_elements_Text(_AM_NAME, "name", 30, 60, $name_value);
 $email_tray = new icms_form_elements_Tray(_AM_EMAIL, "<br />");
 $email_text = new icms_form_elements_Text("", "email", 30, 60, $email_value);
@@ -150,7 +120,7 @@ if ($gperm_handler->checkRight("system_admin", XOOPS_SYSTEM_GROUP, icms::$user->
 		$group_select = array(new icms_form_elements_select_Group(_US_GROUPS, 'groups', false, $groups, 15, true));
 	} else {
 		$group_manager_value = array_intersect_key(icms::handler('icms_member')->getGroupList(), array_flip($gperm_handler->getItemIds('group_manager', icms::$user->getGroups()))) ;
-		$group_array = new icms_form_elements_Select(_US_GROUPS, 'groups',$groups, 15, true);
+		$group_array = new icms_form_elements_Select(_US_GROUPS, 'groups', $groups, 15, true);
 		$group_array->addOptionArray($group_manager_value);
 		$group_select = array ($group_array);
 		//$group_hidden = array_diff(icms::handler('icms_member')->getGroupList(),$group_manager_value);
@@ -167,6 +137,9 @@ else {
 	}
 }
 
+$salt_hidden = new icms_form_elements_Hidden('salt', icms_core_Password::createSalt());
+
+$enc_type_hidden = new icms_form_elements_Hidden('enc_type', $icmsConfigUser['enc_type']);
 $pass_expired_hidden = new icms_form_elements_Hidden('pass_expired', 0);
 $fct_hidden = new icms_form_elements_Hidden("fct", "users");
 $op_hidden = new icms_form_elements_Hidden("op", $op_value);
@@ -202,10 +175,14 @@ $form->addElement($rank_select);
 if (!$form_isedit) {
 	$form->addElement($pwd_text, true);
 	$form->addElement($pwd_text2, true);
+	$form->addElement($salt_hidden, true);
+	$form->addElement($enc_type_hidden, true);
 	$form->addElement($pass_expired_hidden, true);
 } else {
 	$form->addElement($pwd_text);
 	$form->addElement($pwd_text2);
+	$form->addElement($salt_hidden);
+	$form->addElement($enc_type_hidden);
 	$form->addElement($pass_expired_hidden);
 }
 

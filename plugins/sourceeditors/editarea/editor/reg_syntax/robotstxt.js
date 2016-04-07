@@ -1,5 +1,4 @@
 editAreaLoader.load_syntax["robotstxt"] = {
-	'DISPLAY_NAME' : 'Robots txt',
 	'COMMENT_SINGLE' : {1 : '#'},
 	'COMMENT_MULTI' : {},
 	'QUOTEMARKS' : [],

@@ -12,7 +12,7 @@
  * @author	   	Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  * @package		improfile
- * @version		$Id$
+ * @version		$Id: regstep.php 20428 2010-11-21 12:38:18Z phoenyx $
  */
 
 /**

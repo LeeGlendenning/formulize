@@ -1,6 +1,5 @@
 editAreaLoader.load_syntax["c"] = {
-	'DISPLAY_NAME' : 'C'
-	,'COMMENT_SINGLE' : {1 : '//'}
+	'COMMENT_SINGLE' : {1 : '//'}
 	,'COMMENT_MULTI' : {'/*' : '*/'}
 	,'QUOTEMARKS' : {1: "'", 2: '"'}
 	,'KEYWORD_CASE_SENSITIVE' : true

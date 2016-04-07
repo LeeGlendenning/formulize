@@ -1,43 +1,15 @@
 <?php
-// $Id: modulesadmin.php 12403 2014-01-26 21:35:08Z skenow $
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
 /**
  * Logic and rendering for adminstration of modules
- *
+ * 
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @package		System
  * @subpackage	Modules
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		SVN: $Id: modulesadmin.php 12403 2014-01-26 21:35:08Z skenow $
+ * @version		SVN: $Id: modulesadmin.php 21379 2011-03-30 13:53:00Z m0nty_ $
  */
+
 if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin($icmsModule->getVar('mid'))) {
 	exit("Access Denied");
 }
@@ -120,23 +92,21 @@ function xoops_module_list() {
 
 /**
  * Function and rendering for installation of a module
- *
- * @todo	add installation_notify()
- *
+ * 
  * @param 	string	$dirname
  * @return	string	Results of the installation process
  */
 function xoops_module_install($dirname) {
 	global $icmsConfig, $icmsAdminTpl;
 	$dirname = trim($dirname);
-	$db = icms_db_Factory::instance();
+	$db =& icms_db_Factory::instance();
 	$reservedTables = array(
-		'avatar', 'avatar_users_link', 'block_module_link', 'xoopscomments',
-		'config', 'configcategory', 'configoption', 'image', 'imagebody',
-		'imagecategory', 'imgset', 'imgset_tplset_link', 'imgsetimg', 'groups',
-		'groups_users_link', 'group_permission', 'online', 'bannerclient', 'banner',
-		'bannerfinish', 'priv_msgs', 'ranks', 'session', 'smiles', 'users', 'newblocks',
-		'modules', 'tplfile', 'tplset', 'tplsource', 'xoopsnotifications', 'banner',
+		'avatar', 'avatar_users_link', 'block_module_link', 'xoopscomments', 
+		'config', 'configcategory', 'configoption', 'image', 'imagebody', 
+		'imagecategory', 'imgset', 'imgset_tplset_link', 'imgsetimg', 'groups', 
+		'groups_users_link', 'group_permission', 'online', 'bannerclient', 'banner', 
+		'bannerfinish', 'priv_msgs', 'ranks', 'session', 'smiles', 'users', 'newblocks', 
+		'modules', 'tplfile', 'tplset', 'tplsource', 'xoopsnotifications', 'banner', 
 		'bannerclient', 'bannerfinish',
 	);
 	$module_handler = icms::handler('icms_module');
@@ -162,9 +132,8 @@ function xoops_module_install($dirname) {
 		$errs[] = '<h4 style="text-align:' . _GLOBAL_LEFT . ';margin-bottom: 0px;border-bottom: dashed 1px #000000;">'
 			. _MD_AM_INSTALLING . $module->getInfo('name') . '</h4>';
 		if ($sqlfile !== FALSE && is_array($sqlfile)) {
-			// handle instances when XOOPS_DB_TYPE includes 'pdo.'
-			if (substr(XOOPS_DB_TYPE, 0, 4) == 'pdo.') $driver = substr(XOOPS_DB_TYPE, 4);
-			$sql_file_path = ICMS_MODULES_PATH . "/" . $dirname . "/" . $sqlfile[$driver];
+
+			$sql_file_path = ICMS_MODULES_PATH . "/" . $dirname . "/" . $sqlfile[XOOPS_DB_TYPE];
 			if (!file_exists($sql_file_path)) {
 				$errs[] = sprintf(_MD_AM_SQL_NOT_FOUND, '<strong>' . $sql_file_path . '</strong>');
 				$error = TRUE;
@@ -193,11 +162,11 @@ function xoops_module_install($dirname) {
 						} else {
 
 							if (!in_array($prefixed_query[4], $created_tables)) {
-								$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_TABLE_CREATED,
+								$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_TABLE_CREATED, 
 									'<strong>' . $db->prefix($prefixed_query[4]) . '</strong>');
 								$created_tables[] = $prefixed_query[4];
 							} else {
-								$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_DATA_INSERT_SUCCESS,
+								$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_DATA_INSERT_SUCCESS, 
 									'<strong>' . $db->prefix($prefixed_query[4]) . '</strong>');
 							}
 						}
@@ -225,7 +194,7 @@ function xoops_module_install($dirname) {
 				foreach ($created_tables as $ct) {
 					$db->query("DROP TABLE " . $db->prefix($ct));
 				}
-				$ret = "<p>" . sprintf(_MD_AM_FAILINS,
+				$ret = "<p>" . sprintf(_MD_AM_FAILINS, 
 					"<strong>" . $module->name() . "</strong>") . "&nbsp;" . _MD_AM_ERRORSC . "<br />";
 				$ret .= " - " . implode("<br /> - ", $errs) . "<br /></p>";
 				unset($module, $created_tables, $errs, $msgs);
@@ -252,16 +221,16 @@ function xoops_module_install($dirname) {
 						$tplfile->setVar('tpl_lastimported', 0);
 						$tplfile->setVar('tpl_type', 'module');
 						if (!$tplfile_handler->insert($tplfile)) {
-							$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_TEMPLATE_INSERT_FAIL . '</span>',
+							$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_TEMPLATE_INSERT_FAIL . '</span>', 
 								'<strong>' . $tpl['file'] . '</strong>');
 						} else {
 							$newtplid = $tplfile->getVar('tpl_id');
-							$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_TEMPLATE_INSERTED,
+							$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_TEMPLATE_INSERTED, 
 								'<strong>' . $tpl['file'] . '</strong>', '<strong>' . $newtplid . '</strong>');
 
 							// generate compiled file
 							if (!$icmsAdminTpl->template_touch($newtplid)) {
-								$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_TEMPLATE_COMPILE_FAIL . '</span>',
+								$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_TEMPLATE_COMPILE_FAIL . '</span>', 
 									'<strong>' . $tpl['file'] . '</strong>', '<strong>' . $newtplid . '</strong>');
 							} else {
 								$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_TEMPLATE_COMPILED, '<strong>' . $tpl['file'] . '</strong>');
@@ -295,19 +264,19 @@ function xoops_module_install($dirname) {
 							$template = trim($block['template']);
 						}
 						$block_name = addslashes(trim($block['name']));
-						$sql = "INSERT INTO " . $db->prefix("newblocks")
+						$sql = "INSERT INTO " . $db->prefix("newblocks") 
 							. " (bid, mid, func_num, options, name, title, content, side, weight, visible, block_type, c_type, isactive, dirname, func_file, show_func, edit_func, template, bcachetime, last_modified) VALUES ('"
 							. (int) $newbid . "', '". (int) $newmid . "', '". (int) $blockkey . "', '$options', '" . $block_name . "', '" . $block_name . "', '', '1', '0', '0', 'M', 'H', '1', '" . addslashes($dirname) . "', '" . addslashes(trim($block['file'])) . "', '" . addslashes(trim($block['show_func'])) . "', '" . addslashes($edit_func) . "', '" . $template . "', '0', '" . time() . "')";
 						if (!$db->query($sql)) {
-							$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_BLOCKS_ADD_FAIL . '</span>',
+							$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_BLOCKS_ADD_FAIL . '</span>', 
 								'<strong>' . $block['name'] . '</strong>', '<strong>' . $db->error() . '</strong>');
 						} else {
 							if (empty($newbid)) {
 								$newbid = $db->getInsertId();
 							}
-							$msgs[] = sprintf(_MD_AM_BLOCK_ADDED, '<strong>' . $block['name'] . '</strong>',
+							$msgs[] = sprintf(_MD_AM_BLOCK_ADDED, '<strong>' . $block['name'] . '</strong>', 
 								'<strong>' . icms_conv_nr2local($newbid) . '</strong>');
-							$sql = 'INSERT INTO ' . $db->prefix('block_module_link')
+							$sql = 'INSERT INTO ' . $db->prefix('block_module_link') 
 								. ' (block_id, module_id, page_id) VALUES ('
 								. (int) $newbid . ', 0, 1)';
 							$db->query($sql);
@@ -323,15 +292,15 @@ function xoops_module_install($dirname) {
 								$tplfile->setVar('tpl_lastimported', 0);
 								$tplfile->setVar('tpl_lastmodified', time());
 								if (!$tplfile_handler->insert($tplfile)) {
-									$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_TEMPLATE_INSERT_FAIL . '</span>',
+									$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_TEMPLATE_INSERT_FAIL . '</span>', 
 										'<strong>' . $block['template'] . '</strong>');
 								} else {
 									$newtplid = $tplfile->getVar('tpl_id');
-									$msgs[] = sprintf(_MD_AM_TEMPLATE_INSERTED, '<strong>' . $block['template'] . '</strong>',
+									$msgs[] = sprintf(_MD_AM_TEMPLATE_INSERTED, '<strong>' . $block['template'] . '</strong>', 
 										'<strong>' . icms_conv_nr2local($newtplid) . '</strong>');
 									// generate compiled file
 									if (!$icmsAdminTpl->template_touch($newtplid)) {
-										$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_TEMPLATE_COMPILE_FAIL . '</span>',
+										$msgs[] = sprintf('&nbsp;&nbsp;<span style="color:#ff0000;">' . _MD_AM_TEMPLATE_COMPILE_FAIL . '</span>', 
 											'<strong>' . $block['template'] . '</strong>', '<strong>' . icms_conv_nr2local($newtplid) . '</strong>');
 									} else {
 										$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_TEMPLATE_COMPILED, '<strong>' . $block['template'] . '</strong>');
@@ -348,25 +317,25 @@ function xoops_module_install($dirname) {
 					if ($module->getVar('hascomments') != 0) {
 						include_once ICMS_INCLUDE_PATH . '/comment_constants.php' ;
 						$configs[] = array(
-							'name' => 'com_rule',
-							'title' => '_CM_COMRULES',
-							'description' => '',
-							'formtype' => 'select',
-							'valuetype' => 'int',
-							'default' => 1,
+							'name' => 'com_rule', 
+							'title' => '_CM_COMRULES', 
+							'description' => '', 
+							'formtype' => 'select', 
+							'valuetype' => 'int', 
+							'default' => 1, 
 							'options' => array(
-								'_CM_COMNOCOM' => XOOPS_COMMENT_APPROVENONE,
-								'_CM_COMAPPROVEALL' => XOOPS_COMMENT_APPROVEALL,
-								'_CM_COMAPPROVEUSER' => XOOPS_COMMENT_APPROVEUSER,
+								'_CM_COMNOCOM' => XOOPS_COMMENT_APPROVENONE, 
+								'_CM_COMAPPROVEALL' => XOOPS_COMMENT_APPROVEALL, 
+								'_CM_COMAPPROVEUSER' => XOOPS_COMMENT_APPROVEUSER, 
 								'_CM_COMAPPROVEADMIN' => XOOPS_COMMENT_APPROVEADMIN
 							)
 						);
 						$configs[] = array(
-							'name' => 'com_anonpost',
-							'title' => '_CM_COMANONPOST',
-							'description' => '',
-							'formtype' => 'yesno',
-							'valuetype' => 'int',
+							'name' => 'com_anonpost', 
+							'title' => '_CM_COMANONPOST', 
+							'description' => '', 
+							'formtype' => 'yesno', 
+							'valuetype' => 'int', 
 							'default' => 0,
 						);
 					}
@@ -374,25 +343,25 @@ function xoops_module_install($dirname) {
 					if ($module->getVar('hascomments') != 0) {
 						include_once ICMS_INCLUDE_PATH . '/comment_constants.php' ;
 						$configs[] = array(
-							'name' => 'com_rule',
-							'title' => '_CM_COMRULES',
-							'description' => '',
-							'formtype' => 'select',
-							'valuetype' => 'int',
-							'default' => 1,
+							'name' => 'com_rule', 
+							'title' => '_CM_COMRULES', 
+							'description' => '', 
+							'formtype' => 'select', 
+							'valuetype' => 'int', 
+							'default' => 1, 
 							'options' => array(
-								'_CM_COMNOCOM' => XOOPS_COMMENT_APPROVENONE,
-								'_CM_COMAPPROVEALL' => XOOPS_COMMENT_APPROVEALL,
-								'_CM_COMAPPROVEUSER' => XOOPS_COMMENT_APPROVEUSER,
+								'_CM_COMNOCOM' => XOOPS_COMMENT_APPROVENONE, 
+								'_CM_COMAPPROVEALL' => XOOPS_COMMENT_APPROVEALL, 
+								'_CM_COMAPPROVEUSER' => XOOPS_COMMENT_APPROVEUSER, 
 								'_CM_COMAPPROVEADMIN' => XOOPS_COMMENT_APPROVEADMIN
 						)
 						);
 						$configs[] = array(
-							'name' => 'com_anonpost',
-							'title' => '_CM_COMANONPOST',
-							'description' => '',
-							'formtype' => 'yesno',
-							'valuetype' => 'int',
+							'name' => 'com_anonpost', 
+							'title' => '_CM_COMANONPOST', 
+							'description' => '', 
+							'formtype' => 'yesno', 
+							'valuetype' => 'int', 
 							'default' => 0
 						);
 					}
@@ -411,12 +380,12 @@ function xoops_module_install($dirname) {
 						'_NOT_CONFIG_ENABLEBOTH' => XOOPS_NOTIFICATION_ENABLEBOTH,
 					);
 					$configs[] = array(
-						'name' => 'notification_enabled',
-						'title' => '_NOT_CONFIG_ENABLE',
-						'description' => '_NOT_CONFIG_ENABLEDSC',
-						'formtype' => 'select',
-						'valuetype' => 'int',
-						'default' => XOOPS_NOTIFICATION_ENABLEBOTH,
+						'name' => 'notification_enabled', 
+						'title' => '_NOT_CONFIG_ENABLE', 
+						'description' => '_NOT_CONFIG_ENABLEDSC', 
+						'formtype' => 'select', 
+						'valuetype' => 'int', 
+						'default' => XOOPS_NOTIFICATION_ENABLEBOTH, 
 						'options' => $options,
 					);
 					// Event-specific notification options
@@ -436,12 +405,12 @@ function xoops_module_install($dirname) {
 						}
 					}
 					$configs[] = array(
-						'name' => 'notification_events',
-						'title' => '_NOT_CONFIG_EVENTS',
-						'description' => '_NOT_CONFIG_EVENTSDSC',
-						'formtype' => 'select_multi',
-						'valuetype' => 'array',
-						'default' => array_values($options),
+						'name' => 'notification_events', 
+						'title' => '_NOT_CONFIG_EVENTS', 
+						'description' => '_NOT_CONFIG_EVENTSDSC', 
+						'formtype' => 'select_multi', 
+						'valuetype' => 'array', 
+						'default' => array_values($options), 
 						'options' => $options
 					);
 				}
@@ -609,7 +578,7 @@ function xoops_module_install($dirname) {
 			return $ret;
 		} else {
 			$ret = '<p>&nbsp;&nbsp;' . implode('<br />&nbsp;&nbsp;', $errs);
-
+				
 			unset($msgs, $errs);
 			$ret .= '<br />' . sprintf(_MD_AM_FAILINS, '<strong>' . $dirname . '</strong>') . '&nbsp;' . _MD_AM_ERRORSC . '</p>';
 			return $ret;
@@ -621,8 +590,8 @@ function xoops_module_install($dirname) {
 }
 
 /**
- *
- *
+ * 
+ * 
  * @param	string	$dirname	Directory name of the module
  * @param	string	$template	Name of the template file
  * @param	boolean	$block		Are you trying to retrieve the template for a block?
@@ -652,9 +621,7 @@ function &xoops_module_gettemplate($dirname, $template, $block = FALSE) {
 
 /**
  * Logic for uninstalling a module
- *
- * @todo	add installation_notify(), send status
- *
+ * 
  * @param unknown_type $dirname
  * @return	string	Result messages for uninstallation
  */
@@ -662,11 +629,11 @@ function xoops_module_uninstall($dirname) {
 	global $icmsConfig, $icmsAdminTpl;
 
 	$reservedTables = array(
-		'avatar', 'avatar_users_link', 'block_module_link', 'xoopscomments', 'config',
-		'configcategory', 'configoption', 'image', 'imagebody', 'imagecategory', 'imgset',
+		'avatar', 'avatar_users_link', 'block_module_link', 'xoopscomments', 'config', 
+		'configcategory', 'configoption', 'image', 'imagebody', 'imagecategory', 'imgset', 
 		'imgset_tplset_link', 'imgsetimg', 'groups', 'groups_users_link', 'group_permission',
-		'online', 'bannerclient', 'banner', 'bannerfinish', 'priv_msgs', 'ranks', 'session',
-		'smiles', 'users', 'newblocks', 'modules', 'tplfile', 'tplset', 'tplsource',
+		'online', 'bannerclient', 'banner', 'bannerfinish', 'priv_msgs', 'ranks', 'session', 
+		'smiles', 'users', 'newblocks', 'modules', 'tplfile', 'tplset', 'tplsource', 
 		'xoopsnotifications', 'banner', 'bannerclient', 'bannerfinish');
 
 	$db =& icms_db_Factory::instance();
@@ -909,7 +876,7 @@ function xoops_module_uninstall($dirname) {
 
 /**
  * Logic for activating a module
- *
+ * 
  * @param	int	$mid
  * @return	string	Result message for activating the module
  */
@@ -936,9 +903,7 @@ function xoops_module_activate($mid) {
 
 /**
  * Logic for deactivating a module
- *
- * @todo	Add installation_notify() - send status change?
- *
+ * 
  * @param	int	$mid
  * @return	string	Result message for deactivating the module
  */
@@ -993,7 +958,7 @@ function xoops_module_deactivate($mid) {
 
 /**
  * Logic for changing the weight (order) and name of modules
- *
+ * 
  * @param int $mid		Unique ID for the module to change
  * @param int $weight	Integer value of the weight to be applied to the module
  * @param str $name		Name to be applied to the module
@@ -1014,9 +979,7 @@ function xoops_module_change($mid, $weight, $name) {
 
 /**
  * Logic for updating a module
- *
- * @todo	add installation_notify(), only if the version of the module changes
- *
+ * 
  * @param 	str $dirname
  * @return	str	Result messages from the module update
  */
@@ -1160,7 +1123,7 @@ function icms_module_update($dirname) {
 							$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_UPDATE_FAIL, $fblock['name']);
 						} else {
 							$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_BLOCK_UPDATED,
-								'<strong>' . $fblock['name'] . '</strong>',
+								'<strong>' . $fblock['name'] . '</strong>', 
 								'<strong>' . icms_conv_nr2local($fblock['bid']) . '</strong>');
 							if ($template != '') {
 								$tplfile =& $tplfile_handler->find('default', 'block', $fblock['bid']);
@@ -1260,7 +1223,7 @@ function icms_module_update($dirname) {
 								}
 							}
 							$msgs[] = sprintf('&nbsp;&nbsp;' . _MD_AM_BLOCK_CREATED,
-								'<strong>' . $blocks[$i]['name'] . '</strong>',
+								'<strong>' . $blocks[$i]['name'] . '</strong>', 
 								'<strong>' . $newbid . '</strong>');
 							$sql = "INSERT INTO " . icms::$xoopsDB->prefix('block_module_link')
 								. " (block_id, module_id, page_id) VALUES ('"
@@ -1335,25 +1298,25 @@ function icms_module_update($dirname) {
 			if ($module->getVar('hascomments') != 0) {
 				include_once ICMS_INCLUDE_PATH . '/comment_constants.php' ;
 				array_push($configs, array(
-					'name' => 'com_rule',
-					'title' => '_CM_COMRULES',
-					'description' => '',
-					'formtype' => 'select',
-					'valuetype' => 'int',
-					'default' => 1,
+					'name' => 'com_rule', 
+					'title' => '_CM_COMRULES', 
+					'description' => '', 
+					'formtype' => 'select', 
+					'valuetype' => 'int', 
+					'default' => 1, 
 					'options' => array(
-						'_CM_COMNOCOM' => XOOPS_COMMENT_APPROVENONE,
-						'_CM_COMAPPROVEALL' => XOOPS_COMMENT_APPROVEALL,
-						'_CM_COMAPPROVEUSER' => XOOPS_COMMENT_APPROVEUSER,
+						'_CM_COMNOCOM' => XOOPS_COMMENT_APPROVENONE, 
+						'_CM_COMAPPROVEALL' => XOOPS_COMMENT_APPROVEALL, 
+						'_CM_COMAPPROVEUSER' => XOOPS_COMMENT_APPROVEUSER, 
 						'_CM_COMAPPROVEADMIN' => XOOPS_COMMENT_APPROVEADMIN)
 					)
 				);
 				array_push($configs, array(
-					'name' => 'com_anonpost',
-					'title' => '_CM_COMANONPOST',
-					'description' => '',
-					'formtype' => 'yesno',
-					'valuetype' => 'int',
+					'name' => 'com_anonpost', 
+					'title' => '_CM_COMANONPOST', 
+					'description' => '', 
+					'formtype' => 'yesno', 
+					'valuetype' => 'int', 
 					'default' => 0
 					)
 				);
@@ -1362,25 +1325,25 @@ function icms_module_update($dirname) {
 			if ($module->getVar('hascomments') != 0) {
 				include_once ICMS_INCLUDE_PATH . '/comment_constants.php' ;
 				$configs[] = array(
-					'name' => 'com_rule',
-					'title' => '_CM_COMRULES',
-					'description' => '',
-					'formtype' => 'select',
-					'valuetype' => 'int',
-					'default' => 1,
+					'name' => 'com_rule', 
+					'title' => '_CM_COMRULES', 
+					'description' => '', 
+					'formtype' => 'select', 
+					'valuetype' => 'int', 
+					'default' => 1, 
 					'options' => array(
-						'_CM_COMNOCOM' => XOOPS_COMMENT_APPROVENONE,
-						'_CM_COMAPPROVEALL' => XOOPS_COMMENT_APPROVEALL,
-						'_CM_COMAPPROVEUSER' => XOOPS_COMMENT_APPROVEUSER,
+						'_CM_COMNOCOM' => XOOPS_COMMENT_APPROVENONE, 
+						'_CM_COMAPPROVEALL' => XOOPS_COMMENT_APPROVEALL, 
+						'_CM_COMAPPROVEUSER' => XOOPS_COMMENT_APPROVEUSER, 
 						'_CM_COMAPPROVEADMIN' => XOOPS_COMMENT_APPROVEADMIN
 					)
 				);
 				$configs[] = array(
-					'name' => 'com_anonpost',
-					'title' => '_CM_COMANONPOST',
-					'description' => '',
-					'formtype' => 'yesno',
-					'valuetype' => 'int',
+					'name' => 'com_anonpost', 
+					'title' => '_CM_COMANONPOST', 
+					'description' => '', 
+					'formtype' => 'yesno', 
+					'valuetype' => 'int', 
 					'default' => 0
 				);
 			}
@@ -1400,12 +1363,12 @@ function icms_module_update($dirname) {
 			);
 
 			$configs[] = array(
-				'name' => 'notification_enabled',
-				'title' => '_NOT_CONFIG_ENABLE',
-				'description' => '_NOT_CONFIG_ENABLEDSC',
-				'formtype' => 'select',
-				'valuetype' => 'int',
-				'default' => XOOPS_NOTIFICATION_ENABLEBOTH,
+				'name' => 'notification_enabled', 
+				'title' => '_NOT_CONFIG_ENABLE', 
+				'description' => '_NOT_CONFIG_ENABLEDSC', 
+				'formtype' => 'select', 
+				'valuetype' => 'int', 
+				'default' => XOOPS_NOTIFICATION_ENABLEBOTH, 
 				'options'=>$options
 			);
 			// Event specific notification options
@@ -1426,12 +1389,12 @@ function icms_module_update($dirname) {
 				}
 			}
 			$configs[] = array(
-				'name' => 'notification_events',
-				'title' => '_NOT_CONFIG_EVENTS',
-				'description' => '_NOT_CONFIG_EVENTSDSC',
-				'formtype' => 'select_multi',
-				'valuetype' => 'array',
-				'default' => array_values($options),
+				'name' => 'notification_events', 
+				'title' => '_NOT_CONFIG_EVENTS', 
+				'description' => '_NOT_CONFIG_EVENTSDSC', 
+				'formtype' => 'select_multi', 
+				'valuetype' => 'array', 
+				'default' => array_values($options), 
 				'options' => $options
 			);
 		}
@@ -1457,12 +1420,7 @@ function icms_module_update($dirname) {
 					) {
 						// preserve the old value if any
 						// form type and value type must be the same
-						// need to deal with arrays, because getInfo('config') doesn't convert arrays
-						if (is_array($config_old[$config['name']]['value'])) {
-							$confobj->setVar('conf_value', serialize($config_old[$config['name']]['value']), TRUE);
-						} else {
-							$confobj->setVar('conf_value', $config_old[$config['name']]['value'], TRUE);
-						}
+						$confobj->setVar('conf_value', $config_old[$config['name']]['value'], TRUE);
 					} else {
 						$confobj->setConfValueForInput($config['default'], TRUE);
 					}

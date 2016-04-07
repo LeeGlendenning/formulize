@@ -1,6 +1,5 @@
 editAreaLoader.load_syntax["vb"] = {
-	'DISPLAY_NAME' : 'Visual Basic'
-	,'COMMENT_SINGLE' : {1 : "'"}
+	'COMMENT_SINGLE' : {1 : "'"}
 	,'COMMENT_MULTI' : { }
 	,'QUOTEMARKS' : {1: '"'}
 	,'KEYWORD_CASE_SENSITIVE' : false

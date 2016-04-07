@@ -7,7 +7,7 @@
  * @package		icms_ipf_Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: icmsformset_passwordelement.php 10710 2010-10-10 17:08:06Z phoenyx $
+ * @version		$Id: icmsformset_passwordelement.php 20278 2010-10-10 17:08:06Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");

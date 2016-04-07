@@ -1,5 +1,5 @@
 <?php
-// $Id: banners.php 8548 2009-04-11 10:34:21Z icmsunderdog $
+// $Id: banners.php 8546 2009-04-11 10:34:21Z icmsunderdog $
 //%%%%%%		File Name banners.php 		%%%%%
 define('_BANNERS_LOGIN_TITLE',"Advertising Statistics");
 define('_BANNERS_LOGIN_LOGIN',"Login :");

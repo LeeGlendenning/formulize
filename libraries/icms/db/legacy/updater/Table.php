@@ -2,29 +2,23 @@
 /**
  * Contains the classes for updating database tables
  *
- * @copyright	The ImpressCMS Project <http://www.impresscms.org/>
- * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- *
- * @category	ICMS
- * @package		Database
- *
+ * @license GNU
  * @author marcan <marcan@smartfactory.ca>
- * @version $Id: Table.php 12310 2013-09-13 21:33:58Z skenow $
+ * @version $Id: Table.php 21294 2011-03-26 21:18:22Z skenow $
  * @link http://www.smartfactory.ca The SmartFactory
+ * @package database
  */
-defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");
 /**
  * icms_db_legacy_updater_Table class
  *
  * Information about an individual table
  *
- * @category	ICMS
- * @package		Database
- * @subpackage	Updater
- *
+ * @package SmartObject
  * @author marcan <marcan@smartfactory.ca>
  * @link http://www.smartfactory.ca The SmartFactory
  */
+defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");
+
 class icms_db_legacy_updater_Table {
 	/**
 	 * @var string $_name name of the table
@@ -130,7 +124,7 @@ class icms_db_legacy_updater_Table {
 		$bRetVal = false;
 		$ret = $this->_db->queryF("SHOW TABLES FROM `" . XOOPS_DB_NAME . "` LIKE '" . $this->name() . "'");
 		list ($m_table) = $this->_db->fetchRow($ret);
-		if ($m_table == strtolower($this->name())) $bRetVal = true;
+		if ($m_table == $this->name()) $bRetVal = true;
 		return $bRetVal;
 	}
 

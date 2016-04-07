@@ -12,7 +12,7 @@
  * @author		Haruki Setoyama  <haruki@planewave.org>
  * @author 		Kazumi Ono <webmaster@myweb.ne.jp>
  * @author		Skalpa Keo <skalpa@xoops.org>
- * @version		$Id: page_siteinit.php 11750 2012-06-28 15:31:34Z m0nty $
+ * @version		$Id: page_siteinit.php 20098 2010-09-07 16:19:19Z skenow $
  */
 /**
  *
@@ -30,6 +30,7 @@ $error =& $_SESSION['error'];
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$vars['adminsalt'] = icms_core_Password::createSalt();
 	$vars['adminname'] = $_POST['adminname'];
 	$vars['adminlogin_name'] = $_POST['adminlogin_name'];
 	$vars['adminmail'] = $_POST['adminmail'];
@@ -39,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	if (!preg_match( "/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+([\.][a-z0-9-]+)+$/i", $vars['adminmail'] )) {
 		$error = ERR_INVALID_EMAIL;
-	} elseif (@empty( $vars['adminlogin_name'] ) || @empty( $vars['adminname'] )  || @empty( $vars['adminlogin_name'] ) || @empty( $vars['adminpass'] ) || @empty( $vars['adminmail'])) {
+	} elseif (@empty( $vars['adminlogin_name'] ) || @empty( $vars['adminname'] )  || @empty( $vars['adminlogin_name'] ) || @empty( $vars['adminpass'] ) || @empty( $vars['adminmail']) || empty( $vars['adminsalt'])) {
 		$error = ERR_REQUIRED;
 	} elseif ($vars['adminpass'] != $vars['adminpass2']) {
 		$error = ERR_PASSWORD_MATCH;

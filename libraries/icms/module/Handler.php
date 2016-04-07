@@ -1,32 +1,4 @@
 <?php
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-// Author: Kazumi Ono (AKA onokazu)                                          //
-// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
-// Project: The XOOPS Project                                                //
-// ------------------------------------------------------------------------- //
 /**
  * Manage modules
  *
@@ -34,9 +6,8 @@
  * @license		LICENSE.txt
  * @category	ICMS
  * @package		Module
- * @version	$Id: Handler.php 12313 2013-09-15 21:14:35Z skenow $
+ * @version	$Id: Handler.php 21227 2011-03-24 22:31:18Z m0nty_ $
  */
-
 defined("ICMS_ROOT_PATH") or die("ImpressCMS root path is not defined");
 
 /**
@@ -48,7 +19,6 @@ defined("ICMS_ROOT_PATH") or die("ImpressCMS root path is not defined");
  * @category	ICMS
  * @package		Module
  * @author	Kazumi Ono 	<onokazu@xoops.org>
- * @copyright	Copyright (c) 2000 XOOPS.org
  */
 class icms_module_Handler extends icms_core_ObjectHandler {
 	/**
@@ -304,7 +274,7 @@ class icms_module_Handler extends icms_core_ObjectHandler {
 	 *
 	 * @param   object  $criteria   {@link icms_db_criteria_Element}
 	 * @param   boolean $id_as_key  Use the ID as key into the array
-	 * @return  array	Array of objects - installed module
+	 * @return  array	Array of objects - installed module 
 	 */
 	public function getObjects($criteria = NULL, $id_as_key = FALSE) {
 		$ret = array();
@@ -455,62 +425,5 @@ class icms_module_Handler extends icms_core_ObjectHandler {
 		}
 		// We are in /something.php: let the page handle permissions
 		return TRUE;
-	}
-
-	/**
-	 * Posts a notification of an install or update of the system module
-	 *
-	 * @todo	Add language constants
-	 *
-	 * @param	string	$versionstring	A string representing the version of the module
-	 * @param	string	$icmsroot		A unique identifier for the site
-	 * @param	string	$modulename		The module being installed or updated, 'system' for the core
-	 * @param	string	$action			Action triggering the notification: install, uninstall, activate, deactivate, update
-	 */
-	public static function installation_notify($versionstring, $icmsroot, $modulename = 'system', $action = 'install') {
-
-		$validActions = array('install', 'update', 'uninstall', 'activate', 'deactivate');
-		if (!in_array($action, $validActions)) $action = 'install';
-
-		// @todo: change the URL to an official ImpressCMS server
-		//set POST variables
-		$url = 'http://qc.impresscms.org/notify/notify.php?'; // this may change as testing progresses.
-		$fields = array(
-				'siteid' => hash('sha256', $icmsroot),
-				'version' => urlencode($versionstring),
-				'module' => urlencode($modulename),
-				'action' => urlencode($action),
-		);
-
-		//url-ify the data for the POST
-		$fields_string = "";
-		foreach($fields as $key=>$value) {
-			$fields_string .= $key . '=' . $value . '&';
-		}
-		rtrim($fields_string, '&');
-
-		try {
-			//open connection - this causes a fatal error if the extension is not loaded
-			if (!extension_loaded('curl')) throw new Exception("cURL extension not loaded");
-			$ch = curl_init();
-
-			//set the url, number of POST vars, POST data
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_POST, count($fields));
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-			curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
-
-			//execute post
-			if (curl_exec($ch)) {
-				icms_core_Message::error($url . $fields_string, 'Notification Sent to');
-			} else {
-				throw new Exception("Unable to contact update server");
-			}
-
-			//close connection
-			curl_close($ch);
-		} catch(Exception $e) {
-			icms_core_Message::error(sprintf($e->getMessage()));
-		}
 	}
 }

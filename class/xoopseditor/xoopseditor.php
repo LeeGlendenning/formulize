@@ -12,7 +12,7 @@
  * @since		  XOOPS
  * @author		  http://www.xoops.org The XOOPS Project
  * @author	    Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: xoopseditor.php 10855 2010-12-05 21:35:23Z skenow $
+ * @version		$Id: xoopseditor.php 20493 2010-12-05 21:35:23Z skenow $
  */
 
 /*

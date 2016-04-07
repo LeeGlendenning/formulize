@@ -4,15 +4,13 @@
  *
  * @copyright	The ImpressCMS Project http://www.impresscms.org/
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- * @category	ICMS
- * @package		ipf
- * @subpackage  View
+ * @package		icms_ipf_Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
  * @version		$Id: icmspersistabletreetable.php 19651 2010-06-26 06:15:15Z malanciault $
  */
 
-defined('ICMS_ROOT_PATH') || die("ImpressCMS root path not defined");
+if (!defined('ICMS_ROOT_PATH')) die("ImpressCMS root path not defined");
 
 /**
  * icms_ipf_view_Tree base class
@@ -21,45 +19,30 @@ defined('ICMS_ROOT_PATH') || die("ImpressCMS root path not defined");
  *
  * @copyright	The ImpressCMS Project http://www.impresscms.org/
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- * @category	ICMS
- * @package		Ipf
- * @subpackage  View
+ * @package		icms_ipf_Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
  * @version		$Id: icmspersistabletreetable.php 19651 2010-06-26 06:15:15Z malanciault $
+
  */
 class icms_ipf_view_Tree extends icms_ipf_view_Table {
 
-	/**
-	 * Construct the tree object
-	 *
-	 * @param object $objectHandler (@link icms_ipf_Handler)
-	 * @param object $criteria		(@link icms_db_criteria_Compo)
-	 * @param array $actions		An array of actions for this object
-	 * @param boolean $userSide		TRUE - display on the user side; FALSE - do not display
-	 */
-	public function __construct(&$objectHandler, $criteria=FALSE, $actions=array('edit', 'delete'), $userSide=FALSE) {
-		parent::__construct($objectHandler, $criteria, $actions, $userSide);
-		$this->_isTree = TRUE;
+	function icms_ipf_view_Tree(&$objectHandler, $criteria=false, $actions=array('edit', 'delete'), $userSide=false)
+	{
+		$this->icms_ipf_view_Table($objectHandler, $criteria, $actions, $userSide);
+		$this->_isTree = true;
 	}
-
 	/**
 	 * Get children objects given a specific category_pid
 	 *
 	 * @var int $category_pid id of the parent which children we want to retreive
 	 * @return array of icms_ipf_Object
 	 */
-	public function getChildrenOf($category_pid=0) {
+	function getChildrenOf($category_pid=0) {
 		return isset($this->_objects[$category_pid]) ? $this->_objects[$category_pid] : false;
 	}
 
-	/**
-	 * Create a row based on the item and children
-	 *
-	 * @param object	$object	@link icms_ipf_Object
-	 * @param integer	$level	sub-level of the item
-	 */
-	public function createTableRow($object, $level=0) {
+	function createTableRow($object, $level=0) {
 
 		$aObject = array();
 
@@ -145,7 +128,7 @@ class icms_ipf_view_Tree extends icms_ipf_view_Table {
 
 		$childrenObjects = $this->getChildrenOf($object->id());
 
-		$this->_hasActions = $this->_hasActions  ? true : count($actions) > 0;
+		$this->_hasActions =$this->_hasActions  ? true : count($actions) > 0;
 
 		if ($childrenObjects) {
 			$level++;
@@ -155,12 +138,7 @@ class icms_ipf_view_Tree extends icms_ipf_view_Table {
 		}
 	}
 
-	/**
-	 * Create all the rows
-	 *
-	 * @see icms_ipf_view_Table::createTableRows()
-	 */
-	public function createTableRows() {
+	function createTableRows() {
 		$this->_aObjects = array();
 
 		if (count($this->_objects) > 0) {
@@ -176,12 +154,7 @@ class icms_ipf_view_Tree extends icms_ipf_view_Table {
 		}
 	}
 
-	/**
-	 * Get all the objects, using parentid as the key
-	 *
-	 * @see icms_ipf_view_Table::fetchObjects()
-	 */
-	public function fetchObjects() {
+	function fetchObjects() {
 		$ret = $this->_objectHandler->getObjects($this->_criteria, 'parentid');
 		return $ret;
 

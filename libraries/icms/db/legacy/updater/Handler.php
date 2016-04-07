@@ -2,25 +2,18 @@
 /**
  * Contains the classes for updating database tables
  *
- * @copyright	The ImpressCMS Project <http://www.impresscms.org/>
- * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- *
- * @category	ICMS
- * @package		Database
- *
+ * @license GNU
  * @author marcan <marcan@smartfactory.ca>
- * @version $Id: Handler.php 12310 2013-09-13 21:33:58Z skenow $
+ * @version $Id: Handler.php 20427 2010-11-21 00:06:11Z skenow $
  * @link http://www.smartfactory.ca The SmartFactory
+ * @package database
  */
 /**
  * icms_db_legacy_updater_Table class
  *
  * Information about an individual table
  *
- * @category	ICMS
- * @package		Database
- * @subpackage	Updater
- *
+ * @package SmartObject
  * @author marcan <marcan@smartfactory.ca>
  * @link http://www.smartfactory.ca The SmartFactory
  */
@@ -95,7 +88,7 @@ class icms_db_legacy_updater_Handler {
 	 * @return bool true if success, false if an error occured
 	 *
 	 */
-	function runQuery($goodmsg = "", $badmsg = "", $force = false) {
+	function runQuery($query, $goodmsg = "", $badmsg = "", $force = false) {
 		if ($force) {
 			$ret = $this->_db->queryF($query);
 		} else {

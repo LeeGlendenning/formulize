@@ -7,7 +7,7 @@
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @since		1.0
  * @author		TheRplima aka Rodrigo Pereira Lima <therplima@impresscms.org>
- * @version		$Id$
+ * @version		$Id: content_menu.php 20561 2010-12-19 18:24:19Z phoenyx $
  */
 
 /**
@@ -106,24 +106,25 @@ function getPages($showsubs = true, $sort='content_weight', $order='ASC', $conte
 	$criteria->add($crit);
 	$criteria->setSort($sort);
 	$criteria->setOrder($order);
-	$content_handler->setGrantedObjectsCriteria($criteria, "content_read");
 	$impress_content = $content_handler->getObjects($criteria);
 	$i = 0;
 	$pages = array();
 	foreach ($impress_content as $content){
-		$pages[$i]['title'] = $content->getVar('content_title');
-		$pages[$i]['menu'] = $content_handler->makeLink($content);
-		$pages[$i]['id'] = $content->id();
-		if ($showsubs){
-			$subs = getPages($showsubs, $sort, $order, $content->getVar('content_id'));
-			if (count($subs) > 0){
-				$pages[$i]['hassubs'] = 1;
-				$pages[$i]['subs'] = $subs;
-			}else{
-				$pages[$i]['hassubs'] = 0;
+		if (icms::handler('icms_member_groupperm')->checkRight('content_read', $content->getVar('content_id'), $groups, $module->getVar('mid'))){
+			$pages[$i]['title'] = $content->getVar('content_title');
+			$pages[$i]['menu'] = $content_handler->makeLink($content);
+			if ($showsubs){
+				$subs = getPages($showsubs, $sort, $order, $content->getVar('content_id'));
+				if (count($subs) > 0){
+					$pages[$i]['hassubs'] = 1;
+					$pages[$i]['subs'] = $subs;
+				}else{
+					$pages[$i]['hassubs'] = 0;
+				}
 			}
+			$i++;
 		}
-		$i++;
 	}
+
 	return $pages;
 }

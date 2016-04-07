@@ -1,29 +1,22 @@
 <?php
 /**
- * text version of Captcha element
- * Xoops Frameworks addon
+ * Text form for CAPTCHA
  *
- * based on Frameworks::captcha by Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
- *
- * @copyright	The XOOPS project http://www.xoops.org/
- * @license 	http://www.fsf.org/copyleft/gpl.html GNU public license
- * @author		Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
- * @since		XOOPS
- *
+ * @copyright	http://www.impresscms.org/ The ImpressCMS Project
+ * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @category	ICMS
  * @package		Form
  * @subpackage	Elements
- * @author		Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
- * @version		SVN: $Id: Text.php 12340 2013-09-22 04:11:09Z skenow $
+ * @autho		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
+ * @version		SVN: $Id: Text.php 20205 2010-09-25 20:40:50Z skenow $
  */
-
 /**
  * Creates text version of Captcha element
  *
- * @author		modified by Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
  * @category	ICMS
  * @package		Form
  * @subpackage	Elements
+ *
  */
 class icms_form_elements_captcha_Text {
 
@@ -105,3 +98,4 @@ class icms_form_elements_captcha_Text {
 	}
 
 }
+

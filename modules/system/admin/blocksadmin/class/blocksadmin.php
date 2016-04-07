@@ -8,7 +8,7 @@
  * @since 		ImpressCMS 1.2
  * @package 	Administration
  * @subpackage	Blocks
- * @version		SVN: $Id: blocksadmin.php 11281 2011-06-23 14:08:32Z phoenyx $
+ * @version		SVN: $Id: blocksadmin.php 21839 2011-06-23 14:08:32Z phoenyx $
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  * @author		Rodrigo Pereira Lima (aka therplima) <therplima@impresscms.org>
  */

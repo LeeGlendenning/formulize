@@ -1,5 +1,5 @@
 <?php
-// $Id: plugins.php 8769 2009-05-15 11:12:11Z sato $
+// $Id: plugins.php 8767 2009-05-15 11:12:11Z sato $
 // FILE		::	plugins.php
 // AUTHOR	::	Ryuji AMANO <info@ryus.biz>
 // WEB		::	Ryu's Planning <http://ryus.biz/>

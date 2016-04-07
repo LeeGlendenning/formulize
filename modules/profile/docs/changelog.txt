@@ -1,26 +1,5 @@
 Profile Changelog
 
-=== Profile 2.2 Final ===
-Release date: 15 Sep 2013
-Revision: 
-
-'''Improved'''
-* #422 Links for profile actions needed in the main template, not just the main menu
-* #423 No option to make a field required for registration
-* #424 Creating and editing the registration steps is very cumbersome
-
-'''Fixed'''
-* #421 Admin breadcrumb displays language constant for several tabs when Main Menu is deactivated
-* #436 module update with error
-* #446 bug for openID
-
-=== Profile 2.1 Final ===
-Release date: 1 Okt 2012
-Revision: 
-
-'''Improved'''
-* Password encryption methods
-
 === Profile 2.0 Final ===
 Release date: 18 Sept 2011
 Revision: 22692

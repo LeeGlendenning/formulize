@@ -2,16 +2,17 @@
 /**
  * icms_core_Logger component main class file
  *
- * @copyright	The XOOPS project http://www.xoops.org/
- * @license		http://www.fsf.org/copyleft/gpl.html GNU public license
- * @since		XOOPS 2.0
+ * See the enclosed file LICENSE for licensing information.
+ * If you did not receive this file, get it at http://www.fsf.org/copyleft/gpl.html
  *
- * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
+ * @license		http://www.fsf.org/copyleft/gpl.html GNU public license
+ * @author		Kazumi Ono  <onokazu@xoops.org>
+ * @author		Skalpa Keo <skalpa@xoops.org>
+ * @since		XOOPS
  * @category	ICMS
  * @package		Core
- * @subpackage	Logger
- * @version	$Id: Logger.php 12313 2013-09-15 21:14:35Z skenow $
+ * @subpackage	icms_core_Logger
+ * @version		$Id: Logger.php 21053 2011-03-15 01:02:12Z skenow $
  */
 
 /**
@@ -19,14 +20,7 @@
  *
  * Records information about database queries, blocks, and execution time
  * and can display it as HTML. It also catches php runtime errors.
- *
- * @since		XOOPS
- * @author		Kazumi Ono  <onokazu@xoops.org>
- * @author		Skalpa Keo <skalpa@xoops.org>
- *
- * @category	ICMS
- * @package		Core
- * @subpackage	Logger
+ * @package kernel
  */
 class icms_core_Logger {
 
@@ -37,7 +31,6 @@ class icms_core_Logger {
 	public $logend = array();
 	public $errors = array();
 	public $deprecated = array();
-    public $filters = array();
 
 	public $usePopup = false;
 	public $activated = true;
@@ -175,18 +168,7 @@ class icms_core_Logger {
 			$this->deprecated[] = $msg;
 		}
 	}
-
 	/**
-	 * Log display of filters
-	 * @param   string  $name       name/id of the content
-	 * @param   string  $filter_message     message displayed
-	 */
-	public function addFilter($name, $filter_message) {
-		if ($this->activated )
-		$this->filters[] = array('name' => $name, 'filtermsg' => (int) $filter_message);
-	}
-    
-    /**
 	 * Error handling callback (called by the zend engine)
 	 * @param  string  $errno
 	 * @param  string  $errstr
@@ -194,7 +176,7 @@ class icms_core_Logger {
 	 * @param  string  $errline
 	 */
 	public function handleError($errno, $errstr, $errfile, $errline) {
-		if (defined("ICMS_ERROR_LOG_SEVERITY") and $errno <= ICMS_ERROR_LOG_SEVERITY) {
+        if (defined("ICMS_ERROR_LOG_SEVERITY") and $errno <= ICMS_ERROR_LOG_SEVERITY) {
             error_log("icms_core_Logger::handleError($errno, $errstr, $errfile, $errline);");
         }
 
@@ -217,7 +199,7 @@ class icms_core_Logger {
 			$errortext = sprintf(_CORE_PAGENOTDISPLAYED, $errstr);
 			echo $errortext;
 			if ($trace && function_exists('debug_backtrace')) {
-				echo "<div>Backtrace:<br />";
+				echo "<div style='color:#ffffff;background-color:#ffffff'>Backtrace:<br />";
 				$trace = debug_backtrace();
 				array_shift( $trace );
 				foreach ( $trace as $step) {
@@ -349,18 +331,6 @@ class icms_core_Logger {
 	}
 
 	/**
-	 * dumpFilters
-	 *
-	 * @return unknown
-	 * @deprecated	Use dump('blocks'), instead
-	 * @todo	Remove in version 1.4
-	 */
-	public function dumpFilters() {
-		icms_core_Debug::setDeprecated('$this->dump("filters")', sprintf(_CORE_REMOVE_IN_VERSION, '1.4'));
-		return $this->dump('filters');
-	}
-
-    /**
 	 * Render the list of errors
 	 * This was added in 1.3 because there was a separate class - XoopsErrorHandler -
 	 * having the additional class is unnecessary and the methods existed in other forms.

@@ -1,39 +1,13 @@
 <?php
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
-
 /**
  * Manage configuration items
  *
- * @copyright	Copyright (c) 2000 XOOPS.org
- * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- *
- * @package      Config
- * @subpackage   Item
- *
+ * @copyright    http://www.xoops.org/ The XOOPS Project
+ * @copyright    XOOPS_copyrights.txt
+ * @copyright    http://www.impresscms.org/ The ImpressCMS Project
+ * @license      LICENSE.txt
+ * @package      core
+ * @subpackage   config
  * @since        XOOPS
  * @author       Kazumi Ono (aka onokazo)
  * @author       http://www.xoops.org The XOOPS Project
@@ -68,10 +42,6 @@ define('ICMS_CONF_PURIFIER', 14);
  * of configuration class objects.
  *
  * @author       Kazumi Ono <onokazu@xoops.org>
- * @copyright	copyright (c) 2000-2003 XOOPS.org
- * 				You should have received a copy of XOOPS_copyrights.txt with
- * 				this file. If not, you may obtain a copy from xoops.org
- *
  * @category	ICMS
  * @package     Config
  * @subpackage  Item
@@ -89,7 +59,6 @@ class icms_config_Item_Handler extends icms_core_ObjectHandler {
 		$config = new icms_config_Item_Object();
 		if ($isNew) {
 			$config->setNew();
-            $config->setNewConfig();
 		}
 		return $config;
 	}
@@ -112,7 +81,6 @@ class icms_config_Item_Handler extends icms_core_ObjectHandler {
 			if ($numrows == 1) {
 				$myrow = $this->db->fetchArray($result);
 				$config = new icms_config_Item_Object();
-				$config->setType($myrow["conf_valuetype"]);
 				$config->assignVars($myrow);
 			}
 		}
@@ -245,7 +213,6 @@ class icms_config_Item_Handler extends icms_core_ObjectHandler {
 		}
 		while ($myrow = $this->db->fetchArray($result)) {
 			$config = new icms_config_item_Object();
-			$config->setType($myrow["conf_valuetype"]);
 			$config->assignVars($myrow);
 			if (!$id_as_key) {
 				$ret[] =& $config;

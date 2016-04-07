@@ -7,7 +7,7 @@
  * @since		1.0
  * @author		Rodrigo P Lima aka TheRplima <therplima@impresscms.org>
  * @package		content
- * @version		$Id$
+ * @version		$Id: menu.php 20561 2010-12-19 18:24:19Z phoenyx $
  */
 
 $adminmenu[] = array(

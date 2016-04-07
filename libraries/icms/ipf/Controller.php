@@ -11,7 +11,7 @@
  * @since		1.1
  * @author		Original idea by Jan Keller Pedersen <mithrandir@xoops.org> - IDG Danmark A/S <www.idg.dk>
  * @author		marcan <marcan@impresscms.org>
- * @version		SVN: $Id: Controller.php 11972 2012-08-26 17:49:13Z skenow $
+ * @version		SVN: $Id: Controller.php 22532 2011-09-02 20:16:01Z phoenyx $
  * @todo		Use language constants for messages
  */
 
@@ -125,16 +125,10 @@ class icms_ipf_Controller {
 					}
 					$icmsObj->setVar($key, $value);
 					break;
-
+					
 				case XOBJ_DTYPE_URL:
 					if (isset($_POST[$key])) {
 						$icmsObj->setVar($key, filter_var($_POST[$key], FILTER_SANITIZE_URL));
-					}
-					break;
-
-				case XOBJ_DTYPE_ARRAY:
-					if (is_array($_POST[$key])) {
-						$icmsObj->setVar($key, serialize($_POST[$key]));
 					}
 					break;
 
@@ -372,7 +366,7 @@ class icms_ipf_Controller {
 			if ($this->handler->_moduleName == 'system') {
 				$hiddens['fct'] = isset($_GET['fct']) ? $_GET['fct'] : false;
 			}
-			icms_core_Message::confirm($hiddens, xoops_getenv('SCRIPT_NAME'), sprintf($confirm_msg , $icmsObj->getVar($this->handler->identifierName)), _CO_ICMS_DELETE);
+			icms_core_Message::confirm($hiddens, xoops_getenv('PHP_SELF'), sprintf($confirm_msg , $icmsObj->getVar($this->handler->identifierName)), _CO_ICMS_DELETE);
 
 			icms_cp_footer();
 
@@ -417,7 +411,7 @@ class icms_ipf_Controller {
 				$this->handler->keyName => $icmsObj->getVar($this->handler->keyName),
 				'confirm' => 1,
 				'redirect_page' => $impresscms->urls['previouspage']),
-				xoops_getenv('SCRIPT_NAME'),
+				xoops_getenv('PHP_SELF'),
 				sprintf($confirm_msg ,
 				$icmsObj->getVar($this->handler->identifierName)),
 				_CO_ICMS_DELETE

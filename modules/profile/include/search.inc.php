@@ -7,7 +7,7 @@
  * @license		GNU General Public License (GPL) http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * @package		modules
  * @since		1.4
- * @version		$Id$
+ * @version		$Id: search.inc.php 20562 2010-12-19 18:26:36Z phoenyx $
  */
 
 /** Protection against inclusion outside the site */

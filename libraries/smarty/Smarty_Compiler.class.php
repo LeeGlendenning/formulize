@@ -21,12 +21,12 @@
  * @link http://smarty.php.net/
  * @author Monte Ohrt <monte at ohrt dot com>
  * @author Andrei Zmievski <andrei@php.net>
- * @version 2.6.25-dev
+ * @version 2.6.26
  * @copyright 2001-2005 New Digital Group, Inc.
  * @package Smarty
  */
 
-/* $Id: Smarty_Compiler.class.php 4779 2013-09-30 19:14:32Z Uwe.Tews@googlemail.com $ */
+/* $Id: Smarty_Compiler.class.php 3163 2009-06-17 14:39:24Z monte.ohrt $ */
 
 /**
  * Template compiling class
@@ -74,12 +74,17 @@ class Smarty_Compiler extends Smarty {
     var $_strip_depth           =   0;
     var $_additional_newline    =   "\n";
 
+    var $_phpversion            =   0;
+
+
     /**#@-*/
     /**
      * The class constructor.
      */
     function Smarty_Compiler()
     {
+        $this->_phpversion = substr(phpversion(),0,1);
+
         // matches double quoted strings:
         // "foobar"
         // "foo\"bar"
@@ -262,11 +267,11 @@ class Smarty_Compiler extends Smarty {
         reset($this->_folded_blocks);
 
         /* replace special blocks by "{php}" */
-        $source_content = preg_replace_callback($search, create_function ('$matches', "return '"
+        $source_content = preg_replace($search.'e', "'"
                                        . $this->_quote_replace($this->left_delimiter) . 'php'
-                                       . "' . str_repeat(\"\n\", substr_count('\$matches[1]', \"\n\")) .'"
+                                       . "' . str_repeat(\"\n\", substr_count('\\0', \"\n\")) .'"
                                        . $this->_quote_replace($this->right_delimiter)
-                                       . "';")
+                                       . "'"
                                        , $source_content);
 
         /* Gather all template tags. */
@@ -2122,7 +2127,7 @@ class Smarty_Compiler extends Smarty {
                 return null;
 
             case 'template':
-                $compiled_ref = "'" . addslashes($this->_current_file) . "'";
+                $compiled_ref = "'$this->_current_file'";
                 $_max_index = 1;
                 break;
 

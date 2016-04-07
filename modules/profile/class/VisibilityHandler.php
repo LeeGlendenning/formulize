@@ -8,7 +8,7 @@
  * @since		1.4
  * @author		phoenyx
 * @package		profile
- * @version		$Id$
+ * @version		$Id: VisibilityHandler.php 20122 2010-09-09 18:09:55Z phoenyx $
  */
 
 defined("ICMS_ROOT_PATH") or die("ICMS root path not defined");

@@ -9,7 +9,7 @@
 * @since		1.2
 * @author		Sina Asghari <pesian_stranger@users.sourceforge.net>
 * @author		Taiwen Jiang <phppp@users.sourceforge.net>
-* @version		$Id$
+* @version		$Id: onupdate.inc.php 22408 2011-08-26 18:45:39Z phoenyx $
 */
 
 define('PROFILE_DB_VERSION', 2);

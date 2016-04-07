@@ -1,19 +1,22 @@
 <?php
 
+define('Auth_OpenID_SHA256_SUPPORTED', false);
+define('Auth_OpenID_HMACSHA256_SUPPORTED', false);
+
 require_once 'Tests/TestDriver.php';
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/TestResult.php';
 require_once 'Console/Getopt.php';
 
-class TextTestResult extends PHPUnit_Framework_TestResult {
-  function addError(&$test, &$t, $time=0)
+class TextTestResult extends PHPUnit_TestResult {
+    function addError(&$test, &$t)
     {
-      parent::addError($test, $t, $time);
+        parent::addError($test, $t);
         echo "E";
     }
 
-    function addFailure(&$test, &$t, $time=0)
+    function addFailure(&$test, &$t)
     {
-        parent::addFailure($test, $t, $time);
+        parent::addFailure($test, $t);
         echo "F";
     }
 
@@ -134,7 +137,7 @@ foreach ($extra_test_modules as $filename) {
     $class_name = "Tests_Auth_OpenID_${module_name}_Test";
     $suites[] = makeSuite($class_name);
 }
-
+    
 
 $totals = array(
     'run' => 0,
@@ -155,7 +158,7 @@ Test suite: $name
     $suite->run($result);
     $after = microtime_float();
 
-    $run = $result->count();
+    $run = $result->runCount();
     $error = $result->errorCount();
     $failure = $result->failureCount();
     $delta = $after - $before;

@@ -10,7 +10,7 @@
  * @author		Jan Pedersen
  * @author		The SmartFactory <www.smartfactory.ca>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id$
+ * @version		$Id: register.php 21139 2011-03-20 20:58:11Z m0nty_ $
  */
 
 include_once '../../mainfile.php';
@@ -74,8 +74,9 @@ switch ($op) {
 			$vpass = isset($_POST['vpass']) ? icms_core_DataFilter::stripSlashesGPC($_POST['vpass']) : '';
 			$pass = isset($_POST['pass']) ? icms_core_DataFilter::stripSlashesGPC($_POST['pass']) : '';
 
-            $icmspass = new icms_core_Password();
-			$enc_pass = $icmspass->encryptPass($pass);
+			$icmspass = new icms_core_Password();
+			$salt = icms_core_Password::createSalt();
+			$enc_pass = $icmspass->encryptPass($pass, $salt, $icmsConfigUser['enc_type']);
 
 			if ($icmsConfigUser['use_captcha'] == 1) {
 				$icmsCaptcha = icms_form_elements_captcha_Object::instance();
@@ -89,7 +90,9 @@ switch ($op) {
 				$_SESSION['profile']['login_name'] = $login_name;
 				$_SESSION['profile']['uname'] = $uname;
 				$_SESSION['profile']['email'] = $email;
+				$_SESSION['profile']['salt'] = $salt;
 				$_SESSION['profile']['pass'] = $enc_pass;
+				$_SESSION['profile']['enc_type'] = $icmsConfigUser['enc_type'];
 				$_SESSION['profile']['user_avatar'] = 'blank.gif';
 				$_SESSION['profile']['uorder'] = $icmsConfig['com_order'];
 				$_SESSION['profile']['umode'] = $icmsConfig['com_mode'];

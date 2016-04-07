@@ -9,7 +9,7 @@
  * @package	core
  * @since	1.1
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version	$Id: pdf.php 11632 2012-03-06 23:38:56Z fiammy $
+ * @version	$Id: pdf.php 21083 2011-03-17 12:43:06Z m0nty_ $
  */
 if (!defined('ICMS_ROOT_PATH')) {
 	exit();
@@ -37,7 +37,7 @@ function Generate_PDF ($content, $doc_title, $doc_keywords) {
 	$sitename = $icmsConfig['sitename'];
 	$siteslogan = $icmsConfig['slogan'];
 	$pdfheader = icms_core_DataFilter::undoHtmlSpecialChars($sitename.' - '.$siteslogan);
-	$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $pdfheader, ICMS_URL);
+	$pdf->SetHeaderData("logo.gif", PDF_HEADER_LOGO_WIDTH, $pdfheader, ICMS_URL);
 
 	//set margins
 	$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);

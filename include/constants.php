@@ -1,12 +1,13 @@
 <?php
 /**
+ *
  * ImpressCMS core constants definition
  *
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @package		core
  * @since		1.3
- * @version		SVN: $Id: constants.php 11514 2011-12-29 02:16:36Z sato-san $
+ * @version		SVN: $Id: constants.php 20768 2011-02-06 00:02:25Z skenow $
  */
 
 if (!defined('ICMS_ROOT_PATH')) {
@@ -90,7 +91,7 @@ define('ICMS_IMANAGER_FOLDER_URL', ICMS_UPLOAD_URL . '/imagemanager');
 /**
  * @todo make this $icms_images_setname as an option in preferences...
  */
-$icms_images_setname = 'kfaenza';
+$icms_images_setname = 'crystal';
 define('ICMS_IMAGES_SET_URL', ICMS_IMAGES_URL . '/' . $icms_images_setname);
 
 /**#@+
@@ -114,3 +115,6 @@ if (!defined('XOOPS_XMLRPC')) {
 } else {
 	define('XOOPS_DB_CHKREF', 0);
 }
+
+
+

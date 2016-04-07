@@ -10,7 +10,7 @@
  * @author		Jan Pedersen
  * @author		The SmartFactory <www.smartfactory.ca>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id$
+ * @version		$Id: userinfo.php 21139 2011-03-20 20:58:11Z m0nty_ $
  */
 
 include '../../mainfile.php';
@@ -46,7 +46,7 @@ if (is_object(icms::$user) && $uid == icms::$user->getVar('uid')) {
     if (!is_object($thisUser) || (!$thisUser->isActive() && (!icms::$user || !icms::$user->isAdmin()))) redirect_header(ICMS_URL."/modules/".basename(dirname(__FILE__)), 3, _MD_PROFILE_SELECTNG);
 
 	//disable cache
-    if (is_object(icms::$user) && icms::$user->isAdmin(icms::$module->getVar('mid'))) $icmsConfig['module_cache'][icms::$module->getVar('mid')] = 0;
+    if (icms::$user->isAdmin(icms::$module->getVar('mid'))) $icmsConfig['module_cache'][icms::$module->getVar('mid')] = 0;
     $xoopsOption['template_main'] = 'profile_userinfo.html';
     include ICMS_ROOT_PATH.'/header.php';
 	if (!$thisUser->isActive() && icms::$user && icms::$user->isAdmin()) $icmsTpl->assign('deleted', _MD_PROFILE_DELETED);
