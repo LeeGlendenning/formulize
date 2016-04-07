@@ -7,7 +7,7 @@
  * @package		Administration
  * @since		1.2
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: xoops_version.php 20747 2011-02-03 02:22:45Z skenow $
+ * @version		$Id: xoops_version.php 10999 2011-02-03 02:22:45Z skenow $
  */
 
 $modversion = array(

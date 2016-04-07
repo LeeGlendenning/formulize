@@ -1,4 +1,33 @@
 <?php
+// $Id: users.php 12313 2013-09-15 21:14:35Z skenow $
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+//  ------------------------------------------------------------------------ //
+// Author: Kazumi Ono (AKA onokazu)                                          //
+// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
+// Project: The XOOPS Project                                                //
+// ------------------------------------------------------------------------- //
 /**
  * Administration of users, main functions file
  *
@@ -6,19 +35,18 @@
  * @license		LICENSE.txt
  * @package		System
  * @subpackage	Users
- * @version		SVN: $Id: users.php 21133 2011-03-20 19:43:48Z m0nty_ $
+ * @version		SVN: $Id: users.php 12313 2013-09-15 21:14:35Z skenow $
  */
-
-if (!is_object(icms::$user) 
-	|| !is_object($icmsModule) 
+if (!is_object(icms::$user)
+	|| !is_object($icmsModule)
 	|| !icms::$user->isAdmin($icmsModule->getVar('mid'))
-	) {
-		exit('Access Denied');
-	}
+) {
+	exit('Access Denied');
+}
 
 /**
  * Displays user information form
- * 
+ *
  */
 function displayUsers() {
 	global $icmsConfig, $icmsModule, $icmsConfigUser;
@@ -42,8 +70,10 @@ function displayUsers() {
 	$user_select_tray->addElement($user_select);
 	$user_select_nav = new icms_form_elements_Label('', $nav->renderNav(4));
 	$user_select_tray->addElement($user_select_nav);
+	
 	$op_select = new icms_form_elements_Select('', 'op');
 	$op_select->addOptionArray(array('modifyUser'=>_AM_MODIFYUSER, 'delUser'=>_AM_DELUSER));
+	
 	$submit_button = new icms_form_elements_Button('', 'submit', _AM_GO, 'submit');
 	$fct_hidden = new icms_form_elements_Hidden('fct', 'users');
 	$editform->addElement($user_select_tray);
@@ -68,8 +98,10 @@ function displayUsers() {
 	$user_select_tray->addElement($user_select);
 	$user_select_nav = new icms_form_elements_Label('', $nav->renderNav(4));
 	$user_select_tray->addElement($user_select_nav);
+
 	$op_select = new icms_form_elements_Select('', 'op');
 	$op_select->addOptionArray(array('modifyUser'=>_AM_MODIFYUSER));
+
 	$submit_button = new icms_form_elements_Button('', 'submit', _AM_GO, 'submit');
 	$fct_hidden = new icms_form_elements_Hidden('fct', 'users');
 	$editform->addElement($user_select_tray);
@@ -88,8 +120,6 @@ function displayUsers() {
 	$openid_value = '';
 	$openid_cbox_value = 0;
 	$url_value = '';
-	//  $avatar_value = 'blank.gif';
-	//  $theme_value = $icmsConfig['default_theme'];
 	$timezone_value = $icmsConfig['default_TZ'];
 	$icq_value = '';
 	$aim_value = '';
@@ -110,7 +140,6 @@ function displayUsers() {
 	$rank_value = 0;
 	$mailok_value = 0;
 	$pass_expired_value = 0;
-	$enc_type_value = $icmsConfigUser['enc_type'];
 	$op_value = 'addUser';
 	$form_title = _AM_ADDUSER;
 	$form_isedit = FALSE;
@@ -147,9 +176,7 @@ function modifyUser($user) {
 		$openid_value = $user->getVar('openid', 'E');
 		$openid_cbox_value = $user->getVar('user_viewoid') ? 1 : 0;
 		$url_value = $user->getVar('url', 'E');
-		//	  $avatar_value = $user->getVar('user_avatar');
 		$temp = $user->getVar('theme');
-		//$theme_value = empty($temp) ? $icmsConfig['default_theme'] : $temp;
 		$timezone_value = $user->getVar('timezone_offset');
 		$icq_value = $user->getVar('user_icq', 'E');
 		$aim_value = $user->getVar('user_aim', "E");
@@ -168,7 +195,6 @@ function modifyUser($user) {
 		$rank_value = $user->rank(FALSE);
 		$mailok_value = $user->getVar('user_mailok', 'E');
 		$pass_expired_value = $user->getVar('pass_expired') ? 1 : 0;
-		$enc_type_value = $user->getVar('enc_type', 'E');
 		$op_value = 'updateUser';
 		$form_title = _AM_UPDATEUSER . ': ' . $user->getVar('uname');
 		$language_value = $user->getVar('language');
@@ -227,17 +253,15 @@ function modifyUser($user) {
  * @param $user_mailok
  * @param $language
  * @param $openid
- * @param $salt
  * @param $user_viewoid
  * @param $pass_expired
- * @param $enc_type
  * @param $groups
  */
 function updateUser($uid, $uname, $login_name, $name, $url, $email, $user_icq, $user_aim, $user_yim,
 					$user_msnm, $user_from, $user_occ, $user_intrest, $user_viewemail, $user_avatar,
 					$user_sig, $attachsig, $theme, $pass, $pass2, $rank, $bio, $uorder, $umode, $notify_method,
-					$notify_mode, $timezone_offset, $user_mailok, $language, $openid, $salt, $user_viewoid,
-					$pass_expired, $enc_type, $groups = array()
+					$notify_mode, $timezone_offset, $user_mailok, $language, $openid, $user_viewoid,
+					$pass_expired, $groups = array()
 					) {
 	global $icmsConfig, $icmsModule, $icmsConfigUser;
 	$member_handler = icms::handler('icms_member');
@@ -257,7 +281,6 @@ function updateUser($uid, $uname, $login_name, $name, $url, $email, $user_icq, $
 		$edituser->setVar('user_viewoid', $user_viewoid);
 		$url = isset($url) ? formatURL($url) : '';
 		$edituser->setVar('url', $url);
-		//$edituser->setVar('user_avatar', $user_avatar);
 		$edituser->setVar('user_icq', $user_icq);
 		$edituser->setVar('user_from', $user_from);
 		if ($icmsConfigUser['allow_htsig'] == 0) {
@@ -265,7 +288,7 @@ function updateUser($uid, $uname, $login_name, $name, $url, $email, $user_icq, $
 			$edituser->setVar('user_sig', icms_core_DataFilter::icms_substr($signature, 0, (int) $icmsConfigUser['sig_max_length']));
 		} else {
 			$signature = icms_core_DataFilter::checkVar($user_sig, 'html', 'input');
-			$edituser->setVar('user_sig', icms_core_DataFilter::icms_substr($signature, 0, (int) $icmsConfigUser['sig_max_length']));
+			$edituser->setVar('user_sig', $signature);
 		}
 		$user_viewemail = (isset($user_viewemail) && $user_viewemail == 1) ? 1 : 0;
 		$edituser->setVar('user_viewemail', $user_viewemail);
@@ -275,10 +298,8 @@ function updateUser($uid, $uname, $login_name, $name, $url, $email, $user_icq, $
 		$attachsig = (isset($attachsig) && $attachsig == 1) ? 1 : 0;
 		$edituser->setVar('attachsig', $attachsig);
 		$edituser->setVar('timezone_offset', $timezone_offset);
-		//$edituser->setVar('theme', $theme);
 		$edituser->setVar('uorder', $uorder);
 		$edituser->setVar('umode', $umode);
-		// RMV-NOTIFY
 		$edituser->setVar('notify_method', $notify_method);
 		$edituser->setVar('notify_mode', $notify_mode);
 		$edituser->setVar('bio', $bio);
@@ -296,10 +317,8 @@ function updateUser($uid, $uname, $login_name, $name, $url, $email, $user_icq, $
 			}
 
 			$icmspass = new icms_core_Password();
-			$edituser->setVar('salt', $salt);
-			$edituser->setVar('enc_type', $enc_type);
 			$edituser->setVar('pass_expired', $pass_expired);
-			$pass = $icmspass->encryptPass($pass, $salt, $enc_type);
+			$pass = $icmspass->encryptPass($pass);
 			$edituser->setVar('pass', $pass);
 		}
 		if (!$member_handler->insertUser($edituser)) {
@@ -373,4 +392,3 @@ function synchronize($id, $type) {
 	redirect_header('admin.php?fct=users&amp;op=modifyUser&amp;uid=' . $id, 1, _AM_DBUPDATED);
 	exit();
 }
-

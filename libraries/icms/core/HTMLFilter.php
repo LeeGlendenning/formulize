@@ -5,11 +5,12 @@
  *
  * @category	ICMS
  * @package		Core
+ * @subpackage  Filters
  * @since		1.3
  * @author		vaughan montgomery (vaughan@impresscms.org)
  * @author		ImpressCMS Project
  * @copyright	(c) 2007-2010 The ImpressCMS Project - www.impresscms.org
- * @version		$Id: HTMLFilter.php 20729 2011-01-27 22:23:00Z m0nty_ $
+ * @version		$Id: HTMLFilter.php 12116 2012-11-18 22:08:37Z skenow $
 **/
 /**
  *
@@ -56,9 +57,17 @@ class icms_core_HTMLFilter extends icms_core_DataFilter {
 	 *			HTMLPurifier, HTMLLawed etc, for now we just have HTMLPurifier.
 	 * @return   string
 	 **/
-	public function filterHTML($html) {
+	public static function filterHTML($html) {
 		$icmsConfigPurifier = icms::$config->getConfigsByCat(ICMS_CONF_PURIFIER);
-		if ($icmsConfigPurifier['enable_purifier'] !== 0) {
+        
+        $fcomment = '<!-- filtered with htmlpurifier -->';
+        
+        $purified = strpos($html, $fcomment);
+        if ($purified !== FALSE) {
+            $html = str_replace($fcomment, '', $html);
+        }
+
+        if ($icmsConfigPurifier['enable_purifier'] !== 0) {
 			ICMS_PLUGINS_PATH;
 			require_once ICMS_LIBRARIES_PATH . '/htmlpurifier/HTMLPurifier.standalone.php';
 			require_once ICMS_LIBRARIES_PATH . '/htmlpurifier/HTMLPurifier.autoload.php';
@@ -70,9 +79,12 @@ class icms_core_HTMLFilter extends icms_core_DataFilter {
 			// uncomment for specific config debug info
 			//parent::filterDebugInfo('icmsPurifyConf', $icmsPurifyConf);
 
-			$purifier = new HTMLPurifier($icmsPurifyConf);
+            $purifier = new HTMLPurifier($icmsPurifyConf);
 			$html = $purifier->purify($html);
+            
+            $html .= $fcomment;
 		}
+        
 		return $html;
 	}
 
@@ -84,7 +96,7 @@ class icms_core_HTMLFilter extends icms_core_DataFilter {
 	 *
 	 * @return	object	array list of filter objects
 	 */
-	private function getCustomFilterList() {
+	private static function getCustomFilterList() {
 		$dirPath = ICMS_LIBRARIES_PATH . '/htmlpurifier/standalone/HTMLPurifier/Filter/';
 		$icmsConfigPurifier = icms::$config->getConfigsByCat(ICMS_CONF_PURIFIER);
 		if ($icmsConfigPurifier['purifier_Filter_AllowCustom'] !== 0) {
@@ -110,9 +122,19 @@ class icms_core_HTMLFilter extends icms_core_DataFilter {
 	 * Gets Custom Purifier configurations ** this function will improve in time **
 	 * @return  array    $icmsPurifierConf
 	 **/
-	protected function getHTMLFilterConfig() {
+	protected static function getHTMLFilterConfig() {
 		$icmsConfigPurifier = icms::$config->getConfigsByCat(ICMS_CONF_PURIFIER);
-
+        
+        $IframeRegExp = $icmsConfigPurifier['purifier_URI_SafeIframeRegexp'];
+        if ($IframeRegExp !== '') {
+            $pos = strpos( $IframeRegExp, '|' );
+            if ($pos === FALSE) {
+                $IframeRegExp = '%^' . $IframeRegExp . '%';
+            } else {
+                $IframeRegExp = '%^(' . $IframeRegExp . ')%';
+            }
+        }
+ 
 		$icmsPurifierConf = array(
             'HTML.DefinitionID' => $icmsConfigPurifier['purifier_HTML_DefinitionID'],
             'HTML.DefinitionRev' => $icmsConfigPurifier['purifier_HTML_DefinitionRev'],
@@ -125,8 +147,9 @@ class icms_core_HTMLFilter extends icms_core_DataFilter {
             'HTML.TidyLevel' => $icmsConfigPurifier['purifier_HTML_TidyLevel'],
             'HTML.SafeEmbed' => $icmsConfigPurifier['purifier_HTML_SafeEmbed'],
             'HTML.SafeObject' => $icmsConfigPurifier['purifier_HTML_SafeObject'],
+            'HTML.SafeIframe' => $icmsConfigPurifier['purifier_HTML_SafeIframe'],
             'HTML.Attr.Name.UseCDATA' => $icmsConfigPurifier['purifier_HTML_AttrNameUseCDATA'],
-			'HTML.FlashAllowFullScreen' => $icmsConfigPurifier['purifier_HTML_FlashAllowFullScreen'],
+            'HTML.FlashAllowFullScreen' => $icmsConfigPurifier['purifier_HTML_FlashAllowFullScreen'],
             'Output.FlashCompat' => $icmsConfigPurifier['purifier_Output_FlashCompat'],
             'CSS.DefinitionRev' => $icmsConfigPurifier['purifier_CSS_DefinitionRev'],
             'CSS.AllowImportant' => $icmsConfigPurifier['purifier_CSS_AllowImportant'],
@@ -160,7 +183,7 @@ class icms_core_HTMLFilter extends icms_core_DataFilter {
             'URI.AllowedSchemes' => $icmsConfigPurifier['purifier_URI_AllowedSchemes'],
             'URI.DefinitionID' => $icmsConfigPurifier['purifier_URI_DefinitionID'],
             'URI.DefinitionRev' => $icmsConfigPurifier['purifier_URI_DefinitionRev'],
-            'URI.AllowedSchemes' => $icmsConfigPurifier['purifier_URI_AllowedSchemes'],
+            'URI.SafeIframeRegexp' => $IframeRegExp,
             'Attr.AllowedFrameTargets' => $icmsConfigPurifier['purifier_Attr_AllowedFrameTargets'],
             'Attr.AllowedRel' => $icmsConfigPurifier['purifier_Attr_AllowedRel'],
             'Attr.AllowedClasses' => $icmsConfigPurifier['purifier_Attr_AllowedClasses'],

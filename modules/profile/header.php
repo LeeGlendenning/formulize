@@ -9,7 +9,7 @@
  * @since		1.3
  * @author		Marcello Brandao <marcello.brandao@gmail.com>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: header.php 21139 2011-03-20 20:58:11Z m0nty_ $
+ * @version		$Id$
  */
 
 include_once "../../mainfile.php";

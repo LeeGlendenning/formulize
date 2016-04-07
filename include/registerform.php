@@ -1,16 +1,42 @@
 <?php
+// $Id: registerform.php 12313 2013-09-15 21:14:35Z skenow $
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+//  ------------------------------------------------------------------------ //
+
 /**
  * Registration form
  *
  * @copyright	http://www.xoops.org/ The XOOPS Project
- * @copyright	XOOPS_copyrights.txt
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
  * @license		LICENSE.txt
  * @package	core
  * @since		XOOPS
  * @author		http://www.xoops.org The XOOPS Project
- * @version		$Id: registerform.php 21083 2011-03-17 12:43:06Z m0nty_ $
+ * @version		$Id: registerform.php 12313 2013-09-15 21:14:35Z skenow $
  */
+
 defined("ICMS_ROOT_PATH") || die("ImpressCMS root path not defined");
 
 $email_tray = new icms_form_elements_Tray(_US_EMAIL, "<br />");
@@ -51,8 +77,6 @@ if ($icmsConfigUser['reg_dispdsclmr'] != 0 && $icmsConfigUser['reg_disclaimer'] 
 	$reg_form->addElement($disc_tray);
 }
 
-$reg_form->addElement(new icms_form_elements_Hidden("salt", icms_core_DataFilter::htmlSpecialChars($salt)));
-$reg_form->addElement(new icms_form_elements_Hidden("enc_type", (int) ($enc_type)));
 $reg_form->addElement(new icms_form_elements_Hidden("actkey", icms_core_DataFilter::htmlSpecialChars($actkey)));
 
 if ($icmsConfigUser['use_captcha'] == true) {

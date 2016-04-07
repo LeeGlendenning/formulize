@@ -1,11 +1,41 @@
 <?php
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+//  ------------------------------------------------------------------------ //
+// Author: Kazumi Ono (AKA onokazu)                                          //
+// URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
+// Project: The XOOPS Project                                                //
+// ------------------------------------------------------------------------- //
 /**
  * The uploader class of media files
+ *
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license		LICENSE.txt
+ * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
+ *
  * @category	ICMS
  * @package		File
- * @version		SVN: $Id: MediaUploadHandler.php 21846 2011-06-23 16:37:07Z phoenyx $
+ * @version		SVN: $Id: MediaUploadHandler.php 12313 2013-09-15 21:14:35Z skenow $
  */
 /*!
  Example
@@ -27,7 +57,6 @@
 	 echo $uploader->getErrors();
  }
  */
-
 /**
  * Upload Media files
  * Example of usage:
@@ -54,6 +83,7 @@
  *
  * @author      Kazumi Ono     <onokazu@xoops.org>
  * @author      phppp
+ * @copyright	copyright (c) 2000-2007 XOOPS.org
  */
 class icms_file_MediaUploadHandler {
 
@@ -187,6 +217,7 @@ class icms_file_MediaUploadHandler {
 
 	/**
 	 * Fetch the uploaded file
+	 * @todo	Remote get_magic_quotes_gpd - is is deprecated and will always return FALSE in PHP 5.4
 	 * @param   string  $media_name Name of the file field
 	 * @param   int     $index      Index of the file (if more than one uploaded under that name)
 	 * @return  bool

@@ -7,7 +7,7 @@
  * @package		icms_ipf_Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: icmsformtimeelement.php 20276 2010-10-10 16:22:10Z phoenyx $
+ * @version		$Id: icmsformtimeelement.php 10708 2010-10-10 16:22:10Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");

@@ -1,5 +1,5 @@
 <?php
-// $Id: mailusers.php 19775 2010-07-11 18:54:25Z malanciault $
+// $Id: mailusers.php 10326 2010-07-11 18:54:25Z malanciault $
 //%%%%%%	Admin Module Name  MailUsers	%%%%%
 if (!defined('_AM_DBUPDATED')) {define("_AM_DBUPDATED","Database Updated Successfully!");}
 

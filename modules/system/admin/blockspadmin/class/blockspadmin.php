@@ -10,7 +10,7 @@
  * @author		Rodrigo Pereira Lima (AKA TheRplima) <therplima@impresscms.org>
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  * @author		modified by UnderDog <underdog@impresscms.org>
- * @version		SVN: $Id: blockspadmin.php 20766 2011-02-05 21:17:31Z skenow $
+ * @version		SVN: $Id: blockspadmin.php 11009 2011-02-05 21:17:31Z skenow $
  */
 
 /**

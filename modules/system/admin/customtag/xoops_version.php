@@ -7,7 +7,7 @@
  * @package		Administration
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: xoops_version.php 20775 2011-02-06 16:37:43Z skenow $
+ * @version		$Id: xoops_version.php 11012 2011-02-06 16:37:43Z skenow $
  */
 
 $modversion = array(

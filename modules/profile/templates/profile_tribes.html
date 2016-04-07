@@ -164,7 +164,7 @@
   <{/foreach}>
 </div>
 <{/if}>
-<{if !$showContent}><div id="profile-nocontent" class="outer"><p class="odd"><{$lang_joinfirst}></p></div><{/if}>
+<{if !$showContent}><div class="resultMsg"><p><{$lang_joinfirst}></p></div><{/if}>
 <div class="clear"></div>
 <{if $showContent}><{includeq file='db:system_notification_select.html'}><{/if}>
 <{/if}>
@@ -192,7 +192,7 @@
 <{/foreach}>
 </div>
 <{elseif $lang_search_noresults}>
-<div id="profile-nocontent" class="outer"><p class="odd"><{$lang_search_noresults}></p></div>
+<div class="resultMsg"><p><{$lang_search_noresults}></p></div>
 <{/if}>
 <{if $profile_tribes.own}>
 <div class="profile-tribes-container outer">
@@ -231,4 +231,4 @@
 <{if $icmspersistable_delete_confirm}>
 <{$icmspersistable_delete_confirm}>
 <{/if}>
-<{if $lang_nocontent}><div id="profile-nocontent" class="outer"><p class="odd"><{$lang_nocontent}></p></div><{/if}>
+<{if $lang_nocontent}><div class="resultMsg"><p><{$lang_nocontent}></p></div><{/if}>

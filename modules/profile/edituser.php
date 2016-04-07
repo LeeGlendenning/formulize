@@ -10,7 +10,7 @@
  * @author		Jan Pedersen
  * @author		The SmartFactory <www.smartfactory.ca>
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: edituser.php 21139 2011-03-20 20:58:11Z m0nty_ $
+ * @version		$Id$
  */
 
 include '../../mainfile.php';
@@ -54,13 +54,10 @@ switch ($op) {
 
 			if ($edituser->getVar('uid') != icms::$user->getVar('uid')) {
 				if ($pass != '') {
-					$icmspass = new icms_core_Password();
-					$salt = icms_core_Password::createSalt();
-					$pass = $icmspass->encryptPass($pass, $salt, $icmsConfigUser['enc_type']);
+                    $icmspass = new icms_core_Password();
+					$pass = $icmspass->encryptPass($pass);
 					$edituser->setVar('pass', $pass);
 					$edituser->setVar('pass_expired', 0);
-					$edituser->setVar('enc_type', $icmsConfigUser['enc_type']);
-					$edituser->setVar('salt', $salt);
 				}
 				$edituser->setVar('level', (int)$_POST['level']);
 			}
@@ -71,7 +68,7 @@ switch ($op) {
 			$edituser->setVar('openid', icms_core_DataFilter::stripSlashesGPC(trim($_POST['openid'])));
 			$edituser->setVar('user_viewoid', isset($_POST['user_viewoid']) ? (int)$_POST['user_viewoid'] : 0);
 		}
-
+		
 		// ALTERED BY FREEFORM SOLUTIONS TO SUPPORT USERS CHANGING THEIR OWN PASSWORDS FROM A SINGLE PROFILE PAGE
 		// A REPEAT OF THE CODE BLOCK JUST ABOVE, TO HANDLE THE CASE WHERE THE USER IS UPDATING THEIR OWN PASSWORD
 		if ($pass != '' AND $edituser->getVar('uid') == icms::$user->getVar('uid')) {

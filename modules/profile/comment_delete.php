@@ -10,7 +10,7 @@
  * @author          Jan Pedersen
  * @author          Marcello Brandao <marcello.brandao@gmail.com>
  * @author	   		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version         $Id: comment_delete.php 20113 2010-09-08 19:12:39Z phoenyx $
+ * @version         $Id$
  */
 
 include '../../mainfile.php';

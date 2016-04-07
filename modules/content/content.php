@@ -7,7 +7,7 @@
  * @since		1.0
  * @author		Rodrigo P Lima aka TheRplima <therplima@impresscms.org>
  * @package		content
- * @version		$Id: content.php 22479 2011-08-30 19:04:32Z phoenyx $
+ * @version		$Id$
  */
 
 function editcontent($contentObj) {
@@ -136,6 +136,7 @@ if (in_array($clean_op, $valid_op, true)){
 
 			if ($contentConfig['com_rule'] && $contentObj->getVar('content_cancomment')) {
 				$icmsTpl->assign('content_content_comment', true);
+				if(!$clean_content_id) $_GET['content_id'] = $contentObj->id();
 				include_once ICMS_ROOT_PATH . '/include/comment_view.php';
 			}
 			break;

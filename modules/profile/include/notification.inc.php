@@ -10,7 +10,7 @@
  * @author          Jan Pedersen
  * @author          Marcello Brandao <marcello.brandao@gmail.com>
  * @author	   		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version         $Id: notification.inc.php 20562 2010-12-19 18:26:36Z phoenyx $
+ * @version         $Id$
  */
 
 /** Protection against inclusion outside the site */

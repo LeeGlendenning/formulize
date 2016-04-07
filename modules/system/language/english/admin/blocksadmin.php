@@ -1,5 +1,5 @@
 <?php
-// $Id: blocksadmin.php 22431 2011-08-28 11:04:24Z phoenyx $
+// $Id: blocksadmin.php 11329 2011-08-28 11:04:24Z phoenyx $
 //%%%%%%	Admin Module Name  Blocks 	%%%%%
 if (!defined('_AM_DBUPDATED')) {if (!defined('_AM_DBUPDATED')) {define("_AM_DBUPDATED","Database Updated Successfully!");}}
 

@@ -1,23 +1,47 @@
 <?php
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+//  ------------------------------------------------------------------------ //
 /**
  * DB Manager Class
  *
  * @copyright	http://www.xoops.org/ The XOOPS Project
  * @copyright	XOOPS_copyrights.txt
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license	LICENSE.txt
+ * @license	http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
  * @package	installer
  * @since	XOOPS
  * @author	http://www.xoops.org The XOOPS Project
  * @author	modified by UnderDog <underdog@impresscms.org>
- * @version	$Id: dbmanager.php 20502 2010-12-08 00:27:17Z skenow $
+ * @version	$Id: dbmanager.php 12329 2013-09-19 13:53:36Z skenow $
  */
 
 /**
  * database manager for XOOPS installer
  *
  * @author Haruki Setoyama  <haruki@planewave.org>
- * @version $Id: dbmanager.php 20502 2010-12-08 00:27:17Z skenow $
+ * @version $Id: dbmanager.php 12329 2013-09-19 13:53:36Z skenow $
  * @access public
  **/
 class db_manager {
@@ -66,9 +90,9 @@ class db_manager {
 				elseif ($prefixed_query[1] == 'INSERT INTO') {
 					if ($this->db->query($prefixed_query[0]) != false) {
 						if (! isset($this->s_tables['insert'][$table])) {
-							$this->s_tables['insert'][$table] = 1;
+							$this->s_tables['insert'][$table] = $this->db->getAffectedRows();
 						} else {
-							$this->s_tables['insert'][$table]++;
+							$this->s_tables['insert'][$table] += $this->db->getAffectedRows();
 						}
 					} else {
 						if (! isset($this->f_tables['insert'][$table])) {
@@ -172,9 +196,9 @@ class db_manager {
 			return false;
 		} else {
 			if (!isset($this->s_tables['insert'][$table])) {
-				$this->s_tables['insert'][$table] = 1;
+				$this->s_tables['insert'][$table] = $this->db->getAffectedRows();
 			} else {
-				$this->s_tables['insert'][$table]++;
+				$this->s_tables['insert'][$table] += $this->db->getAffectedRows();
 			}
 			return $this->db->getInsertId();
 		}
@@ -195,5 +219,3 @@ class db_manager {
 		return $ret;
 	}
 }
-
-?>

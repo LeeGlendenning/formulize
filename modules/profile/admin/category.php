@@ -9,7 +9,7 @@
  * @since		1.3
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  * @package		profile
- * @version		$Id: category.php 20428 2010-11-21 12:38:18Z phoenyx $
+ * @version		$Id$
  */
 
 /**

@@ -10,7 +10,7 @@
  * @package 	System
  * @subpackage	Symlinks
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
- * @version		SVN: $Id: main.php 21380 2011-03-30 13:56:23Z m0nty_ $
+ * @version		SVN: $Id: main.php 11145 2011-03-30 13:56:23Z m0nty_ $
  */
 
 if (!is_object(icms::$user) || !is_object($icmsModule) || !icms::$user->isAdmin($icmsModule->getVar("mid"))) {

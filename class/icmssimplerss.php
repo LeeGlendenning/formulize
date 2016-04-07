@@ -13,7 +13,7 @@
  * @author		malanciault <marcan@impresscms.org)
  * @deprecated	use icms_feeds_Simplerss, instead
  * @todo		Remove in version 1.4
- * @version		$Id: icmssimplerss.php 20369 2010-11-15 20:26:46Z skenow $
+ * @version		$Id: icmssimplerss.php 10762 2010-11-15 20:26:46Z skenow $
  */
 
 

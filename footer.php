@@ -1,17 +1,44 @@
 <?php
+// $Id: footer.php 12313 2013-09-15 21:14:35Z skenow $
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+//  ------------------------------------------------------------------------ //
+
 /**
  *
  * @copyright	http://www.xoops.org/ The XOOPS Project
  * @copyright	XOOPS_copyrights.txt
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
- * @license	http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- * @package	core
- * @since	XOOPS
- * @author	http://www.xoops.org The XOOPS Project
- * @author	Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version	$Id: footer.php 20900 2011-02-27 02:18:47Z skenow $
+ * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
+ * @package		core
+ * @since		XOOPS
+ * @author		phppp
+ * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
+ * @version		$Id: footer.php 12313 2013-09-15 21:14:35Z skenow $
+ *
  */
- 
+
 defined('ICMS_ROOT_PATH') || die('ICMS root path not defined');
 
 if (defined("XOOPS_FOOTER_INCLUDED")) exit();
@@ -86,11 +113,15 @@ if (isset($xoopsOption['theme_use_smarty']) && $xoopsOption['theme_use_smarty'] 
 			$xoTheme->contentTemplate = $xoopsOption['template_main'];
 		}
 	}
-    if (isset($_SESSION['masquerade_xoopsUserId'])) {
+	
+	if (isset($_SESSION['masquerade_xoopsUserId'])) {
         // set a template variable when masquerading
         $xoTheme->template->assign("masquerade_username", $xoopsUser->vars['uname']['value']);
     }
-    $xoTheme->render();
+	
+	/* check if the module is cached and retrieve it, otherwise, render the page */
+	if (!$xoTheme->checkCache()) {
+		$xoTheme->render();
+	}
 }
-
 icms::$logger->stopTime();

@@ -6,7 +6,7 @@
  * @license		LICENSE.txt
  * @package		Administration
  * @subpackage	Images
- * @version		SVN: $Id: preview.php 21376 2011-03-30 13:39:21Z m0nty_ $
+ * @version		SVN: $Id: preview.php 11141 2011-03-30 13:39:21Z m0nty_ $
  */
 
 include '../../../../mainfile.php' ;

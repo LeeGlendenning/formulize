@@ -8,7 +8,7 @@
  * @subpackage	Ratings
  * @since		1.2
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		SVN: $Id: xoops_version.php 20848 2011-02-17 16:54:10Z skenow $
+ * @version		SVN: $Id: xoops_version.php 11030 2011-02-17 16:54:10Z skenow $
  */
 
 $modversion = array(

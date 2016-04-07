@@ -12,7 +12,7 @@
  * @author		Haruki Setoyama  <haruki@planewave.org>
  * @author 		Kazumi Ono <webmaster@myweb.ne.jp>
  * @author		Skalpa Keo <skalpa@xoops.org>
- * @version		$Id: page_tablesfill.php 19775 2010-07-11 18:54:25Z malanciault $
+ * @version		$Id: page_tablesfill.php 12426 2014-02-24 16:19:49Z fiammy $
  */
 
 require_once 'common.inc.php';
@@ -53,11 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	extract( $_SESSION['siteconfig'], EXTR_SKIP );
 	$language = $wizard->language;
 
-	$result = $dbm->queryFromFile('./sql/'.XOOPS_DB_TYPE.'.data.sql');
-	$result = $dbm->queryFromFile('./language/'.$language.'/'.XOOPS_DB_TYPE.'.lang.data.sql');
+	if (substr(XOOPS_DB_TYPE, 0, 4) == 'pdo.') {
+		$driver = substr(XOOPS_DB_TYPE, 4);
+	} else {
+		$driver = XOOPS_DB_TYPE;
+	}
+	$result = $dbm->queryFromFile('./sql/'. $driver .'.data.sql');
+	$result = $dbm->queryFromFile('./language/' . $language . '/'. $driver . '.lang.data.sql');
 	$group = make_groups( $dbm );
 	set_time_limit(0);
-	$result = make_data( $dbm, $cm, $adminname, $adminlogin_name, $adminpass, $adminmail, $language, $adminsalt, $group );
+	$result = make_data( $dbm, $cm, $adminname, $adminlogin_name, $adminpass, $adminmail, $language, $group );
 	$content = $dbm->report();
 } else {
 	$msg = $process ? READY_INSERT_DATA : DATA_ALREADY_INSERTED;

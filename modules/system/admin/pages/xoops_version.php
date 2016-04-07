@@ -8,7 +8,7 @@
 * @subpackage	Symlinks
 * @since		1.1
 * @author		Rodrigo Pereira Lima (AKA TheRplima) <therplima@impresscms.org>
-* @version		SVN: $Id: xoops_version.php 20836 2011-02-15 01:29:18Z skenow $
+* @version		SVN: $Id: xoops_version.php 11022 2011-02-15 01:29:18Z skenow $
 */
 
 $modversion = array(

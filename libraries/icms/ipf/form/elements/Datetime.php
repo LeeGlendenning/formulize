@@ -9,7 +9,7 @@
  * @subpackage	form
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: Datetime.php 20302 2010-10-16 17:31:12Z phoenyx $
+ * @version		$Id: Datetime.php 10733 2010-10-16 17:31:12Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");

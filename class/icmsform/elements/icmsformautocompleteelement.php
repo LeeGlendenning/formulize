@@ -7,7 +7,7 @@
  * @package		icms_ipf_Object
  * @since		1.1
  * @author		marcan <marcan@impresscms.org>
- * @version		$Id: icmsformautocompleteelement.php 20461 2010-12-04 15:22:46Z phoenyx $
+ * @version		$Id: icmsformautocompleteelement.php 10827 2010-12-04 15:22:46Z phoenyx $
  */
 
 defined('ICMS_ROOT_PATH') or die("ImpressCMS root path not defined");

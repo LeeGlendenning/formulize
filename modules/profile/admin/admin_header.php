@@ -10,7 +10,7 @@
  * @since		1.3
  * @author		Gustavo Pilla (aka nekro) <nekro@impresscms.org>
  * @package		profile
- * @version		$Id: admin_header.php 22692 2011-09-18 10:43:13Z phoenyx $
+ * @version		$Id$
  */
 
 include_once '../../../include/cp_header.php';

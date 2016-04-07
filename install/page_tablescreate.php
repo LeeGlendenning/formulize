@@ -12,14 +12,15 @@
  * @author		Haruki Setoyama  <haruki@planewave.org>
  * @author 		Kazumi Ono <webmaster@myweb.ne.jp>
  * @author		Skalpa Keo <skalpa@xoops.org>
- * @version		$Id: page_tablescreate.php 20098 2010-09-07 16:19:19Z skenow $
+ * @version		$Id: page_tablescreate.php 12426 2014-02-24 16:19:49Z fiammy $
  */
 /**
  *
  */
-
+ 
 clearstatcache(true, "../mainfile.php");
 sleep(1);
+ 
 require_once 'common.inc.php';
 if (!defined( 'XOOPS_INSTALL' ) )	exit();
 
@@ -73,7 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		exit();
 	}
 	$tables = array();
-	$result = $dbm->queryFromFile( './sql/' . XOOPS_DB_TYPE . '.structure.sql' );
+	
+	if (substr(XOOPS_DB_TYPE, 0, 4) == 'pdo.') {
+		$driver = substr(XOOPS_DB_TYPE, 4);
+	} else {
+		$driver = XOOPS_DB_TYPE;
+	}
+	$result = $dbm->queryFromFile( './sql/' . $driver . '.structure.sql' );
 	$content = $dbm->report();
 	include 'install_tpl.php';
 	exit();

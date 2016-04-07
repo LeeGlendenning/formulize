@@ -1,5 +1,5 @@
 <?php
-// $Id: preferences.php 22004 2011-07-09 20:22:27Z juancj $
+// $Id: preferences.php 12227 2013-07-19 08:07:21Z fiammy $
 //%%%%%%	Admin Module Name  AdminGroup 	%%%%%
 // dont change
 if (!defined('_AM_DBUPDATED')) {define("_AM_DBUPDATED","Database Updated Successfully!");}
@@ -102,7 +102,7 @@ define('_MD_AM_BADIPS', 'Enter IP addresses that should be banned from the site.
 define('_MD_AM_BADIPSDSC', '^aaa.bbb.ccc will disallow visitors with an IP that starts with aaa.bbb.ccc<br />aaa.bbb.ccc$ will disallow visitors with an IP that ends with aaa.bbb.ccc<br />aaa.bbb.ccc will disallow visitors with an IP that contains aaa.bbb.ccc');
 define('_MD_AM_PREFMAIN', 'Preferences Main');
 define('_MD_AM_METAKEY', 'Meta Keywords');
-define('_MD_AM_METAKEYDSC', 'The keywords meta tag is a series of keywords that represents the content of your site. Type in keywords with each separated by a comma or a space in between. (Ex. ImpressCMS, PHP, mySQL, portal system)');
+define('_MD_AM_METAKEYDSC', 'The keywords meta tag is a series of keywords that represents the content of your site. Type in keywords with each separated by a comma or a space in between. (Ex. ImpressCMS, PHP, Database, portal system)');
 define('_MD_AM_METARATING', 'Meta Rating');
 define('_MD_AM_METARATINGDSC', 'The rating meta tag defines your site age and content rating');
 define('_MD_AM_METAOGEN', 'General');
@@ -313,9 +313,9 @@ define("_MD_AM_ALLOW_ANONYMOUS_VIEW_PROFILE_DESC","If you select YES, all visito
 define("_MD_AM_ENC_TYPE","Change Password Encryption (default is SHA256)");
 define("_MD_AM_ENC_TYPEDSC","Changes the Algorithm used for encrypting user passwords.<br />Changing this will render all passwords invalid! all users will need to reset their passwords after changing this preference");
 define("_MD_AM_ENC_MD5","MD5 (not recommended)");
-define("_MD_AM_ENC_SHA256","SHA 256 (recommended)");
+define("_MD_AM_ENC_SHA256","SHA 256");
 define("_MD_AM_ENC_SHA384","SHA 384");
-define("_MD_AM_ENC_SHA512","SHA 512");
+define("_MD_AM_ENC_SHA512","SHA 512 (recommended)");
 define("_MD_AM_ENC_RIPEMD128","RIPEMD 128");
 define("_MD_AM_ENC_RIPEMD160","RIPEMD 160");
 define("_MD_AM_ENC_WHIRLPOOL","WHIRLPOOL");
@@ -582,7 +582,7 @@ define("_MD_AM_PURIFIER_AUTO_LINKIFYDSC","This directive turns on linkification,
 define("_MD_AM_PURIFIER_AUTO_PURILINKIFY","Enable Purifier Internal Linkify");
 define("_MD_AM_PURIFIER_AUTO_PURILINKIFYDSC","Internal auto-formatter that converts configuration directives in syntax %Namespace.Directive to links. a tags with the href attribute must be allowed. (Leave this as is if you are not having any problems)");
 define("_MD_AM_PURIFIER_AUTO_CUSTOM","Allowed Customised AutoFormatting");
-define("_MD_AM_PURIFIER_AUTO_CUSTOMDSC","This directive can be used to add custom auto-format injectors. Specify an array of injector names (class name minus the prefix) or concrete implementations. Injector class must exist. please visit <a href='www.htmlpurifier.org'>HTML Purifier Homepage</a> for more info.");
+define("_MD_AM_PURIFIER_AUTO_CUSTOMDSC","This directive can be used to add custom auto-format injectors. Specify an array of injector names (class name minus the prefix) or concrete implementations. Injector class must exist. please visit <a href='http://www.htmlpurifier.org'>HTML Purifier Homepage</a> for more info.");
 define("_MD_AM_PURIFIER_AUTO_REMOVEEMPTY","Remove Empty Elements");
 define("_MD_AM_PURIFIER_AUTO_REMOVEEMPTYDSC"," When enabled, HTML Purifier will attempt to remove empty elements that contribute no semantic information to the document. The following types of nodes will be removed:<br /><br />
  * Tags with no attributes and no content, and that are not empty elements (remove \<a\>\</a\> but not \<br /\>), and<br />
@@ -693,4 +693,19 @@ define('_MD_AM_CENSOR_DSC', 'Manage the language that is not permitted on your s
 define("_MD_AM_PURIFIER_FILTER_ALLOWCUSTOM","Allow Custom Filters");
 define("_MD_AM_PURIFIER_FILTER_ALLOWCUSTOMDSC","Allow Custom Filters?<br /><br />if enabled this will allow you to use custom filters located in;<br />'libraries/htmlpurifier/standalone/HTMLPurifier/Filter'");
 
-?>
+// added in 1.3.2
+define("_MD_AM_PURIFIER_HTML_SAFEIFRAME","Enable Safe Iframes");
+define("_MD_AM_PURIFIER_HTML_SAFEIFRAMEDSC","Whether or not to permit Iframes in documents, with a number of extra security features added to prevent script execution. You must add safe domains in Safe Iframes URLs before enabling!.");
+define("_MD_AM_PURIFIER_URI_SAFEIFRAMEREGEXP","Safe Iframes URLs");
+define("_MD_AM_PURIFIER_URI_SAFEIFRAMEREGEXPDSC","A list of URLs that you want to allow to show iframe content on your site. This will be matched against an iframe URI. This is a relatively inflexible scheme, but works well enough for the most common use-case of iframes: embedded video. <br />Letting the site owner explicitly allow sites keeps unknown sites from showing iframes on your site with content you cannot control.<br /><br />
+    Here are some example values:<br /><br />
+
+    http://www.youtube.com/embed/ - Allow YouTube videos<br />
+    http://player.vimeo.com/video/ - Allow Vimeo videos<br />
+    http://www.youtube.com/embed/|http://player.vimeo.com/video/ - Allow both<br /><br />HTML Safe Iframe must be enabled for this to work.");
+
+// added in 1.3.3
+define("_MD_AM_ENC_RIPEMD256","RIPEMD 256");
+define("_MD_AM_ENC_RIPEMD320","RIPEMD 320");
+define("_MD_AM_ENC_SNEFRU256","Snefru 256");
+define("_MD_AM_ENC_GOST","Gost");

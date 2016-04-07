@@ -14,7 +14,7 @@
  * @author		malanciault <marcan@impresscms.org)
  * @credits		Sakimura <http://www.sakimura.org/> Evan Prodromou <http://evan.prodromou.name/>
  * @author	    Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		$Id: auth_openid.php 19787 2010-07-13 15:37:14Z skenow $
+ * @version		$Id: auth_openid.php 10337 2010-07-13 15:37:14Z skenow $
  */
 
 class XoopsAuthOpenid extends icms_auth_Openid {

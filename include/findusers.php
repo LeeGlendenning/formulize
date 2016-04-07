@@ -3,14 +3,14 @@
  * Finds users
  *
  * limit: Only work with javascript enabled
- * TODO: plugins for external applications, including but not limited: sending massive emails/PMs, membership edit
+ * @todo: plugins for external applications, including but not limited: sending massive emails/PMs, membership edit
  *
  * @copyright	The XOOPS project http://www.xoops.org/
  * @license		http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author		Taiwen Jiang (phppp or D.J.) <php_pp@hotmail.com>
  * @since		Xoops 1.00
  * @package core
- * @version		$Id: findusers.php 21083 2011-03-17 12:43:06Z m0nty_ $
+ * @version		$Id: findusers.php 11572 2012-02-16 00:35:21Z skenow $
  */
 
 include "../mainfile.php";
@@ -291,7 +291,7 @@ if (empty($_POST["user_submit"])) {
 		$criteria->setOrder($order);
 		$criteria->setLimit($limit);
 		$criteria->setStart($start);
-		$foundusers = $user_handler->getUsersByGroupLink(@$_POST["groups"] ,$criteria);
+		$foundusers = $user_handler->getUsersByGroupLink(@$_POST["groups"], $criteria, TRUE);
 
 	} else {
 		$query = trim($_POST["query"]);

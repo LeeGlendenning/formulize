@@ -1,23 +1,52 @@
 <?php
+// $Id: search.php 12313 2013-09-15 21:14:35Z skenow $
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+//  ------------------------------------------------------------------------ //
+
 /**
  *
+ * @copyright	http://www.xoops.org/ The XOOPS Project
  * @copyright	http://www.impresscms.org/ The ImpressCMS Project
  * @license		http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License (GPL)
- * @package		core
+ * @since		XOOPS
+ * @author		http://www.xoops.org The XOOPS Project
  * @author		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version		SVN: $Id: search.php 22267 2011-08-19 14:50:24Z phoenyx $
+ * @package		core
+ * @version		SVN: $Id: search.php 12313 2013-09-15 21:14:35Z skenow $
  */
 
 $xoopsOption['pagetype'] = "search";
 
 include 'mainfile.php';
 
-if ($icmsConfigSearch['enable_search'] == false) {
-	header('Location: ' . ICMS_URL . '/index.php');
+if ($icmsConfigSearch['enable_search'] == FALSE) {
+	header('Location: ' . ICMS_URL . '/');
 	exit();
 }
 
-$search_limiter = (($icmsConfigSearch['enable_deep_search'] == true) ? $icmsConfigSearch['num_shallow_search'] : false);
+$search_limiter = (($icmsConfigSearch['enable_deep_search'] == FALSE) ? $icmsConfigSearch['num_shallow_search'] : FALSE);
 $xoopsOption['template_main'] = 'system_search.html';
 include ICMS_ROOT_PATH . '/header.php';
 
@@ -59,13 +88,13 @@ $groups = is_object(icms::$user) ? icms::$user->getGroups() : XOOPS_GROUP_ANONYM
 $gperm_handler = icms::handler('icms_member_groupperm');
 $available_modules = $gperm_handler->getItemIds('module_read', $groups);
 
-$xoopsTpl->assign('basic_search', false);
+$xoopsTpl->assign('basic_search', FALSE);
 
 if ($action == 'search') {
 	// This area seems to handle the 'just display the advanced search page' part.
 	$search_form = include 'include/searchform.php';
 	$xoopsTpl->assign('search_form', $search_form);
-	$xoopsTpl->assign('basic_search', true);
+	$xoopsTpl->assign('basic_search', TRUE);
 	$xoopsTpl->assign('icms_pagetitle', _SEARCH);
 	include ICMS_ROOT_PATH . '/footer.php';
 	exit();
@@ -164,7 +193,7 @@ switch ($action) {
 		$criteria = new icms_db_criteria_Compo(new icms_db_criteria_Item('hassearch', 1));
 		$criteria->add(new icms_db_criteria_Item('isactive', 1));
 		$criteria->add(new icms_db_criteria_Item('mid', "(" . implode(',', $available_modules) . ")", 'IN'));
-		$modules =& $module_handler->getObjects($criteria, true);
+		$modules =& $module_handler->getObjects($criteria, TRUE);
 		$mids = isset($_REQUEST['mids']) ? $_REQUEST['mids'] : array();
 		if (empty($mids) || !is_array($mids)) {
 			unset($mids);
@@ -183,7 +212,9 @@ switch ($action) {
 				$all_results_counts[$modname] = $count;
 
 				if (!is_array($results) || $count == 0) {
-					if ($icmsConfigSearch['search_no_res_mod']) {$all_results[$modname] = array(); }
+					if ($icmsConfigSearch['search_no_res_mod']) {
+						unset($all_results[$modname], $all_results_counts[$modname]);
+					}
 				} else {
 					(($count - $start) > $max_results_per_page)? $num_show_this_page = $max_results_per_page: $num_show_this_page = $count - $start;
 					for ($i = 0; $i < $num_show_this_page; $i++) {
@@ -213,7 +244,7 @@ switch ($action) {
 						}
 					}
 
-					if ($icmsConfigSearch['enable_deep_search'] == true) {
+					if ($icmsConfigSearch['enable_deep_search'] == FALSE) {
 						if ($count > $max_results_per_page) {
 							$search_url = ICMS_URL . '/search.php?query=' . urlencode(stripslashes(implode(' ', $queries)));
 							$search_url .= "&mid=$mid&action=showall&andor=$andor";
@@ -253,8 +284,8 @@ switch ($action) {
 		$all_results_counts[$modname] = $count;
 		if (is_array($results) && $count > 0) {
 			(($count - $start) > $max_results_per_page)
-				? $num_show_this_page = $max_results_per_page
-				: $num_show_this_page = $count - $start;
+			? $num_show_this_page = $max_results_per_page
+			: $num_show_this_page = $count - $start;
 			for ($i = $start; $i < $start + $num_show_this_page; $i++) {
 				$results[$i]['processed_image_alt_text'] = icms_core_DataFilter::checkVar($modname, 'text', 'output') . ": ";
 				if (isset($results[$i]['image']) && $results[$i]['image'] != "") {
@@ -297,8 +328,8 @@ switch ($action) {
 		}
 		break;
 
-		default:
-			break;
+	default:
+		break;
 }
 
 arsort($all_results_counts);

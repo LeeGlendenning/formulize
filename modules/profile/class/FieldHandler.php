@@ -8,7 +8,7 @@
  * @since		1.2
  * @author		phoenyx
  * @package		profile
- * @version		$Id: FieldHandler.php 22253 2011-08-18 13:32:42Z phoenyx $
+ * @version		$Id$
  */
 
 defined('ICMS_ROOT_PATH') or die('ICMS root path not defined');
@@ -16,6 +16,7 @@ defined('ICMS_ROOT_PATH') or die('ICMS root path not defined');
 class mod_profile_FieldHandler extends icms_ipf_Handler {
 	private $_fieldTypeArray;
 	private $_categoriesArray;
+	private $_stepsArray;
 
 	/**
 	 * Constructor
@@ -181,6 +182,14 @@ class mod_profile_FieldHandler extends icms_ipf_Handler {
 		if (!parent::insert($obj, $force)) return false;
 
 		return true;
+	}
+
+	public function filterSteps() {
+		if(!count($this->_stepsArray)) {
+			$step_handler = icms_getModuleHandler("regstep", basename(dirname(dirname(__FILE__))), "profile");
+			$this->_stepsArray = $step_handler->getList();
+		}
+		return $this->_stepsArray;
 	}
 
 	/**

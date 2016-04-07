@@ -6,7 +6,7 @@
  * @copyright 	The ImpressCMS Project <http://www.impresscms.org>
  * @license		GNU General Public License (GPL) <http://www.gnu.org/licenses/old-licenses/gpl-2.0.html>
  * @author		Rodrigo P Lima (aka TheRplima) <therplima@impresscms.org>
- * @version		$Id: Content.php 22639 2011-09-11 14:42:06Z blauer-fisch $
+ * @version		$Id$
  */
 
 defined("ICMS_ROOT_PATH") or die("ImpressCMS root path not defined");

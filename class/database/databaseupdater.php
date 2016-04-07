@@ -4,7 +4,7 @@
  *
  * @license GNU
  * @author marcan <marcan@smartfactory.ca>
- * @version $Id: databaseupdater.php 20119 2010-09-09 17:55:46Z phoenyx $
+ * @version $Id: databaseupdater.php 10624 2010-09-09 17:55:46Z phoenyx $
  * @link http://www.smartfactory.ca The SmartFactory
  * @package database
  */

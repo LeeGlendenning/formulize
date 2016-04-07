@@ -10,7 +10,7 @@
  * @author          Jan Pedersen
  * @author          The SmartFactory <www.smartfactory.ca>
  * @author	   		Sina Asghari (aka stranger) <pesian_stranger@users.sourceforge.net>
- * @version         $Id: visibility.php 20562 2010-12-19 18:26:36Z phoenyx $
+ * @version         $Id$
  */
 
 include 'admin_header.php';
